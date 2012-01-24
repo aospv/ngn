@@ -362,18 +362,6 @@ abstract class CtrlPage extends CtrlCommon {
     $this->adminMode = $flag;
   }
   
-  public function action_json_citySearch() {
-    if (!$mask = $this->oReq->r['mask'] or !$this->oReq->r['name']) return;
-    $mask = $mask.'%';
-    $this->json['html'] = 
-      getTpl_('common/searchResults', array(
-        'name' => $this->oReq->r['name'],
-        'items' => db()->selectCol(
-          "SELECT title AS ARRAY_KEY, title FROM d?_citys WHERE active=1 AND title LIKE ? LIMIT 10",
-          $mask)
-      ));
-  }
-  
   /**
    * Массив, в котором каждая привилегия определяет те экшены (без layout-префиксов),
    * которые она разрешает
