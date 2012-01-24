@@ -1,0 +1,78 @@
+/* --- 1-st level --- */
+#menu a:focus {
+outline: none;
+}
+#menu a span {
+padding-top: 10px; /*8*/
+display: block;
+}
+#menu li a {
+font-size: 17px;
+padding: 0px;
+float: left;
+padding-left: 18px;
+height: 38px; /*8*/
+}
+#menu li i {
+display: block;
+float: left;
+height: 32px;
+width: 10px;
+padding-right: 5px;
+}
+#menu li.over a {
+text-decoration: underline;
+}
+#menu li.over.hasChildren a {
+height: 32px;
+background: url(../../../m/img/menu.png) no-repeat;
+}
+#menu li.over.hasChildren i {
+height: 32px;
+background: url(../../../i/img/menu/gray-shadow/menu.png) -160px 0px no-repeat;
+}
+#menu li a {
+color: #999999; /*8*/
+background: url(../../../m/img/menu2.png) -3px 0px no-repeat; /*8*/
+}
+#menu li i {
+height: 38px;
+background: url(../../../m/img/menu2.png) -140px 0px no-repeat; /*8*/
+}
+#menu li.current a {
+color: #FFFFFF;
+background-image: url(../../../m/img/menu1.png); /*8*/
+}
+#menu li.current i {
+background-image: url(../../../m/img/menu1.png); /*8*/
+}
+
+/* --- 2-nd level --- */
+
+#menu li.over.hasChildren li a, #menu li li a {
+float: none;
+height: 24px;
+padding-top: 0px;
+padding-bottom: 0px;
+font-size: 12px;
+background: none;
+text-decoration: none;
+padding-left: 18px;
+}
+#menu li li a span {
+padding-top: 3px;
+}
+#menu li.over li a:hover {
+text-decoration: underline;
+}
+
+#menu li ul {
+width: 177px;
+padding-bottom: 13px;
+background: url(../../../m/img/menu.png) no-repeat bottom left;
+margin-left: 1px;
+float: left;
+}
+#menu li li {
+border: none;
+}

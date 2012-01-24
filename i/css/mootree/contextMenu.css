@@ -1,0 +1,72 @@
+.contextMenu {
+position: absolute;
+visibility: hidden;
+padding: 5px 10px 2px 7px;
+background: #FFFFFF;
+border: 1px solid #CCCCCC;
+font-family:sans-serif;
+}
+.contextMenu a {
+display: block;
+text-decoration: none;
+color: #000000;
+}
+.contextMenu a,
+.contextMenu div {
+font-size: 11px;
+margin-bottom: 3px;
+}
+.contextMenu a:hover {
+color:blue;
+text-decoration: underline;
+}
+.contextMenu a i {
+display: block;
+float: left;
+width: 10px;
+height: 11px;
+margin-right: 5px;
+margin-top: 2px;
+}
+
+.contextMenu a.rename i {
+background: url(../../i/img/icons/pack1.png) no-repeat -322px -32px;
+}
+.contextMenu a.add i {
+background: url(../../i/img/icons/pack1.png) no-repeat -368px -318px;
+}
+.contextMenu a.delete i {
+background: url(../../i/img/icons/pack1.png) no-repeat 0px -265px;
+}
+
+.contextMenu .deleteContact {
+background: url(./img/privMsgs/delete.png) no-repeat 3px 3px;
+}
+.contextMenu .addContact {
+background: url(./img/privMsgs/add.png) no-repeat 4px 3px;
+}
+.contextMenu .sendMsg {
+background: url(./img/privMsgs/send-msg.png) no-repeat 1px 3px;
+}
+.contextMenu .history {
+background: url(./img/privMsgs/history.gif) no-repeat 3px 1px;
+}
+.contextMenu .portrait {
+background: url(./img/privMsgs/portrait.png) no-repeat 3px 0px;
+}
+.contextMenu .addFriend {
+background: url(./img/privMsgs/add-friend3.png) no-repeat;
+display: none;
+}
+.contextMenu .deleteFriend {
+background: url(./img/privMsgs/del-friend.png) no-repeat;
+display: none;
+}
+.contextMenu .waitFriend {
+background: url(./img/privMsgs/wait-friend.png) no-repeat;
+display: none;
+cursor: default;
+}
+.contextMenu a:hover.waitFriend {
+text-decoration: none;
+}

@@ -1,0 +1,35 @@
+#selectCR a {
+display: block;
+padding: 0px 2px 2px 0px;
+}
+#selectCR a span {
+display: block;
+width: 20px;
+height: 10px;
+border: 1px solid #CCCCCC;
+}
+#selectCR a.sel span {
+border-color: #EFBF00;
+background-color: #FFEB8F;
+}
+#selectCR a:hover span {
+border-color: #D6AB13;
+background-color: #EFBF00;
+}
+
+.selectCR input[type=text] {
+background: transparent;
+border: 0px;
+width: 15px;
+}
+.selectCR table, .selectCR {
+margin: 0px;
+}
+#tableTitle {
+height: 30px;
+}
+
+.selectCR .settingsCell {
+padding-left: 15px;
+width: 100%;
+}

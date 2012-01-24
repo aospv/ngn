@@ -1,0 +1,63 @@
+
+.left {
+float: left;
+}
+.cur {
+_cursor: hand;
+cursor: pointer;
+}
+
+div.selectaDisabled {
+background: #555;
+color: #000;
+}
+div.select {
+white-space: nowrap;
+border: 1px solid #b6b7bf;
+height: 19px;
+overflow: hidden;
+background: url(/i/img/black/arrow-down.png) no-repeat right center;
+}
+
+div.selectText {
+padding-top: 2px;
+padding-left: 4px;
+overflow: hidden;
+}
+
+div.select:hover {
+background-color: #FFEB8F;
+}
+div.selectWrapper {
+border: 1px solid #b6b7bf;
+background: #f2f2f2;
+overflow: hidden;
+overflow-y: auto;
+position: absolute;
+}
+
+div.selectOption {
+padding: 2px;
+padding-left: 4px;
+padding-right: 4px;
+
+clear: both;
+background: #fff;
+color: #555;
+}
+
+
+div.selectOptionSelected {
+background: #DFDDC3;
+}
+div.selectOptionOver {
+background: #444;
+color: #ffffcf;
+}
+
+#debug {
+background: red;
+color: yellow;
+padding: 5px;
+margin: 5px;
+}

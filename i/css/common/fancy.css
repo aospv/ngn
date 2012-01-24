@@ -1,0 +1,92 @@
+a.hover {
+color: red;
+}
+
+.fileNav.iconsSet {
+float: right;
+}
+.fileNav.iconsSet a {
+margin-right: 5px;
+}
+.fileNav.iconsSet a.delete,
+.fileNav.iconsSet a.delete i {
+margin-right: 0px;
+}
+.fileNav.iconsSet {
+}
+
+.fu-item .btn {
+display: inline-block;
+}
+.fu-list {
+padding: 0;
+list-style: none;
+margin: 0 0 0 5px;
+display: inline-block;
+}
+
+.fu-list .file-invalid {
+cursor: pointer;
+color: #514721;
+list-style: none;
+padding-left: 22px;
+line-height: 1.2;
+background: url(/i/img/fancy/error.png) no-repeat 0px 5px;
+margin-bottom: 7px;
+}
+.fu-list .file-invalid span {
+background-color: #fff6bf;
+padding: 1px;
+}
+.fu-list li.file {
+list-style: none;
+padding-left: 22px;
+margin-left: 0;
+height: 18px;
+background: url(/i/img/fancy/attach.png) no-repeat 1px 50%;
+vertical-align: middle;
+}
+.fu-list li.file span {
+display: inline-block;
+vertical-align: middle;
+}
+.fu-list li.file .smIcons {
+float: none;
+display: inline-block;
+vertical-align: middle;
+margin: 0px 0px 0px 5px;
+}
+
+.fu-list .file span {
+padding: 0 4px 0 0;
+}
+/*
+.fu-list .file a {
+padding: 0 4px;
+}
+*/
+.fu-list .file .file-size {
+color: #666;
+}
+
+.fu-list .file .file-error {
+color: #8a1f11;
+}
+
+.fu-list .file .file-progress-inner {
+height: 12px;
+background-image: url(/i/img/fancy/bar.gif?ss);
+}
+.fu-list .file .file-progress {
+width: 50px;
+height: 12px;
+display: inline-block;
+vertical-align: middle;
+background-repeat: no-repeat;
+background-image: url(/i/img/fancy/progress.gif?s);
+}
+
+
+.fileNavImagePreview img {
+height: 35px;
+}

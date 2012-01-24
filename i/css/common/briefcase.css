@@ -1,0 +1,19 @@
+.briefcaseWin {
+width: 180px;
+border: none;
+background-color: #FFEB8F;
+padding: 5px 5px 5px 5px;
+border-top: 1px solid #D6BD51;
+}
+.briefcaseWin a {
+color: #725D01;
+}
+.briefcaseWin .dropdownBody {
+height: auto;
+}
+#top #myLogin {
+padding: 0px;
+}
+a.briefcase {
+padding: 5px;
+}

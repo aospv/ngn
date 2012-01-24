@@ -1,0 +1,18 @@
+#privMsgs .notViewed td {
+background-color: #FFF1A8;
+border-bottom-color: #FFD500; 
+}
+
+#privMsgs #itemsTable {
+width: 100%;
+}
+#privMsgs .itemTable td {
+padding: 0px 5px 2px 2px;
+border: none;
+}
+#privMsgs .itemTable td.tit {
+color: #888888;
+}
+#privMsgs .itemTable {
+margin-bottom: 0px;
+}

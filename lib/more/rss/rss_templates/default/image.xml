@@ -1,0 +1,5 @@
+<image> 
+<title>{img_title}</title> 
+<url>{img_url}</url> 
+<link>{img_link}</link> 
+</image>

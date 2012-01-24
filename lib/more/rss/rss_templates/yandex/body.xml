@@ -1,0 +1,10 @@
+<item>
+<title>{title}</title>
+<link>{link}</link>
+<author>{author}</author>
+<description>{description}</description>
+<category>{category}</category>
+<enclosure url="http://newsnn.ru/data/{enclosure}" type="image/jpeg"/>
+<pubDate>{pubDate}</pubDate>
+<yandex:full-text>{yandex_full_text}</yandex:full-text>
+</item>

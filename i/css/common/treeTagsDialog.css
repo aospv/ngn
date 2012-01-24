@@ -1,0 +1,14 @@
+.treeTagsDialog .treeMenu {
+padding: 5px;
+border-bottom: 1px solid #CCCCCC;
+}
+.treeTagsDialog .treeMenu.iconsSet a {
+margin-right: 10px;
+}
+.treeTagsDialog .treeContainer {
+min-height: 20px;
+position: relative;
+}
+.treeTagsDialog .treeContainer.loader {
+background: url(/i/img/black/loader2.gif) no-repeat top right;
+}

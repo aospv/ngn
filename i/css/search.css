@@ -1,0 +1,14 @@
+@CHARSET "UTF-8";
+
+.search .items .item {
+border-bottom: 1px solid #CCCCCC;
+padding: 5px 0px 10px 0px;
+display: block;
+}
+.search .items ul {
+margin: 5px 0px 0px 0px;
+}
+.search .items ul li {
+list-style: square;
+margin-bottom: 0px;
+}

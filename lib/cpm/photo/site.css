@@ -1,0 +1,87 @@
+.ddItems .f_title {
+padding-top: 3px;
+}
+
+.pbt_otherItems .item {
+border: none;
+padding-bottom: 0px;
+}
+.pbt_otherItems .itemPart {
+float: left;
+}
+.pbt_otherItems img {
+width: 80px;
+height: 60px;
+}
+
+.pbt_otherItems .next {
+float: right;
+}
+
+.pageBlocks .pbt_otherItems .bcont {
+padding: 0px;
+}
+.pbt_otherItems h2, .pbt_otherItems .t_text {
+display: none;
+}
+
+.oneItem {
+background: #555555;
+}
+.oneItem .item .thumb {
+border: none !important;
+}
+
+
+.pbt_otherItems .carousel {
+overflow: hidden;
+height: 240px;
+}
+.pbt_otherItems .carousel .bcont {
+width: 2000px;
+height: 220px;
+overflow: hidden;
+}
+.pbt_otherItems .item.selected .thumb {
+border-color: #F2B900;
+background: #F2DE00;
+}
+
+/* кнопки */
+.pbt_otherItems .header {
+padding-right: 10px;
+height: 45px;
+}
+.arrowsNav a {
+display: block;
+width: 40px;
+height: 40px;
+background: url(/i/img/buttons/arrows-md.png);
+}
+.arrowsNav a.next {
+background-position: 0px 0px;
+}
+.arrowsNav a:hover.next {
+background-position: -40px 0px;
+}
+.arrowsNav a:active.next {
+background-position: 0px 40px;
+}
+
+.arrowsNav a.prev {
+background-position: 80px 0px;
+}
+.arrowsNav a:hover.prev {
+background-position: 40px 0px;
+}
+.arrowsNav a:active.prev {
+background-position: 80px 40px;
+}
+
+/*навигация над главной картинкой*/
+.oneItem .item {
+position: relative;
+}
+.oneItem .arrowsNav, .oneItem .arrowsNav a {
+position: absolute;
+}

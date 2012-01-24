@@ -1,0 +1,122 @@
+@CHARSET "UTF-8";
+
+/* Иконки под сообщениями */
+.smIcons a, a.smIcons {
+display: block;
+float: left;
+margin-right: 15px;
+text-decoration: none;
+}
+.bordered a, a.bordered {
+margin-right: 3px;
+border: 1px solid transparent;
+}
+.bordered i {
+margin-right: 0px;
+}
+.bordered a:hover, a:hover.bordered {
+border: 1px solid #CCCCCC;
+}
+.smIcons a.noborder {
+margin-right: 15px;
+border: none;
+}
+.smIcons a:hover.noborder {
+border: none !important;
+}
+.smIcons a:hover, a:hover.smIcons {
+text-decoration: underline;
+}
+.smIcons i {
+margin-right: 3px;
+display: block;
+width: 15px;
+height: 15px;
+/*
+было раньше..... =/
+width: 13px;
+height: 13px;
+*/
+float: left;
+cursor: hand;
+}
+.descr .tooltip {
+margin-left: 5px;
+}
+.smIcons .answer i, .answer.smIcons i {
+background: url(../../i/img/icons/pack1.png) no-repeat -183px -290px;
+}
+.smIcons .link i, .link.smIcons i {
+background: url(../../i/img/icons/pack1.png) no-repeat -44px -56px;
+}
+.smIcons .start i, .start.smIcons i {
+background: url(../../i/img/icons/pack1.png) no-repeat -44px -185px;
+}
+.smIcons .settings i, .settings.smIcons i {
+background: url(../../i/img/icons/pack1.png) no-repeat 2px -108px;
+}
+.smIcons .comments i, .comments.smIcons i {
+background: url(../../i/img/icons/pack1.png) no-repeat -322px -55px;
+}
+.smIcons .comments2 i, .comments2.smIcons i {
+background: url(../../i/img/icons/pack1.png) no-repeat -414px -55px;
+}
+.smIcons .user i, .user.smIcons i {
+background: url(../../i/img/icons/pack1.png) no-repeat -229px -4px;
+}
+.smIcons .god i, .god.smIcons i {
+background: url(../../i/img/icons/pack1.png) no-repeat -412px -239px;
+}
+.smIcons .editPage i, .editPage.smIcons i {
+background: url(../../i/img/icons/pack1.png) no-repeat -368px -446px;
+}
+.smIcons .lock i, .lock.smIcons i {
+background: url(../../i/img/icons/pack1.png) no-repeat -412px -368px;
+}
+.smIcons .index i, .index.smIcons i {
+background: url(../../i/img/icons/pack1.png) no-repeat -228px -368px;
+}
+.smIcons .static i, .static.smIcons i {
+background: url(../../i/img/icons/pack1.png) no-repeat -412px -472px;  
+}
+.smIcons .dynamic i, .dynamic.smIcons i {
+background: url(../../i/img/icons/pack1.png) no-repeat -251px -469px;  
+}
+.smIcons .variant i, .variant.smIcons i {
+background: url(../../i/img/icons/pack1.png) no-repeat -457px -287px;  
+}
+.smIcons .edit i, .edit.smIcons i {
+background: url(../../i/img/icons/pack1.png) no-repeat -320px -30px;  
+}
+.smIcons .delete i, .delete.smIcons i {
+background: url(../../i/img/icons/pack1.png) no-repeat 2px -264px;  
+}
+/* ========================================================== */
+.smIcons .move i, .move.smIcons i {
+background: url(../../i/img/icons/pack1.png) no-repeat -90px -290px;  
+}
+.smIcons .activate i, .active.smIcons i {
+background: url(../../i/img/icons/pack1.png) no-repeat -90px -108px;  
+}
+.smIcons .deactivate i, .unactive.smIcons i {
+background: url(../../i/img/icons/pack1.png) no-repeat -140px -110px;  
+}
+.smIcons .author i, .author.smIcons i {
+background: url(../../i/img/icons/pack1.png) no-repeat -228px -3px;  
+}
+.smIcons .prev i, .prev.smIcons i {
+background: url(../../i/img/icons/pack1.png) no-repeat -320px -343px;  
+}
+.smIcons .next i, .next.smIcons i {
+background: url(../../i/img/icons/pack1.png) no-repeat -274px -343px;  
+}
+.smIcons .time i, .time.smIcons i {
+background: url(../../i/img/icons/pack1.png) no-repeat -297px -209px;  
+}
+
+.smIcons .disabled i {
+background: none;
+}
+.smIcons a:hover.disabled {
+background: none !important;
+}

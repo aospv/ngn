@@ -1,0 +1,6 @@
+Послежовательность выполнения хуков
+- before
+- pageNames
+- pageStr
+- pageModules
+- after

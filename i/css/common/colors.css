@@ -1,0 +1,9 @@
+@CHARSET "UTF-8";
+
+body {
+background: #FF0000;
+}
+
+#auth {
+border-top: 3px solid #CCCCCC;
+}

@@ -1,0 +1,7 @@
+<image> 
+<title>{img_title}</title> 
+<url>{img_url}</url> 
+<link>{img_link}</link> 
+<width>{h_img_w}</width> 
+<height>{h_img_h}</height> 
+</image>

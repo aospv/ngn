@@ -1,0 +1,14 @@
+.contentBody.oneItem .t_image {
+background: url(/i/img/bg/1.png) #000000;
+text-align: center;
+line-height: 0;
+}
+.contentBody.oneItem .t_image a.thumb {
+float: none;
+display: inline;
+border: 0px;
+}
+.contentBody.oneItem .t_image a.thumb img {
+display: inline;
+margin: 0px;
+}

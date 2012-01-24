@@ -1,0 +1,49 @@
+input.ac {
+background-position: 116px 3px;
+height: 15px;
+}
+.loader input.ac {
+background-image: url(../../../i/img/portal/loader-b.gif);
+background-position: 114px 1px;
+}
+
+#authForm a.loading {
+background: #999999 url(../../../i/img/portal/loader2-dg.gif);
+}
+
+.sendMsg textarea {
+width: 500px;
+height: 50px;
+}
+.sendMsg a.btnSubmit {
+width: 200px;
+height: 25px;
+}
+
+.cntr_comments .items .text {
+line-height: 1.3em;
+}
+.cntr_comments .items .text a {
+text-decoration: none;
+}
+.cntr_comments .items .text a:hover {
+text-decoration: underline;
+}
+
+#underExtraNav {
+padding-bottom: 1px !important;
+}
+
+.blockSliderNav {
+float: right;
+margin-right: 10px;
+}
+
+.blockSlider {
+}
+
+
+#container {
+position: relative;
+}
+

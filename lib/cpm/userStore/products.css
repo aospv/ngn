@@ -1,0 +1,32 @@
+#productsTable {
+margin-bottom: 0px;
+}
+#productsTable table {
+margin-bottom: 0px;
+}
+#productsTable .products td {
+padding-bottom: 5px;
+}
+#productsTable hr {
+margin: 0px;
+background: #555555;
+}
+#productsTable table td {
+padding: 0px 20px 0px 0px;
+}
+#productsTable td, #productsTable th {
+padding-right: 10px;
+padding-bottom: 7px;
+}
+#productsTable .thumb {
+margin-right: 0px;
+}
+#productsTable .thumb img {
+height: 30px;
+}
+#productsTable .totalTitle {
+text-align: right;
+}
+#productsTable .totalRow td {
+border-top: 1px solid #CCCCCC;
+}

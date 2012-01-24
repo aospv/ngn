@@ -1,0 +1,24 @@
+.moderNav {
+float: right;
+}
+.moderNav a {
+display: block;
+float: left;
+color: #777777;
+}
+.moderNav a:hover {
+color: #000000;
+}
+.moderNav a i {
+display: block;
+width: 16px;
+height: 16px;
+float: left;
+margin-right: 4px;
+}
+.moderNav a.add i {
+background: url(../../i/img/icons/pack1.png) no-repeat -388px -312px;
+}
+.moderNav a.edit i {
+background: url(../../i/img/icons/pack1.png) no-repeat -342px -26px;
+}

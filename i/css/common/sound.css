@@ -1,0 +1,65 @@
+@CHARSET "UTF-8";
+
+.soundPlayer {
+width: 97%;
+margin-bottom: 3px;
+}
+
+.soundPlayer .smIcons a:hover {
+background-color: #FFFFFF;
+}
+
+.song {
+width: 100%;
+padding: 3px 0px 3px 5px;
+}
+
+.song.playing {
+border-top: #000;
+background-color: #ff9;
+}
+
+.seekbarContainer {
+float: left;
+width: 435px;
+margin: 7px 0px 6px 5px;
+}
+.seekbarContainer.over {
+background: #F4F4F4;
+}
+#blocks .seekbarContainer {
+width: 135px;
+}
+.seekbar {
+background: #afa;
+height: 20px;
+width: 0%;
+position: relative;
+}
+
+.position {
+left: 0;
+position: absolute;
+width: 5px;
+height: 3px;
+background-color: #999;
+}
+
+.song h3 {
+margin: 0;
+}
+
+.controls {
+}
+.controls img {
+cursor: pointer;
+}
+
+
+.cursor {
+height: 30px;
+width: 1px;
+background: #CECECE;
+position: absolute;
+left: 100px;
+}

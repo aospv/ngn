@@ -1,0 +1,31 @@
+.am_pages.pageModule_content .apeform .element {
+padding: 0px;
+border: 0px;
+}
+.am_pages.pageModule_content .apeform .label {
+display: none;
+}
+.am_pages.pageModule_content .navSub {
+margin-bottom: 0px;
+}
+.am_pages.pageModule_content .apeform .type_submit {
+display: none;
+}
+.am_pages.pageModule_content .navSub button {
+float: left;
+margin: 0px;
+margin-right: 10px;
+}
+#bottom {
+margin-top: 0px !important;
+}
+
+.am_pages.pageModule_content table.mceLayout {
+border: 0px !important;
+}
+.am_pages.pageModule_content .mceFirst td {
+border-top: 0px !important;
+}
+.am_pages.pageModule_content .mceLast td {
+border-bottom: 0px !important;
+}

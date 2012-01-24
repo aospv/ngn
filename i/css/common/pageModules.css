@@ -1,0 +1,9 @@
+.module_content .apeform .element {
+padding: 5px 0px 5px 0px;
+}
+.module_content .apeform .element p.label {
+display: none;
+}
+.module_content .sliceName_beforeForm_edit {
+display: none;
+}

@@ -1,0 +1,39 @@
+.ddCalendarBtns {
+min-height: 18px;
+}
+.ddCalendarBtns table {
+width: 100%;
+}
+.ddCalendarBtns td {
+width: 50%;
+}
+.ddCalendarBtns .next {
+text-align: right;
+}
+
+#ddCalendar table {
+width: 100%;
+margin-bottom: 0px;
+}
+#calendarHeader {
+border-top: 1px solid #CCCCCC;
+text-align: center;
+padding: 5px 0px 5px 0px;
+font-weight: bold;
+color: #555555;
+} 
+#ddCalendar, #ddCalendar th, #ddCalendar td {
+font-size: 10px;
+}
+#ddCalendar th {
+text-align: left;
+}
+#ddCalendar td b {
+font-weight: normal;
+}
+#ddCalendar td a {
+font-weight: bold;
+}
+#ddCalendar.loader {
+background-position: top center;
+}

@@ -1,0 +1,314 @@
+/*...................................................................................
+===============GLOBAL=================
+......................................................................................*/
+
+.tree-wrapper{
+position: relative;
+width: 100%;
+height:100%;
+margin:0;
+padding:0;
+overflow:auto;
+font-family:sans-serif;
+font-size:11px;
+line-height:18px;
+white-space:nowrap;
+cursor:default;
+}
+
+.tree-bg{
+width:100%;
+height:100%;
+position:absolute;
+overflow:hidden;
+}
+
+.tree-wrapper:focus{
+outline:0;
+}
+
+.tree-wrapper span{
+padding-bottom:2px;
+padding-top:2px;
+cursor:inherit;
+}
+
+.tree-children{
+padding-left:18px;
+width:18px;
+}
+
+.tree-node{
+height:auto !important;
+height:17px;
+width:18px;
+position:relative;
+background:url('../../../i/img/mootree/line.gif') repeat-y 8px 0px;
+}
+
+.tree-node-last{
+background:url('../../../i/img/mootree/line.gif') no-repeat 8px 0px;
+}
+
+.tree-name{
+line-height: 18px;
+cursor: default;
+overflow:hidden;
+margin-left:4px;
+font-family:sans-serif;
+font-size:11px;
+}
+
+.tree-name a{
+color:red;
+}
+
+.tree-name a:hover{
+color:blue;
+}
+
+
+.tree-node-wrapper{
+background:url('../../../i/img/mootree/horizontal-line.gif') no-repeat 9px center;
+}
+
+.tree-hover-icon .tree-name, .tree-hover-name .tree-name{
+color:blue;
+text-decoration:underline;
+}
+
+
+
+/*...................................................................................
+================GADJETS=================
+......................................................................................*/
+
+.tree-gadjet{
+background-image:url('../../../i/img/mootree/gadjets.gif');
+padding-right: 16px;
+z-index:1;
+overflow:hidden;
+background-repeat:no-repeat;
+cursor:default;
+}
+
+.tree-gadjet-none{
+background:none;
+}
+
+.tree-gadjet-minus{
+background-position: 0px 50%;
+}
+
+.tree-gadjet-plus{
+background-position: -18px 50%;
+}
+
+.tree-gadjet-middle{
+background-position: -36px 50%;
+}
+
+.tree-gadjet-hover .tree-gadjet-minus{
+background-position: -54px 50%;
+}
+
+.tree-gadjet-hover .tree-gadjet-plus{
+background-position: -72px 50%;
+}
+
+.tree-gadjet-hover .tree-gadjet-middle{
+background-position: -90px 50%;
+}
+
+
+/*.tree-gadjet-hover{
+background-image:url('../../../i/img/mootree/gadjets-hover.gif');
+}*/
+
+
+
+
+/*...................................................................................
+================ICONS=================
+......................................................................................*/
+.tree-icon{
+padding-right:18px;
+background-position:0 50%;
+background-repeat:no-repeat;
+cursor:inherit;
+}
+
+.tree-open-icon{
+background-image:url('../../../i/img/mootree/openicon.gif')
+}
+
+.tree-close-icon{
+background-image:url('../../../i/img/mootree/closeicon.gif')
+}
+
+.tree-middle-icon{
+background-image:url('../../../i/img/mootree/middleicon.gif');
+}
+
+.tree-loader-open-icon,.tree-loader-close-icon{
+background-image:url('../../../i/img/mootree/mootree_loader.gif');
+}
+
+.tree-book-icon{
+background-image:url('../../../i/img/mootree/book_icon.gif');
+}
+
+.tree-bin-open-icon{
+background-image:url('../../../i/img/mootree/bin_open_icon.gif');
+}
+
+.tree-bin-close-icon{
+background-image:url('../../../i/img/mootree/bin_close_icon.gif');
+}
+
+.tree-bin-middle-icon{
+background-image:url('../../../i/img/mootree/bin_middle_icon.gif');
+}
+
+
+
+
+
+
+
+/*...................................................................................
+================SELECTION=================
+......................................................................................*/
+
+.tree-node-selected .tree-name{
+background-color: #010161;
+color:#fff;
+text-transform:italic;
+}
+
+.tree-highlighter{
+height:18px;
+overflow:hidden;
+width:100%;
+background:#b64553;
+position:absolute;
+}
+
+
+
+
+
+
+
+
+/*...................................................................................
+===============D'n'D=================
+......................................................................................*/
+.tree-pointer{
+height:1px;
+overflow: hidden;
+position: absolute;
+background-image:url('../../../i/img/mootree/1.gif');
+background-repeat:repeat-x;
+background-color:#292fef;
+}
+
+
+.tree-ghost{
+background-color:#fff;
+border:solid 2px #e8e8f7;
+padding-left:2px;
+}
+
+.tree-ghost .tree-node-wrapper{
+background:none;
+}
+
+.tree-ghost span.tree-text{
+padding-top:1px;
+padding-bottom:1px;
+}
+
+.tree-ghost-icon{
+padding-left:16px;
+background-color:#fff;
+background-repeat:no-repeat;
+background-image:url('../../../i/img/mootree/dropzone.gif');
+}
+
+.tree-ghost-after{
+background-position:-64px 2px;
+}
+
+.tree-ghost-before{
+background-position:-48px 2px;
+}
+
+.tree-ghost-between{
+background-position:-16px 2px;
+}
+
+.tree-ghost-inside{
+background-position:-0px 2px;
+}
+
+.tree-ghost-notAllowed{
+background-position:-32px 2px;
+}
+
+.tree-drag-current{
+background-color:#cfcfd8;
+}
+
+.tree-replace{
+background-color:#99c8fb;
+}
+
+
+
+
+
+/*...................................................................................
+================CHECKBOX=================
+......................................................................................*/
+.tree-checkbox{
+padding-left:18px;
+}
+
+.tree-node-checked, .tree-node-checked .tree-checkbox{
+background:url('../../../i/img/mootree/checked.gif') center 2px no-repeat;
+}
+
+.tree-node-unchecked, .tree-node-unchecked .tree-checkbox{
+background:url('../../../i/img/mootree/unchecked.gif') center 2px no-repeat;
+}
+
+.tree-node-checked-selected{
+background:url('../../../i/img/mootree/checked_selected.gif') center 2px no-repeat;
+}
+
+.tree-node-unchecked-selected{
+background:url('../../../i/img/mootree/unchecked_selected.gif') center 2px no-repeat;
+}
+
+
+
+
+
+
+
+
+/*...................................................................................
+===============RENAME=================
+......................................................................................*/
+.tree-rename{
+display: inline;
+line-height: 14px;
+height:14px;
+cursor: default;
+overflow:hidden;
+font-family:sans-serif;
+font-size:11px;
+padding:1px 0;
+border:solid 1px black;
+}

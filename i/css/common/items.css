@@ -1,0 +1,280 @@
+/* --------- Items Common -------- */
+
+.items .item {
+padding-bottom: 5px;
+padding-top: 5px;
+/*margin-bottom: 5px;*/
+border-bottom: 1px solid #CCCCCC;
+}
+.items .nonActive {
+color: #CCCCCC !important;
+}
+.items .nonActive a {
+color: #CCCCCC !important;
+}
+.items .item h2, .items .item h3 {
+margin-top: 0px;
+margin-bottom: 5px;
+}
+.items .text p {
+margin-top: 0px;
+}
+.items .body {
+float: left;
+}
+.items .date {
+float: right;
+}
+.items ul {
+margin-bottom: 0px;
+}
+.items blockquote {
+margin: 7px 0px 7px 20px;
+padding: 0px 0px 0px 5px;
+border-left: 1px solid #555555;
+}
+
+/* --------- Thumb -------- */
+
+.thumb a, a.thumb, a:hover.thumb.disabled {
+border: 1px solid #CCCCCC;
+display: block;
+float: left;
+margin: 0px 10px 0px 0px;
+}
+a.thumb.disabled {
+cursor: default;
+}
+.thumb a:hover, a:hover.thumb {
+border-color: #000000;
+}
+.thumb img, img.thumb {
+display: block;
+}
+.hgrp_clear {
+clear: both;
+}
+
+
+/* --------- DD Tpl -------------- */
+
+.items .item .element {
+line-height: 1.3;
+}
+.element b.title {
+font-weight: normal;
+color: #888888;
+}
+.items .item .element a img.thumb {
+padding: 1px;
+}
+.items .subscript {
+margin-top: 5px;
+}
+
+/* --------- DD Tpl Blocks -------- */
+
+#blocks .items .item {
+padding-bottom: 5px;
+margin-bottom: 5px;
+}
+#blocks .items .item div {
+line-height: 1.2em;
+}
+#blocks h3 {
+text-decoration: underline;
+}
+
+/*------------------- Item Page ---------------*/
+.contentBody .element {
+margin-bottom: 5px;
+}
+
+a.shortComments {
+float: right !important;
+}
+/*------------------ Forum ---------------*/
+.module_forum .n_text {
+font-size: 14px;
+}  
+.module_forum .n_text {
+margin-bottom: 5px;
+}
+.module_forum .n_forum {
+float: right;
+}
+
+/*-----------Header Group Float--------------*/
+.hgrpt_floatBlock {
+float: left;
+/*width: 200px;*/
+}
+
+/*
+В списке вывода профилей эти стили сужают основной тектовый блок
+.profilePage .hgrp_textd {
+float: left;
+width: 190px;
+}
+*/
+.profilePage .hgrp_textd {
+width: auto;
+}
+
+.profilePage .items .hgrp_textd {
+width: 390px;
+}
+
+.editBlock {
+float: right;
+margin-left: 10px;
+}
+
+
+
+/*-----------Module Layouts--------------*/
+
+.module_photoalbum .t_date {
+font-size: 11px;
+}
+
+.t_commentsCount .smIcons a {
+margin-right: 0px;
+}
+
+.element.f_rating b.title {
+display: block;
+float: left;
+margin-right: 3px;
+}
+.element.f_rating_average {
+float: right;
+margin-right: 15px;
+}
+.ddil_tile .element.f_rating b.title {
+float: none;
+}
+
+/* отступ слева от циферов комментариев и просмотров */
+.f_clicks, .f_commentsCount {
+margin-left: 10px;
+float: right;
+}
+
+.ddRating .bnw {
+cursor: pointer;
+width: 10px;
+height: 10px;
+padding-right: 2px;
+margin-top: 3px;
+float: left;
+background: url(../../../i/img/icons/stars.png) no-repeat -12px 0px;
+}
+.ddRating .bnw.over {
+background: url(../../../i/img/icons/stars.png) no-repeat 0px 0px;
+}
+.ddRating .bnw.checked {
+background: url(../../../i/img/icons/stars.png) no-repeat -24px 0px;
+}
+.ddRating .bnw.over.minus {
+background: url(../../../i/img/icons/stars.png) no-repeat -36px 0px;
+}
+
+
+
+/* ------------------- layout tile -------------------- */
+
+.ddil_tile .ddItems .thumb {
+margin: 0px; /* убираем отспуп справа от тумбы */
+float: none;
+display: inline-block;
+}
+.ddil_tile .ddItems .item h2 {
+font-size: 12px;
+margin-top: 5px;
+font-weight: bold;
+}
+.ddil_tile .ddItems .item {
+position: relative;
+float: left;
+margin-right: 13px;
+border: none;
+}
+.ddil_tile .ddItems .item .editBlock {
+position: absolute;
+margin: 5px;
+}
+.ddil_tile .ddItems .item .smIcons i {
+margin-right: 0px;
+}
+.ddil_tile .ddItems .bcont {
+padding-right: 0px;
+}
+.ddil_tile .ddItems .t_image a {
+margin-bottom: 0px;
+}
+.ddil_tile .ddItems h3 {
+font-size: 12px;
+margin-bottom: 3px !important;
+}
+.ddil_tile .ddItems .element {
+margin: 0px;
+}
+
+.ddil_tile .ddItems .element.f_rating {
+margin: 4px 0px 2px 0px;
+}
+
+.items .item .btn1 {
+margin-top: 5px;
+}
+
+
+
+/*
+.module_siteFriends .ddItems .item {
+width: 115px;
+margin-right: 15px;
+float: left;
+text-align: center;
+border: none;
+}
+.module_siteFriends .ddItems .item h2 {
+font-size: 11px;
+margin-top: 0px;
+}
+.module_siteFriends .ddItems .item a.thumb {
+float: none;
+border: none;
+}
+.module_siteFriends .noImage {
+width: 100px;
+height: 60px;
+}
+.module_siteFriends .ddItems .item .editBlock {
+float: none;
+position: relative;
+height: 16px;
+}
+*/
+
+.t_sound .title, .t_sound .mp3player, .t_sound .mp3download {
+float: left;
+}
+.t_sound .title {
+padding-right: 15px;
+}
+.t_sound .mp3download {
+padding-left: 15px;
+}
+.contentBody .t_typoTextarea {
+margin-bottom: 10px;
+}
+
+.oneItem .t_datetime {
+font-style: italic;
+text-align: right;
+}
+.items .item.loading {
+background: url(/i/img/loader-horizontal.gif) repeat-x 0px -10px;
+}

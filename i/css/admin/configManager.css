@@ -1,0 +1,101 @@
+.am_configManager .mbody .info {
+float: right;
+width: 350px;
+}
+.am_configManager .mbody #vars input {
+padding: 3px;
+}
+.am_configManager .mbody #vars input, .am_configManager .mbody #vars select {
+margin-right: 3px;
+}
+.am_configManager .mbody #vars .nl,.am_configManager .mbody #vars h2 {
+clear: both;
+}
+.am_configManager .mbody .element {
+/*float: left; было актуально, когда елемент мог содержать несколько полей */
+}
+.am_configManager .mbody .element .clear {
+height: 1px;
+}
+.am_configManager .mbody .field {
+//float: left;
+}
+.am_configManager .mbody .listEdit .element {
+}
+.am_configManager .mbody .field.t_radio {
+margin-right: 5px;
+}
+.am_configManager .mbody .key input {
+width: 150px;
+margin-right: 5px;
+}
+.am_configManager .mbody .title {
+margin-bottom: 3px;
+font-size: 10px;
+color: #888888;
+}
+/* Кнопка "Удалить значение" */
+.am_configManager .mbody a.deleteValue {
+display: block;
+border: 1px solid #FF9F9F;
+padding: 0px 4px 2px 4px;
+margin-right: 3px;
+float: left;
+background: #FFEFEF;
+text-decoration: none;
+font-weight: bold;
+color: #FF9F9F;
+}
+.am_configManager .mbody a:hover.deleteValue {
+color: #000000;
+}
+a.sel {
+color: #888888;
+text-decoration: none;
+}
+a:hover.sel {
+color: #000000;
+text-decoration: underline;
+}
+.am_configManager .mbody #varsBmks {
+margin-bottom: 10px;
+}
+.am_configManager .mbody .subFields {
+clear: both;
+padding: 20px;
+border: 1px solid #FF0000;
+background: #CCCCCC;
+}
+.am_configManager .mbody h2, .am_configManager .mbody h3 {
+margin-bottom: 5px;
+}
+.am_configManager .mbody .loader {
+background-position: bottom center;
+}
+.am_configManager .mbody .iconsSet {
+font-size: 10px;
+}
+
+
+.am_configManager .mbody .n_title input {
+width: 150px !important;
+}
+
+.am_configManager .mbody .n_contentBegin input,
+.am_configManager .mbody .n_contentEnd input,
+.am_configManager .mbody .n_url input {
+width: 200px !important;
+}
+.am_configManager .mbody .n_begin input[type=text],
+.am_configManager .mbody .n_end input[type=text] {
+width: 352px !important;
+}
+.am_configManager .mbody .n_title {
+font-weight: bold;
+}
+.am_configManager .mbody .apeform {
+width: auto;
+}
+.am_configManager .mbody textarea, .hHandler {
+width: 100%;
+}

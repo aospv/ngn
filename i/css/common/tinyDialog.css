@@ -1,0 +1,10 @@
+body {
+margin: 15px;
+overflow: hidden;
+}
+p {
+margin-top: 0px;
+}
+p input[type=text], p textarea {
+width: 95%;
+}

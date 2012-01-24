@@ -1,0 +1,94 @@
+<?
+
+if (!isset($d)) $d = $_GET;
+if (!isset($d['ids'])) throw new NgnException("\$d['ids'] not defined");
+
+$d['ids'] = explode(',', $d['ids']);
+
+$s = '
+
+/* Horizontal Menu
+------------------------------ */
+
+$selector ul {
+margin: 0px 0px 0px 0px;
+}
+$selector li {
+list-style: none;
+/*border-left: 1px solid #333333;*/
+float: left;
+display: block;
+position: relative;
+margin-bottom: 0;
+}
+$selector li li {
+list-style: none;
+float: none;
+border-bottom: 1px solid #333333;
+font-size: 12px;
+}
+$selector li ul {
+z-index: 999;
+position: absolute;
+left:-1px;
+width: 160px;
+/*display: none;-------------------------------------------------------------------<<<<<<*/
+white-space: nowrap;
+background: #FFFFFF;
+/*border-right: 1px solid #222222;*/
+}
+$selector li:hover ul, $selector li.over ul {
+display: block;
+}
+$selector li small {
+display: block;
+font-size: 10px;
+height: 16px;
+position: absolute;
+top: 7px;
+left: 25px;
+color: #777777;
+}
+$selector a {
+display: block;
+text-decoration: none;
+}
+$selector a #span {
+display: block;
+}
+$selector li li a {
+padding: 2px 15px 2px 10px;
+}
+$selector a:hover, $selector a.active, $selector a.current {
+text-decoration: underline;
+}
+$selector a:hover {
+color: #000000;
+}
+* html $selector li li { float: left; }
+* html $selector li li a { height: 1%; }
+
+$selector b a {
+color: #000000;
+text-decoration: underline;
+font-weight: normal;
+}
+
+';
+
+$s = preg_replace('/\/\*.*\*\//sU', '', $s);
+preg_match_all('/(.*)\$selector(.*){(.*)}/sU', $s, $m);
+
+$ids = $d['ids'];
+
+foreach ($ids as $id)
+   print str_replace('$selector', '#'.$id, $s)."\n\n";
+return;
+
+for ($i=0; $i<count($m[0]); $i++) {
+  for ($j=0; $j<count($ids); $j++)
+    print $m[1][$i].'#'.$ids[$j].$m[2][$i].
+          ((count($ids)-1 != $j) ? ',' : '').
+          ' ';
+  print '{'.$m[3][$i].'}';
+}

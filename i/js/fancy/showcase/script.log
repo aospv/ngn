@@ -1,0 +1,332 @@
+Array
+(
+    [time] => Fri, 18 Dec 2009 07:00:02 +0300
+    [addr] => ******-hp
+    [agent] => Opera/9.80 (Windows NT 6.0; U; ru) Presto/2.2.15 Version/10.10
+)
+
+---
+Array
+(
+    [time] => Fri, 18 Dec 2009 07:24:24 +0300
+    [addr] => ******-hp
+    [agent] => Shockwave Flash
+    [post] => Array
+        (
+            [Filename] => lomond.jpg
+            [Upload] => Submit Query
+        )
+
+    [files] => Array
+        (
+            [Filedata] => Array
+                (
+                    [name] => lomond.jpg
+                    [type] => application/octet-stream
+                    [tmp_name] => C:\Windows\Temp\php67F8.tmp
+                    [error] => 0
+                    [size] => 6868
+                )
+
+        )
+
+)
+
+---
+Array
+(
+    [time] => Fri, 18 Dec 2009 07:37:26 +0300
+    [addr] => ******-hp
+    [agent] => Shockwave Flash
+    [post] => Array
+        (
+            [Filename] => 0_38c73_f8b7c34d_orig.jpg
+            [Upload] => Submit Query
+        )
+
+    [files] => Array
+        (
+            [Filedata] => Array
+                (
+                    [name] => 0_38c73_f8b7c34d_orig.jpg
+                    [type] => application/octet-stream
+                    [tmp_name] => C:\Windows\Temp\php5766.tmp
+                    [error] => 0
+                    [size] => 232186
+                )
+
+        )
+
+)
+
+---
+Array
+(
+    [time] => Fri, 18 Dec 2009 07:37:42 +0300
+    [addr] => ******-hp
+    [agent] => Shockwave Flash
+    [post] => Array
+        (
+            [Filename] => 1271.jpg
+            [Upload] => Submit Query
+        )
+
+    [files] => Array
+        (
+            [Filedata] => Array
+                (
+                    [name] => 1271.jpg
+                    [type] => application/octet-stream
+                    [tmp_name] => C:\Windows\Temp\php932F.tmp
+                    [error] => 0
+                    [size] => 115307
+                )
+
+        )
+
+)
+
+---
+Array
+(
+    [time] => Fri, 18 Dec 2009 07:37:48 +0300
+    [addr] => ******-hp
+    [agent] => Shockwave Flash
+    [post] => Array
+        (
+            [Filename] => angelina.TTF
+            [Upload] => Submit Query
+        )
+
+    [files] => Array
+        (
+            [Filedata] => Array
+                (
+                    [name] => angelina.TTF
+                    [type] => application/octet-stream
+                    [tmp_name] => C:\Windows\Temp\phpAC6A.tmp
+                    [error] => 0
+                    [size] => 77048
+                )
+
+        )
+
+)
+
+---
+Array
+(
+    [time] => Fri, 18 Dec 2009 07:38:17 +0300
+    [addr] => ******-hp
+    [agent] => Shockwave Flash
+    [post] => Array
+        (
+            [Filename] => digitarald-digitarald-fancyupload-af23792.zip
+            [Upload] => Submit Query
+        )
+
+    [files] => Array
+        (
+            [Filedata] => Array
+                (
+                    [name] => digitarald-digitarald-fancyupload-af23792.zip
+                    [type] => application/octet-stream
+                    [tmp_name] => C:\Windows\Temp\php1D08.tmp
+                    [error] => 0
+                    [size] => 161660
+                )
+
+        )
+
+)
+
+---
+Array
+(
+    [time] => Fri, 18 Dec 2009 07:38:21 +0300
+    [addr] => ******-hp
+    [agent] => Shockwave Flash
+    [post] => Array
+        (
+            [Filename] => nado_pages.sql
+            [Upload] => Submit Query
+        )
+
+    [files] => Array
+        (
+            [Filedata] => Array
+                (
+                    [name] => nado_pages.sql
+                    [type] => application/octet-stream
+                    [tmp_name] => C:\Windows\Temp\php2CB3.tmp
+                    [error] => 0
+                    [size] => 4797
+                )
+
+        )
+
+)
+
+---
+Array
+(
+    [time] => Fri, 18 Dec 2009 07:38:52 +0300
+    [addr] => ******-hp
+    [agent] => Shockwave Flash
+    [post] => Array
+        (
+            [Filename] => data.sql.gz
+            [Upload] => Submit Query
+        )
+
+    [files] => Array
+        (
+            [Filedata] => Array
+                (
+                    [name] => data.sql.gz
+                    [type] => application/octet-stream
+                    [tmp_name] => C:\Windows\Temp\phpA849.tmp
+                    [error] => 0
+                    [size] => 7054
+                )
+
+        )
+
+)
+
+---
+Array
+(
+    [time] => Fri, 18 Dec 2009 07:39:04 +0300
+    [addr] => ******-hp
+    [agent] => Shockwave Flash
+    [post] => Array
+        (
+            [Filename] => post-2187-1181924117.jpg
+            [Upload] => Submit Query
+        )
+
+    [files] => Array
+        (
+            [Filedata] => Array
+                (
+                    [name] => post-2187-1181924117.jpg
+                    [type] => application/octet-stream
+                    [tmp_name] => C:\Windows\Temp\phpD3BC.tmp
+                    [error] => 0
+                    [size] => 77713
+                )
+
+        )
+
+)
+
+---
+Array
+(
+    [time] => Fri, 18 Dec 2009 07:44:33 +0300
+    [addr] => ******-hp
+    [agent] => Shockwave Flash
+    [post] => Array
+        (
+            [Filename] => !!!!!!!!! abrdev.comcat=13.txt
+            [Upload] => Submit Query
+        )
+
+    [files] => Array
+        (
+            [Filedata] => Array
+                (
+                    [name] => !!!!!!!!! abrdev.comcat=13.txt
+                    [type] => application/octet-stream
+                    [tmp_name] => C:\Windows\Temp\phpDA91.tmp
+                    [error] => 0
+                    [size] => 20
+                )
+
+        )
+
+)
+
+---
+Array
+(
+    [time] => Fri, 18 Dec 2009 07:44:58 +0300
+    [addr] => ******-hp
+    [agent] => Shockwave Flash
+    [post] => Array
+        (
+            [Filename] => !!!!!!!!! abrdev.comcat=13.txt
+            [Upload] => Submit Query
+        )
+
+    [files] => Array
+        (
+            [Filedata] => Array
+                (
+                    [name] => !!!!!!!!! abrdev.comcat=13.txt
+                    [type] => application/octet-stream
+                    [tmp_name] => C:\Windows\Temp\php3B85.tmp
+                    [error] => 0
+                    [size] => 20
+                )
+
+        )
+
+)
+
+---
+Array
+(
+    [time] => Fri, 18 Dec 2009 07:45:08 +0300
+    [addr] => ******-hp
+    [agent] => Shockwave Flash
+    [post] => Array
+        (
+            [Filename] => !!!!!!!!! abrdev.comcat=13.txt
+            [Upload] => Submit Query
+        )
+
+    [files] => Array
+        (
+            [Filedata] => Array
+                (
+                    [name] => !!!!!!!!! abrdev.comcat=13.txt
+                    [type] => application/octet-stream
+                    [tmp_name] => C:\Windows\Temp\php64A9.tmp
+                    [error] => 0
+                    [size] => 20
+                )
+
+        )
+
+)
+
+---
+Array
+(
+    [time] => Fri, 18 Dec 2009 08:05:52 +0300
+    [addr] => ******-hp
+    [agent] => Shockwave Flash
+    [post] => Array
+        (
+            [Filename] => db трэки которые мне понравились.txt
+            [Upload] => Submit Query
+        )
+
+    [files] => Array
+        (
+            [Filedata] => Array
+                (
+                    [name] => db трэки которые мне понравились.txt
+                    [type] => application/octet-stream
+                    [tmp_name] => C:\Windows\Temp\php5E25.tmp
+                    [error] => 0
+                    [size] => 801
+                )
+
+        )
+
+)
+
+---

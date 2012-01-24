@@ -1,0 +1,28 @@
+.pagesTree {
+width: 100%;
+} 
+.pagesTree td.col2 {
+}
+.pagesTree td.col2 {
+padding-left: 15px;
+}
+.pagesTree td.col1 {
+}
+
+.p_agesTree .mif-tree-tag-open-icon {
+background-image:url("../../i/js/mif.tree/assets/images/tag_open.gif");
+}
+
+.pagesTree a#dragBtn {
+display: block;
+width: 7px;
+height: 300px;
+border-left: 1px solid #CCCCCC;
+}
+.pagesTree a#dragBtn:hover {
+border-left: 1px solid #999999;
+background-color: #E0EAEF;
+}
+.pagesTree a#dragBtn.dragging {
+background-color: #FFF4BF;
+}

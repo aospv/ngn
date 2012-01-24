@@ -1,0 +1,423 @@
+@CHARSET "UTF-8";
+
+img {
+border: 0px;
+}
+a:hover {
+color: #000000;
+}
+p {
+margin: 0px 0px 7px 0px;
+}
+h2 {
+font-size: 15px;
+margin: 0px 0px 10px 0px;
+}
+/* -------------------- */
+
+.end {
+clear: both;
+height: 0px;
+}
+
+
+.privMsgs {
+width: 750px;
+}
+
+.chatBar {
+border: 1px solid #CCCCCC;
+float:left;
+margin:0 20px 0 0;
+width:404px;
+}
+#chat {
+overflow: auto;
+padding: 7px;
+height: 250px;
+}
+#chat .item, #history .item {
+border: 1px solid #FFFFFF;
+}
+#history .item {
+padding-bottom: 5px;
+padding-top: 5px;
+border-bottom: 1px solid #CCCCCC;
+}
+#chat .end {
+height: 0px;
+}
+#chat .in,
+#history .in {
+background:#f5f8fd;
+border-bottom:1px dashed #CCC;
+color: #00942A;
+}
+#chat .out,
+#history .out {
+background:#fff;
+border-bottom:1px dashed #CCC;
+color: #003994;
+}
+
+#chatBan {
+  padding:5px 10px;
+  font-size:11px;
+  color:red;
+}
+
+#history .in {
+}
+#history .out {
+}
+
+#history input[type=checkbox] {
+float: right;
+display: block;
+}
+
+#chat .date {
+padding-top: 3px;
+font-size: 9px;
+display: block;
+float: left;
+}
+#chat .text {
+margin-left: 5px;
+float: left;
+font-family:Arial, Helvetica, sans-serif;
+font-size:11px;
+}
+
+#history .date {
+font-size: 9px;
+}
+
+#chat .text {
+width: 360px;
+}
+
+#chat .in .date, #history .in .date {
+color: #5FCF74;
+}
+#chat .out .date, #history .out .date {
+color: #6898E6;
+}
+#msgText {
+font-family:Arial, Helvetica, sans-serif;
+font-size: 11px;
+width: 744px;
+/*overflow: yes;*/
+border: 1px solid #CCCCCC;
+padding: 2px;
+color: auto;
+background: none;
+  float:left;
+  height:150px;
+  width:400px;
+}
+.deactive#msgText {
+color: #CCCCCC;
+}
+
+.newMessages {
+color: #999999;
+padding-top: 1px;
+margin: 10px 0px 5px 0px;
+border-top: 1px solid #CCCCCC;
+}
+
+
+
+.endAvatar {
+clear: both;
+height: 7px;
+}
+
+.msgBar {
+float:left;
+margin:0 20px 0 0;
+width:410px;
+}
+.msgBar td {
+text-align: right;
+vertical-align: top;
+}
+a#sendMsgBtn {
+background: url(/img/privMsgs/send-receive.png) center center no-repeat;
+margin: 1px 0px 0px 0px;
+display: block;
+width: 130px;
+height: 25px;
+cursor: pointer;
+border: 1px solid #CCCCCC;
+float: left;
+}
+a.active#sendMsgBtn {
+background: url(/img/privMsgs/send-receive.png) center center no-repeat;
+cursor: pointer;
+border: 1px solid #CCCCCC;
+}
+a:hover.active#sendMsgBtn {
+border-color: #555555;
+}
+a#sendMsgBtn div {
+padding-top: 4px;
+text-align: center;
+}
+
+.msgBar .msgBan {
+  color:red;
+  font-weight:bold;
+}
+.msgBar .msgBan .ban {
+  color: black;
+  font-size: 11px;
+  font-weight:normal;
+}
+.msgBar .msgBan .ban i {
+  color:green;
+  font-style:normal;
+}
+
+.contacts,
+.userSearch,
+.friendsQueue {
+width: 180px;
+}
+
+.contacts {
+float: left;
+margin-right: 15px;
+}
+.userSearch {
+float: left;
+margin-right: 15px;
+
+}
+.friendsQueue {
+float: left;
+
+}
+.userSearch #results {
+min-height: 16px;
+min-width: 16px;
+}
+.loader {
+background: url(/img/privMsgs/loader.gif) no-repeat;
+}
+#userMask {
+float: left;
+}
+#userSearchBtn {
+background: url(/img/privMsgs/search.gif) no-repeat center;
+display: block;
+float: left;
+height: 17px;
+margin-left: 5px;
+width: 17px;
+}
+#results {
+/*border: 1px solid #FF0000;-*/
+margin-top: 10px;
+}
+
+.avatar img {
+display: block;
+width: 30px;
+height: 30px;
+}
+.avatar a {
+width: 30px;
+height: 30px;
+display: block;
+margin-right: 5px;
+float: left;
+border: 1px solid #CCCCCC;
+}
+.avatar a:hover {
+border: 1px solid #555555;
+}
+.users .item {
+margin-bottom: 5px;
+font-size: 11px;
+}
+.login {
+font-size: 12px;
+margin-bottom: 3px;
+}
+
+.userInfo {
+float: left;
+}
+
+.extraNav {
+width: 210px;
+float: right;
+padding-top: 4px;
+}
+.extraNav a img {
+display: block;
+margin: 2px;
+}
+.extraNav a {
+display: block;
+width: 28px;
+height: 28px;
+border: 1px solid #FFFFFF;
+}
+.extraNav a:hover {
+border: 1px solid #CCCCCC;
+}
+.extraNav .item {
+float: left;
+margin-left: 2px;
+}
+.extraNav .refrash {
+padding-top: 10px;
+margin-right: 10px;
+}
+
+/*
+a.addContact {
+width: 10px;
+height: 10px;
+display: block;
+float: right;
+border: 1px solid #FFFFFF;
+}
+a:hover.addContact {
+border: 1px solid #CCCCCC;
+}
+a.addContact img {
+display: block;
+margin: 2px;
+}
+*/
+
+/*
+contextMenu
+*/
+
+.userFolder {
+font-size:11px;
+position: relative;
+margin-bottom: 5px;
+}
+.user {
+font-weight: bold;
+}
+.user.online {
+color: #00B02F;
+}
+.contextMenu {
+position: absolute;
+visibility: hidden;
+padding: 10px 10px 5px 10px;
+background: #FFFFFF;
+border: 1px solid #CCCCCC;
+}
+.contextMenu a {
+display: block;
+text-decoration: none;
+cursor: pointer;
+_cursor: hand;
+}
+.contextMenu a,
+.contextMenu div {
+font-size: 11px;
+padding-left: 20px;
+margin-bottom: 5px;
+}
+.contextMenu a:hover {
+text-decoration: underline;
+}
+
+.contextMenu .deleteContact {
+background: url(/img/privMsgs/delete.png) no-repeat 3px 3px;
+}
+.contextMenu .addContact {
+background: url(/img/privMsgs/add.png) no-repeat 4px 3px;
+}
+.contextMenu .sendMsg {
+background: url(/img/privMsgs/send-msg.png) no-repeat 1px 3px;
+}
+.contextMenu .history {
+background: url(/img/privMsgs/history.gif) no-repeat 3px 1px;
+}
+.contextMenu .portrait {
+background: url(/img/privMsgs/portrait.png) no-repeat 3px 0px;
+}
+.contextMenu .addFriend {
+background: url(/img/privMsgs/add-friend3.png) no-repeat;
+display: none;
+}
+.contextMenu .deleteFriend {
+background: url(/img/privMsgs/del-friend.png) no-repeat;
+display: none;
+}
+.contextMenu .waitFriend {
+background: url(/img/privMsgs/wait-friend.png) no-repeat;
+display: none;
+cursor: default;
+}
+.contextMenu a:hover.waitFriend {
+text-decoration: none;
+}
+
+.smiles {
+  float:left;
+  _height:35px;
+  display:block;
+  width:320px;
+}
+.smiles label {
+  position:absolute; left:0; top:0;
+  line-height:35px;
+  display:block;
+}
+.smiles span {
+  display:block;
+  padding:0;
+  width: 320px;
+  _width: 320px;
+  height:35px;
+  white-space: normal;
+  clear:none;
+}
+.smiles span a {
+  margin-right:3px;
+}
+.smiles span.show {
+  padding-top:0px;
+  height:120px;
+}
+.smiles span a { display:none; }
+.smiles span a.show { display:inline; }
+.smiles span a.first { display:inline; }
+ 
+.smiles span.show a { display:inline; }
+.smiles span.show a.show { display:none; }
+.smiles span.show a.hide { display:inline; }
+
+.smiles span a.show, .smiles span a.hide {
+  font-size:12px;
+  text-decoration:none;
+  border-bottom:1px dashed black;
+  margin-left:5px;
+  _margin-right:0px;
+}
+.lastcontacts {
+  float:left;
+  height:270px;
+  margin-right:15px;
+  width:240px;
+}
+
+.lastcontacts div div{
+  float:left;
+  font-size:11px;
+  margin-bottom:5px;
+  position:relative;
+  width:120px;
+}

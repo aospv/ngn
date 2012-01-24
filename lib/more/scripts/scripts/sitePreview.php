@@ -1,0 +1,1 @@
+<? header('Location: '.SitePreview::url(O::get('Req')->rq('url'))) ?>

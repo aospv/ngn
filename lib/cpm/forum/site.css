@@ -1,0 +1,35 @@
+.topic {
+margin-top: 10px;
+margin-bottom: 10px;
+}
+.topic .author i {
+display: none;
+}
+.topic .author a {
+margin-right: 0px;
+}
+.topic .text .wr {
+position: relative;
+}
+.topic .text .bubbles {
+width: 26px;
+height: 23px;
+position: absolute;
+top: 10px;
+left: 0px;
+background: url(/cpm/forum/bubbles.png) no-repeat;
+}
+.topic .text {
+padding-left: 5px;
+border-radius: 3px;
+}
+.topic .text .cont {
+font-size: 14px;
+background: #FFFFFF;
+margin-left: 25px;
+border: 1px solid #ABABAB;
+-moz-border-radius: 8px;
+-khtml-border-radius: 8px;
+-webkit-border-radius: 8px;
+padding: 5px 10px 8px 10px;
+}

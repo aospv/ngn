@@ -1,0 +1,124 @@
+@CHARSET "UTF-8";
+
+.pageBlocks h3 {
+margin: 0px 0px 7px 0px;
+}
+
+.pageBlocks .col {
+float: left;
+}
+
+.pageBlocks .block {
+width: 100%;
+float: left;
+/*
+height: 100px;
+overflow: hidden;
+position: relative;*/
+}
+.pageBlocks .block .bcont {
+padding: 0px 10px 10px 0px;
+}
+.pageBlocks .m_tags .bcont div {
+float: left;
+margin: 0px 10px 0px 0px;
+}
+.pageBlocks .block .hbtn {
+float: right;
+}
+
+.pageBlocks .module_photo .btn2 {
+margin-right: 13px;
+}
+.pageBlocks .ddil_tile .t_author {
+height: 16px;
+}
+.pageBlocks .ddil_tile .t_author b {
+display: none;
+}
+
+.pageBlocks .blockHeader {
+border-bottom: 2px solid #CCCCCC;
+margin-bottom: 7px;
+}
+.pageBlocks .blockHeader h2 {
+margin-bottom: 5px;
+}
+
+/*
+.pageBlocks h2 {
+font-weight: bold;
+}
+*/
+
+.pageBlocks .hgrp_textd {
+width: auto;
+}
+
+/*============ Page Block Type ===============*/
+
+.pbt_iconLink .bcont {
+background-repeat: no-repeat;
+}
+
+
+/* Общие настройки для всех уровней */
+
+.pageBlocks .pbt_tags .hideSubLevels ul ul {
+display: none;
+}
+
+/* Отступ слева от пунктов второго уровня */
+.pageBlocks .pbt_tags .bcont li li a {
+padding-left: 10px;
+}
+.pageBlocks .pbt_tags .bcont li li li a {
+padding-left: 20px;
+}
+.pageBlocks .pbt_tags .bcont li li li li a {
+padding-left: 30px;
+}
+.pageBlocks .pbt_tags .bcont li li li li li a {
+padding-left: 40px;
+}
+.pageBlocks .pbt_tags .bcont li li li li li li a {
+padding-left: 50px;
+}
+.pageBlocks .pbt_tags .bcont li li li li li li li a {
+padding-left: 60px;
+}
+
+
+.pageBlocks .pbt_tags li.folder > a {
+font-weight: bold;
+}
+/* Тэг-папка толжен быть раскрывающимся и соответственно без маркера */
+/*
+.pageBlocks .pbt_tags li.folder > a i {
+display: block;
+width: 10px;
+height: 11px;
+float: left;
+margin: 5px 5px 5px 0px;
+background: url(../../../i/img/icons/pack1.png) no-repeat -92px -346px;
+}
+.pageBlocks .pbt_tags li.folder.opened > a i {
+background-position: 0px -344px;
+}
+*/
+
+
+.pbt_calendar {
+margin-bottom: 7px;
+}
+
+.pbt_tpl {
+margin-bottom: 0px !important;
+}
+
+.pbt_iconLink {
+margin-bottom: 5px !important;
+}
+.pageBlocks .pbt_text.block {
+margin-bottom: 0px;
+}

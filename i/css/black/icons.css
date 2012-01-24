@@ -1,0 +1,23 @@
+.iconsSet i,
+.tools i,
+a.iconBtn i,
+.smIcons i {
+background-image: url(../../../i/img/icons/pack1-invert.png) !important;
+}
+
+.loader {
+background: url(../../../i/img/portal/loader-w.gif) no-repeat !important;
+}
+
+.msgs .text quote {
+border-color: #2F2B00;
+background-color: #1F1C00 !important;
+color: #FFFFCF !important;
+}
+
+.iconsSet .separator { 
+border-left:1px solid #CCCCCC;
+margin: 0px 15px 0px 0px;
+height: 18px;
+float: left;
+}

@@ -1,0 +1,30 @@
+body {
+margin:0;
+padding:0;
+}
+
+
+#rename{
+position:absolute;
+top: 20px;
+left:300px;
+width:80px;
+}
+
+#test{
+width:250px;
+height:400px;
+border:solid 1px black;
+background-color:#fff;
+margin:10px;
+}
+.test2{
+background-color:#4d6;
+}
+
+.disabled{
+color:#555;
+}
+.bold{
+font-weight:bold;
+}

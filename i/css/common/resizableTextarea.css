@@ -1,0 +1,21 @@
+texarea {
+margin: 0px !important;
+}
+/*
+
+IE
+* html .textarea,
+* html .textarea2,
+* html .textarea3 {
+  display: inline;
+  zoom: 1;
+}
+*+html .textarea,
+*+html .textarea2,
+*+html .textarea3 {
+  display: inline;
+  zoom: 1;
+}
+.resize textarea { filter: alpha(opacity=50); }
+*/
+

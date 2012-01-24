@@ -1,0 +1,90 @@
+/* Clearlooks 2 */
+
+/* Reset */
+.ngnPopup, .ngnPopup div, .ngnPopup span, .ngnPopup a {vertical-align:baseline; text-align:left; position:absolute; border:0; padding:0; margin:0; background:transparent; font-family:Arial,Verdana; font-size:11px; color:#000; text-decoration:none; font-weight:normal; width:auto; height:auto; overflow:hidden; display:block}
+
+/* General */
+.ngnPopup {position:absolute; direction:ltr}
+.ngnPopup .mceWrapper {position:static}
+.mceEventBlocker {position:fixed; left:0; top:0; background:url(img/horizontal.gif) no-repeat 0 -75px; width:100%; height:100%}
+.ngnPopup .mcePlaceHolder {border:1px solid #000; background:#888; top:0; left:0; opacity:0.5; -ms-filter:'alpha(opacity=50)'; filter:alpha(opacity=50)}
+.ngnPopup_modalBlocker {position:fixed; left:0; top:0; width:100%; height:100%; background:#000; opacity:0.6; -ms-filter:'alpha(opacity=60)'; filter:alpha(opacity=60); display:none}
+
+/* Top */
+.ngnPopup .mceTop, .ngnPopup .mceTop div {top:0; width:100%; height:23px}
+.ngnPopup .mceTop .mceLeft {width:6px; background:url(img/corners.gif)}
+.ngnPopup .mceTop .mceCenter {right:6px; width:100%; height:23px; background:url(img/horizontal.gif) 12px 0; clip:rect(auto auto auto 12px)}
+.ngnPopup .mceTop .mceRight {right:0; width:6px; height:23px; background:url(img/corners.gif) -12px 0}
+.ngnPopup .mceTop span {width:100%; text-align:center; vertical-align:middle; line-height:23px; font-weight:bold}
+.ngnPopup .mceFocus .mceTop .mceLeft {background:url(img/corners.gif) -6px 0}
+.ngnPopup .mceFocus .mceTop .mceCenter {background:url(img/horizontal.gif) 0 -23px}
+.ngnPopup .mceFocus .mceTop .mceRight {background:url(img/corners.gif) -18px 0}
+.ngnPopup .mceFocus .mceTop span {color:#FFF}
+
+/* Middle */
+.ngnPopup .mceMiddle, .ngnPopup .mceMiddle div {top:0}
+.ngnPopup .mceMiddle {width:100%; height:100%; clip:rect(23px auto auto auto)}
+.ngnPopup .mceMiddle .mceLeft {left:0; width:5px; height:100%; background:url(img/vertical.gif) -5px 0}
+.ngnPopup .mceMiddle span {top:23px; left:5px; width:100%; height:100%; background:#FFF}
+.ngnPopup .mceMiddle .mceRight {right:0; width:5px; height:100%; background:url(img/vertical.gif)}
+
+/* Bottom */
+.ngnPopup .mceBottom, .ngnPopup .mceBottom div {height:6px}
+.ngnPopup .mceBottom {left:0; bottom:0; width:100%}
+.ngnPopup .mceBottom div {top:0}
+.ngnPopup .mceBottom .mceLeft {left:0; width:5px; background:url(img/corners.gif) -34px -6px}
+.ngnPopup .mceBottom .mceCenter {left:5px; width:100%; background:url(img/horizontal.gif) 0 -46px}
+.ngnPopup .mceBottom .mceRight {right:0; width:5px; background: url(img/corners.gif) -34px 0}
+.ngnPopup .mceBottom span {display:none}
+.ngnPopup .mceStatusbar .mceBottom, .ngnPopup .mceStatusbar .mceBottom div {height:23px}
+.ngnPopup .mceStatusbar .mceBottom .mceLeft {background:url(img/corners.gif) -29px 0}
+.ngnPopup .mceStatusbar .mceBottom .mceCenter {background:url(img/horizontal.gif) 0 -52px}
+.ngnPopup .mceStatusbar .mceBottom .mceRight {background:url(img/corners.gif) -24px 0}
+.ngnPopup .mceStatusbar .mceBottom span {display:block; left:7px; font-family:Arial, Verdana; font-size:11px; line-height:23px}
+
+/* Actions */
+.ngnPopup a {width:29px; height:16px; top:3px;}
+.ngnPopup .mceClose {right:6px; background:url(img/buttons.gif) -87px 0}
+.ngnPopup .mceMin {display:none; right:68px; background:url(img/buttons.gif) 0 0}
+.ngnPopup .mceMed {display:none; right:37px; background:url(img/buttons.gif) -29px 0}
+.ngnPopup .mceMax {display:none; right:37px; background:url(img/buttons.gif) -58px 0}
+.ngnPopup .mceMove {display:none;width:100%;cursor:move;background:url(img/corners.gif) no-repeat -100px -100px}
+.ngnPopup .mceMovable .mceMove {display:block}
+.ngnPopup .mceFocus .mceClose {right:6px; background:url(img/buttons.gif) -87px -16px}
+.ngnPopup .mceFocus .mceMin {right:68px; background:url(img/buttons.gif) 0 -16px}
+.ngnPopup .mceFocus .mceMed {right:37px; background:url(img/buttons.gif) -29px -16px}
+.ngnPopup .mceFocus .mceMax {right:37px; background:url(img/buttons.gif) -58px -16px}
+.ngnPopup .mceFocus .mceClose:hover {right:6px; background:url(img/buttons.gif) -87px -32px}
+.ngnPopup .mceFocus .mceClose:hover {right:6px; background:url(img/buttons.gif) -87px -32px}
+.ngnPopup .mceFocus .mceMin:hover {right:68px; background:url(img/buttons.gif) 0 -32px}
+.ngnPopup .mceFocus .mceMed:hover {right:37px; background:url(img/buttons.gif) -29px -32px}
+.ngnPopup .mceFocus .mceMax:hover {right:37px; background:url(img/buttons.gif) -58px -32px}
+
+/* Resize */
+.ngnPopup .mceResize {top:auto; left:auto; display:none; width:5px; height:5px; background:url(img/horizontal.gif) no-repeat 0 -75px}
+.ngnPopup .mceResizable .mceResize {display:block}
+.ngnPopup .mceResizable .mceMin, .ngnPopup .mceMax {display:none}
+.ngnPopup .mceMinimizable .mceMin {display:block}
+.ngnPopup .mceMaximizable .mceMax {display:block}
+.ngnPopup .mceMaximized .mceMed {display:block}
+.ngnPopup .mceMaximized .mceMax {display:none}
+.ngnPopup a.mceResizeN {top:0; left:0; width:100%; cursor:n-resize}
+.ngnPopup a.mceResizeNW {top:0; left:0; cursor:nw-resize}
+.ngnPopup a.mceResizeNE {top:0; right:0; cursor:ne-resize}
+.ngnPopup a.mceResizeW {top:0; left:0; height:100%; cursor:w-resize;}
+.ngnPopup a.mceResizeE {top:0; right:0; height:100%; cursor:e-resize}
+.ngnPopup a.mceResizeS {bottom:0; left:0; width:100%; cursor:s-resize}
+.ngnPopup a.mceResizeSW {bottom:0; left:0; cursor:sw-resize}
+.ngnPopup a.mceResizeSE {bottom:0; right:0; cursor:se-resize}
+
+/* Alert/Confirm */
+.ngnPopup .mceButton {font-weight:bold; bottom:10px; width:80px; height:30px; background:url(img/button.gif); line-height:30px; vertical-align:middle; text-align:center; outline:0}
+.ngnPopup .mceMiddle .mceIcon {left:15px; top:35px; width:32px; height:32px}
+.ngnPopup .mceAlert .mceMiddle span, .ngnPopup .mceConfirm .mceMiddle span {background:transparent;left:60px; top:35px; width:320px; height:50px; font-weight:bold; overflow:auto; white-space:normal}
+.ngnPopup a:hover {font-weight:bold;}
+.ngnPopup .mceAlert .mceMiddle, .ngnPopup .mceConfirm .mceMiddle {background:#D6D7D5}
+.ngnPopup .mceAlert .mceOk {left:50%; top:auto; margin-left: -40px}
+.ngnPopup .mceAlert .mceIcon {background:url(img/alert.gif)}
+.ngnPopup .mceConfirm .mceOk {left:50%; top:auto; margin-left: -90px}
+.ngnPopup .mceConfirm .mceCancel {left:50%; top:auto}
+.ngnPopup .mceConfirm .mceIcon {background:url(img/confirm.gif)}

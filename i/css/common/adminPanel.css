@@ -1,0 +1,37 @@
+.adminPanel {
+position: absolute;
+top: 0px;
+left: 20px;
+z-index: 999;
+width: 320px;
+}
+.adminPanelDrag {
+height: 10px;
+background: #CCCCCC;
+cursor: move;
+}
+.adminPanelBody {
+border: 1px solid #CCCCCC;
+background: #FEFFBF;
+padding: 3px 10px 7px 10px;
+text-align: left;
+}
+.adminPanelBody, .adminPanelBody td {
+font-size: 12px;
+font-family: Tahoma;
+line-height: 1.1em;
+color: #000000;
+}
+.adminPanelBody a {
+color: #1B00FF;
+}
+.adminPanelBody a:hover {
+color: #FF0000;
+}
+.adminPanelBody table {
+margin: 0px;
+}
+.adminPanelBody td {
+vertical-align: top;
+padding-right: 15px;
+}

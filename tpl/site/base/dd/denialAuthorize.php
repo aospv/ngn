@@ -1,0 +1,1 @@
+<? Tt::tpl('common/denialAuthorize', $d) ?>

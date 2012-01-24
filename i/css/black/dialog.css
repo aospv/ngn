@@ -1,0 +1,40 @@
+.mid-float-box {
+background-color: #2F2F2F;
+border-color: #7F7F7F;
+}
+.dialog-message,
+.dialog-tabs .md-title-text li.tab-selected a {
+background-color: #000000;
+}
+
+.dialog-message,
+.dialog a {
+color: #CCCCCC;
+}
+.dialog a:hover {
+color: #FFFFFF;
+}
+
+.dialog-tabs .md-title-text li.tab-selected a {
+border-bottom-color: #000000;
+}
+
+.dialog-tabs .md-title-text li,
+.dialog-tabs .md-title-text a {
+background-color: #3F3F3F;
+}
+
+.dialog-tabs .md-title-text a,
+.dialog-title {
+border-color: #7F7F7F;
+}
+
+.dialog-title {
+color: #CCCCCC;	
+background-color: #1F1F1F;
+border-color: #0F0F0F;
+}
+
+.dialog-tabs .dialog-title {
+background-color: #1F1C00;
+}

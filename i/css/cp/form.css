@@ -1,0 +1,45 @@
+.apeform .fld_staticId,
+.apeform .fld_active,
+.apeform .fld_text .label {
+display: none;
+}
+.apeform .fld_submit input {
+height: 30px;
+width: 200px;
+}
+.apeform .fld_submit td {
+border-bottom: 0px;
+}
+
+.apeform .type_wisiwig {
+position: relative;
+padding-top: 0px;
+}
+
+.apeform .type_wisiwig tr.mcefirst td {
+border-top: 0px !important;
+}
+.defaultskin table.mcelayout tr.mcelast td {
+border-bottom: 0px !important;
+}
+
+.apeform .type_wisiwig p.label {
+position: absolute;
+top: -3px;
+left: 510px;
+padding: 3px 6px;
+border: 1px solid #CCCCCC;
+border-top: none;
+background: #FFFFFF;
+border-bottom-left-radius: 4px;
+-moz-border-bottom-left-radius: 4px;
+-khtml-border-bottom-left-radius: 4px;
+-webkit-border-bottom-left-radius: 4px;
+border-bottom-right-radius: 4px;
+-moz-border-bottom-right-radius: 4px;
+-khtml-border-bottom-right-radius: 4px;
+-webkit-border-bottom-right-radius: 4px;
+}
+.apeform .type_wisiwig p.label span {
+display: none;
+}

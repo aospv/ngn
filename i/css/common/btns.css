@@ -1,0 +1,105 @@
+a.btn, a.btn2 {
+text-align: center;
+display: inline-block;
+background: #FFF;
+}
+.btn > span, .btn2 > span {
+padding: 3px 7px 0px 7px !important;
+display: block;
+}
+a.btn:hover, b.btn {
+background: #CCC;
+}
+a.btn, a.btn2 {
+height: 22px;
+}
+a.btn2 {
+text-decoration: none;
+}
+a.btn2:hover {
+text-decoration: underline;
+}
+a.btn.loading {
+background-image: url(/i/img/btn-loader.gif) !important;
+background-position: center center !important;
+background-repeat: no-repeat !important;
+}
+.iconsSet a.loading i, a.loading.iconsSet i, a.loading.iconBtn i {
+background: url(/i/img/black/loader.gif) no-repeat 0px 0px !important;
+}
+.iconsSet a.loading, a.loading.iconsSet, a.loading.iconBtn {
+color: #CCCCCC !important;
+}
+.apeform input[type=submit] {
+width: 220px;
+cursor: pointer;
+vertical-align: center;
+}
+
+
+.btn2, .btnSubmit {
+background: #555555;
+}
+.btn2 {
+border: 1px solid #FFFFFF;
+}
+.btn2 span {
+display: block;
+}
+.btn2, .btnSubmit {
+color: #FFFFFF;
+}
+.btnSubmit span {
+font-weight: bold;
+}
+a.btnSubmitLarge {
+width: 200px;
+height: 25px;
+text-decoration: none;
+margin-top: 5px;
+}
+a.btnSubmitLarge span {
+display: block;
+
+}
+
+a.btn.new {
+border-color: #72BB00;
+background: #89DF00;
+}
+a:hover.btn.new {
+border-color: #89DF00;
+background: #9DFF00;
+}
+
+.hHandler {
+border: 1px solid;
+}
+.vHandler {
+border-left: 1px solid;
+border-right: 1px solid;
+}
+
+.hHandler, .vHandler {
+border-color: #CCCAB1;
+}
+
+.hHandler:hover, .vHandler:hover {
+border-color: #B2B092;
+}
+.hHandler {
+box-sizing: border-box;
+cursor: s-resize;
+display: block;
+height: 11px;
+overflow: hidden;
+clear: both;
+width: 100%;
+background: #F1F0DF url(../../../i/img/handler/hHandler.gif) no-repeat 50% 2px;
+}
+.vHandler {
+cursor: w-resize;
+background: #F1F0DF url(../../../i/img/handler/vHandler.gif) no-repeat center center;
+width: 7px;
+height: 100px;
+}

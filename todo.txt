@@ -1,0 +1,27 @@
+﻿themes:
+- просмотр темы во фрейме
+
+
+
+=====================================
+- uploadNgn
+- updateIndex
+- aliases with www
+
+- http://borskoesteklo.ru/god/pages/34/editContent
+
+- скачка удаленных файлов (по расписанию?)
+
+
+
+dying:
+
+- кнопка добавления
+
+- файл fancy не загружается
+- размер видео
+
+
+
+
+

@@ -1,0 +1,56 @@
+@CHARSET "UTF-8";
+
+a:focus {
+color: #FFFFFF;
+}
+.thumb a, a.thumb, .avatar a {
+border-color: #555555;
+}
+.thumb a:hover, a:hover.thumb, .avatar a:hover {
+border-color: #CCCCCC;
+}
+
+/*
+.items .editBlock i {
+background-color: #000000 !important;
+}
+*/
+.profileInfo a:hover.btn2 {
+background-color: #999999;
+}
+.items .item,
+.apeform .element,
+#calendarHeader,
+.box li a {
+border-color: #333333;
+}
+#menu li ul {
+background-color: #000000;
+}
+#menu li ul a {
+color: #CCCCCC;
+}
+
+/*
+.info {
+background-color: #171E3F;
+border-color: #2F3D7F;
+color: #4D64CF;
+}
+*/
+/*
+.apeform .error {
+color: #FF7F7F;
+}
+*/
+
+.dgray a:hover {
+color: #CCCCCC;
+}
+
+.fu-list .file .file-progress-inner {
+background-image: url(../../../i/img/fancy/bar-black.gif);
+}
+.fu-list .file .file-progress {
+background-image: url(../../../i/img/fancy/progress-black.gif);
+}

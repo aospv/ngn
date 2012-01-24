@@ -1,0 +1,33 @@
+.clear {
+clear: both;
+}
+.clear2 {
+clear: both;
+height: 1px;
+}
+.float-left {
+float: left;
+}
+.clearfix:after {
+content: ".";
+display: block;
+height: 0;
+clear: both;
+visibility: hidden;
+}
+.heightFix {
+height: 1px;
+}
+.pseudoLink {
+text-decoration: none;
+border-bottom: 1px dotted;
+}
+.iconsSet .pseudoLink {
+border-bottom: none;
+}
+.iconsSet .pseudoLink b, .iconsSet .pseudoLink span {
+border-bottom: 1px dotted;
+}
+.data {
+display:none;
+}

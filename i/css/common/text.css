@@ -1,0 +1,85 @@
+/*
+Форматирование текста и элементов, редактируемых с помощью визуальноьго редактора
+*/
+
+.ifLink {
+background: url(/i/img/file.gif) no-repeat 0 3px;
+padding-left: 15px;
+}
+
+
+.mceContentBody caption,
+.contentBody caption {
+text-align: center;
+background: none;
+padding-bottom: 5px;
+}
+
+.mceContentBody table,
+.contentBody table {
+border-top: 1px solid #CCCCCC;
+border-left: 1px solid #CCCCCC;
+}
+
+.mceContentBody table.fullwidth,
+.contentBody table.fullwidth {
+width: 100%;
+}
+
+.contentBody table.noborders,
+.contentBody table.noborders td,
+.contentBody table.noborders th {
+border: 0px;
+}
+
+.mceContentBody table.noborders,
+.mceContentBody table.noborders td,
+.mceContentBody table.noborders th {
+border-color: #FF0000;
+border-style: dashed;
+}
+
+
+.mceContentBody table td,
+.contentBody table td,
+.mceContentBody table th,
+.contentBody table th {
+border-bottom: 1px solid #CCCCCC;
+border-right: 1px solid #CCCCCC;
+padding: 2px 5px 2px 5px;
+vertical-align: top;
+}
+.mceContentBody table td p
+.contentBody table td p {
+margin: 0px;
+}
+
+.mceContentBody table thead td,
+.contentBody table thead td {
+background-color: #F2F2F2;
+text-align: center;
+}
+
+.contentBody img, .mceContentBody img {
+}
+.contentBody .f_image a.thumb {
+margin-right: 12px;
+}
+
+.contentBody ol, .mceContentBody ol, .contentBody ul, .mceContentBody ul {
+margin-bottom: 10px;
+}
+
+.contentBody blockquote, .mceContentBody blockquote {
+border-style: solid;
+border-width: 1px;
+margin: 10px;
+padding: 8px 3px 0px 10px;
+}
+
+.left { text-align: left; }
+.right { text-align: right; }
+.center { text-align: center; }
+img.left { float: left; margin-right: 10px; display: block; }
+img.right { float: right; margin-left: 10px; display: block; }
+

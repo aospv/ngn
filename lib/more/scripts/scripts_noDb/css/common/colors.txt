@@ -1,0 +1,26 @@
+bg            5
+text          4
+link          1
+gray          2
+gray hover    3
+dgray         3
+dgray hover   4
+btn1 bg       4
+btn1 text     5
+btn2 bg       7
+btn2 text     5
+menu link     1
+menu bg       5
+submenu link  4
+submenu bg    3
+path bg       2
+path link     4
+title bg      7
+title text    5
+hr            2
+pNums bg      4
+pNums text    5
+box bg        2
+box text      4
+box title     4
+h2 link       7

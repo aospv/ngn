@@ -1,0 +1,21 @@
+.oneItem .f_buyBtn {
+float: right;
+}
+.oneItem .f_image img {
+max-width: 400px;
+}
+.oneItem .hgrp_imgGroup {
+width: 110px;
+float: left;
+}
+.oneItem .hgrp_imgGroup img {
+width: 100px;
+}
+.hgrp_imgGroup .thumb {
+margin-bottom: 10px;
+}
+.hgrp_extraInfo {
+float: left;
+width: 210px;
+margin-left: 8px;
+}

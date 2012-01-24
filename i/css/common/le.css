@@ -1,0 +1,11 @@
+.leHandler {
+width: 10px;
+height: 10px;
+background: #FFFFFF;
+border: 1px solid #000000;
+cursor: move;
+z-index: 999;
+}
+.leHandler:hover {
+border: 1px solid #FF0000;
+}

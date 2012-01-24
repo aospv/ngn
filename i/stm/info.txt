@@ -1,0 +1,11 @@
+﻿/css                                  общие исполняемые файлы стилей
+   /colors.css.php                    цвета и настройки шрифтов
+   /menu                              cтили для главного меню
+       /common.css                    общие стили для всех видов главного меню
+       /dropdown.css                  стили для выпадающих вниз меню
+       /rounded.css                   
+
+
+список полей для использования в теме:
+- StmThemeStructure
+- i/stm/design/siteSet/fullHeader/structure.php

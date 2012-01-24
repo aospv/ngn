@@ -1,0 +1,73 @@
+.hMenu ul {
+margin: 0px 0px 0px 0px;
+line-height: 1;
+}
+.hMenu li {
+list-style: none;
+/*border-left: 1px solid #333333;*/
+float: left;
+display: block;
+position: relative;
+margin-bottom: 0;
+}
+.hMenu li li {
+list-style: none;
+float: none;
+border-bottom: 1px solid #333333;
+font-size: 12px;
+}
+.hMenu li ul {
+z-index: 999;
+left: 0px;
+position: absolute;
+display: none;/*----------------- for debug dropdowns ------------------------<<<<<<*/
+white-space: nowrap;
+}
+.hMenu li:hover ul, .hMenu li.over ul {
+display: block;
+}
+.hMenu li small {
+display: block;
+font-size: 10px;
+height: 16px;
+position: absolute;
+top: 7px;
+left: 25px;
+color: #777777;
+}
+.hMenu a {
+display: block;
+text-decoration: none;
+outline: none;
+}
+.hMenu a #span {
+display: block;
+}
+.hMenu li li a {
+text-decoration: none;
+}
+.hMenu a:hover, .hMenu a.active, .hMenu a.current {
+text-decoration: underline;
+}
+* html .hMenu li li { float: left; }
+* html .hMenu li li a { height: 1%; }
+
+.hMenu b a {
+text-decoration: underline;
+font-weight: normal;
+}
+
+.submenuBg {
+position: absolute;
+}
+.submenuBgP {
+width: 50%;
+float: left;
+}
+.submenuBgP.l, .submenuBgP.r {
+height: 100%;
+}
+.submenuBgP.tl, .submenuBgP.tr, .submenuBgP.bl, .submenuBgP.br {
+height: 50%;
+}
+

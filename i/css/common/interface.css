@@ -1,0 +1,63 @@
+#globalLoader {
+visibility: hidden;
+width: 100%;
+height: 5px;
+background: url(/i/img/loader-horizontal.gif);
+border-bottom: 1px solid #555555;
+position: absolute;
+z-index: 999;
+}
+
+.hLoader {
+background: url(/i/img/loader-horizontal.gif) repeat-x 0px -8px;
+}
+
+.selectTrigger {
+cursor: default;
+border: 1px solid #CCCCCC;
+background-color: #FFFFFF;
+}
+.selectTrigger:hover .selectTriggerBtn {
+background-color: #FFEB9E;
+}
+.selectTriggerTextWrapper {
+float: left;
+}
+.selectTriggerText {
+padding: 3px 2px 2px 2px;
+white-space: nowrap;
+overflow: hidden;
+}
+.selectTriggerBtn {
+float: right;
+width: 16px;
+background: url(/i/img/black/arrow-down.png) no-repeat center right;
+border-left: 1px solid #CCCCCC;
+}
+.selectTriggerBtn {
+
+}
+.selectWrapper {
+border-top: 1px solid #CCCCCC;
+border-left: 1px solid #CCCCCC;
+border-right: 1px solid #CCCCCC;
+position: absolute;
+background: #FFFFFF;
+}
+.selectOption {
+padding: 2px;
+cursor: default;
+border-bottom: 1px solid #CCCCCC;
+}
+.selectOption:hover {
+background: #FFEB9E;
+}
+
+.nonActive {
+opacity: 0.4;
+/*progid: DXImageTransform.Microsoft.Alpha(opacity=40);*/
+filter: progid:DXImageTransform.Microsoft.Alpha(opacity=40);
+}
+a.nonActive {
+color: #666666 !important;
+}

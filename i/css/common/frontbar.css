@@ -1,0 +1,7 @@
+#frontbar {
+height: 28px;
+background: url(../../../i/img/frontbar/bg.png);
+}
+#frontbar .container {
+padding-top: 5px;
+}

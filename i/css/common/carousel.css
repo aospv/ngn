@@ -1,0 +1,12 @@
+div.carousel {
+overflow: hidden;
+width: 397px;
+border-top: 0;
+height: 81px;
+margin-bottom: 20px;
+float: left;
+}
+
+div.carousel div.inner {
+width: 792px;
+}

@@ -1,0 +1,1 @@
+<?= Html::select($d['name'], $d['options']); ?>

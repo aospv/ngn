@@ -1,0 +1,118 @@
+/*
+.pageBlocks .fadeout {
+position: absolute;
+width: 100%;
+height: 20px;
+background: url(../../i/img/portal/bottom-fadeout.png) repeat-x;
+}
+*/
+
+.am_pageBlocks .am_pageBlocks .pageBlocks {
+width: 960px;
+}
+
+.am_pageBlocks .am_pageBlocks .pageBlocks a {
+color: #999999;
+}
+.am_pageBlocks .am_pageBlocks .pageBlocks a:hover {
+color: #000000;
+}
+
+
+.am_pageBlocks .pageBlocks .block {
+cursor: move;
+background-color: #FFFFFF;
+margin-bottom: 1px;
+}
+.am_pageBlocks .pageBlocks .block.pbt_duplicate, .pbt_duplicate {
+background-color: #FFEE94;
+}
+
+.am_pageBlocks .pageBlocks .block,
+.am_pageBlocks .legend .block {
+border: 1px solid #CCCCCC;
+}
+.am_pageBlocks .pageBlocks .block.global,
+.am_pageBlocks .legend .block.global {
+border-color: #ED00FF;
+}
+.am_pageBlocks .pageBlocks .col {
+margin-right: 0px;
+padding-right: 0px;
+}
+.move {
+border-color: #FF0000;
+}
+
+.am_pageBlocks .pageBlocks .col {
+float: left;
+padding-right: 2px;
+border-right: 2px solid #EFBF00;
+}
+.am_pageBlocks .pageBlocks .col .blocksBody {
+width: 100%;
+min-height: 500px;
+}
+
+.am_pageBlocks .pageBlocks .col .blocksBody,
+.am_pageBlocks .legend .col .blocksBody {
+background: url('../../../i/img/black/drag-bg.gif');
+}
+
+.am_pageBlocks .legend .col {
+width: 100%;
+float: none;
+}
+
+.am_pageBlocks .pageBlocks .col.blocksNotAllowed .blocksBody {
+background: none;
+}
+.am_pageBlocks .pageBlocks .col > div.iconsSet a {
+border: 1px solid #CCCCCC;
+border-top: 1px solid #DFDFDF;
+border-left: 1px solid #DFDFDF;
+background: #FFFFFF;
+padding: 2px 5px 2px 2px;
+margin: 5px;
+text-decoration: none;
+}
+.am_pageBlocks .pageBlocks .col > div.iconsSet a:hover {
+background: #FFEE8F;
+border: 1px solid #DFB700;
+border-top: 1px solid #FFD100;
+border-left: 1px solid #FFD100;
+}
+
+.am_pageBlocks .pageBlocks .block {
+position: relative;
+}
+.am_pageBlocks .pageBlocks .editBlock {
+position: absolute;
+padding: 5px;
+margin: 0px;
+z-index: 100;
+}
+.am_pageBlocks .pageBlocks .editBlock a {
+background: #FFFFFF;
+border-color: #CCCCCC;
+}
+.am_pageBlocks .pageBlocks .editBlock a:hover {
+border-color: #888888;
+}
+
+
+.am_pageBlocks .legend {
+float: left;
+width: 150px;
+padding: 10px 0px 0px 10px;
+}
+.am_pageBlocks .legend .block,
+.am_pageBlocks .legend .col .blocksBody {
+padding: 5px;
+margin-bottom: 5px;
+}
+.am_pageBlocks .legend .block p {
+margin-bottom: 3px;
+}
+
+

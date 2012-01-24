@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="koi8-r"?>
+<rss version="2.0" xmlns:yandex="http://news.yandex.ru">
+<channel>
+<title>{h_title}</title> 
+<description>{h_description}</description> 
+<copyright>NEWS.NN.RU{h_copyright}</copyright>
+<link>{h_link}</link> 
+<image> 
+	<title>{h_img_alt}</title> 
+	<url>{h_img_url}</url> 
+	<link>{h_img_link}</link> 
+	<width>{h_img_w}</width> 
+	<height>{h_img_h}</height> 
+</image>
+																																												    

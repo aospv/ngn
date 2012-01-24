@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+
+#calendar table {
+margin-bottom: 0px;
+width: 100%;
+}
+#calendarHeader {
+text-align: center;
+margin-bottom: 7px;
+}
+#calendarTable td, #calendarTable th {
+padding: 0px;
+}
+
+#calendarBtns .next {
+text-align: right;
+}
+#calendar {
+border-top: 1px solid #CCCCCC;
+padding-top: 5px;
+margin-top: 15px;
+}

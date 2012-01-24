@@ -1,0 +1,41 @@
+#kwick a {
+text-decoration: none;
+}
+#kwick a:hover h2 {
+text-decoration: underline;
+}
+
+#kwick .text {
+text-shadow: 1px 2px 1px #000;
+}
+
+#kwick a .cont {
+padding-top: 7px;
+padding-left: 8px;
+display: block;
+}
+#kwick li {
+margin: 0px;
+}
+#kwick {
+
+margin-bottom: 3px;
+}
+#kwick .kwicks {
+height: 125px;
+list-style-type: none;
+margin: 0;
+padding: 0;
+}
+#kwick li {
+list-style: none;
+float:left;
+}
+#kwick .kwick {
+display: block;
+cursor: pointer;
+overflow: hidden;
+}
+#kwick .kwick {
+white-space: nowrap;
+}
