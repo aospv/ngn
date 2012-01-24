@@ -6,12 +6,6 @@ padding-top: 5px;
 /*margin-bottom: 5px;*/
 border-bottom: 1px solid #CCCCCC;
 }
-.items .nonActive {
-color: #CCCCCC !important;
-}
-.items .nonActive a {
-color: #CCCCCC !important;
-}
 .items .item h2, .items .item h3 {
 margin-top: 0px;
 margin-bottom: 5px;

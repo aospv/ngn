@@ -1,8 +1,5 @@
 <?php
 
-$this->d['createBtnTitle'] = 'Подать заявку на дружбу';
-
-
 if ($this->d['action'] == 'new') {
   $this->d['pageTitle'] = 'Подача заявки на дружбу';
 }
