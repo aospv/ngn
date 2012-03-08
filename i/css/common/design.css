@@ -634,17 +634,72 @@ padding: 10px;
 display: none;
 }
 .sliceAbsolute.loader {
-background-position: bottom right;
+background: url(/i/img/loader-horizontal.gif) repeat-x 0px -10px;
 }
 .sliceAbsolute {
 z-index: 50;
 position: absolute;
-width: 400px;
+min-width: 200px;
+min-height: 23px;
+}
+.sliceAbsolute.editable {
+border: 1px solid rgba(255, 255, 255, 0.5);
+}
+.sliceAbsolute.allowDrag {
+cursor: move;
 }
 .sliceAbsolute button img {
 display: inline-block;
 padding-top: 3px;
 }
+
+
+.sliceAbsolute .editBlock {
+width: 22px;
+position: absolute;
+visibility: hidden;
+margin: 3px 0px 0px 0px;
+}
+.sliceAbsolute.editable:hover {
+border-color: rgba(255, 255, 255, 1);
+}
+.sliceAbsolute:hover .editBlock {
+visibility: visible;
+}
+
+
+.pageBlocks .block {
+position: relative;
+}
+.pageBlocks .block .dragBox, .ddItems .item .dragBox {
+position: absolute;
+width: 23px;
+height: 23px;
+top: 5px;
+border-radius: 5px;
+}
+.pageBlocks .block .dragBox {
+visibility: hidden;
+}
+.pageBlocks .block .editBlock {
+margin: 5px 5px 0px 0px;
+/*width: 40px;*/
+padding: 3px 0px 3px 3px;
+background: #F2F2F2;
+border: 1px solid #CECECE;
+border-radius: 5px;
+position: absolute;
+visibility: hidden;
+}
+.pageBlocks .block .editBlock a {
+background: #FFF;
+}
+.pageBlocks .block:hover .editBlock,
+.pageBlocks .block:hover .dragBox,
+.pageBlocks .block.move .dragBox {
+visibility: visible;
+}
+
 
 
 
@@ -757,4 +812,11 @@ border-color: #CCCCCC;
 }
 .items .smIcons.bordered a:hover {
 border-color: #555555;
+}
+
+.loginForm .textFields input {
+width: 100%;
+}
+.loginForm .textFields td:first-child {
+padding-right: 10px;
 }

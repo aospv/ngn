@@ -4,3 +4,4 @@
 <?= SFLM::getCssTags('admin') ?>
 <script language="JavaScript" src="./i/js/tiny_mce/tiny_mce.js"></script>
 <?= SFLM::getJsTags('admin') ?>
+<?= AdminModule::sf($d['adminModule']) ?>

@@ -154,7 +154,7 @@ class CtrlAdminSubscribe extends CtrlAdmin {
       $this->redirect(Tt::getPath(2).'/emails/'.$listId);
       return;
     }
-    $this->setPageTitle("Добавление ящика");
+    $this->setPageTitle("Добавление e-mail'а");
     $this->d['form'] = $oF->html();
     $this->d['tpl'] = 'subscribe/new';
   }
@@ -166,7 +166,7 @@ class CtrlAdminSubscribe extends CtrlAdmin {
     list($this->d['pagination']['pNums'], $limit) = Pagination::get('subs_emails');
     $this->d['emails'] = db()->query(
       "SELECT * FROM subs_emails WHERE listId=?d LIMIT $limit", $listId);
-    $this->setPageTitle('Ящики');
+    $this->setPageTitle("E-mail'ы");
     $this->d['tpl'] = 'subscribe/emails';
   }
   
@@ -202,7 +202,7 @@ class CtrlAdminSubscribe extends CtrlAdmin {
     $listId = $this->getNumParam(3);
     $oF = new Form(new Fields(array(
       array(
-        'title' => "Ящики через запятую",
+        'title' => "E-mail'ы через запятую",
         'name' => 'emails',
         'type' => 'textarea'
       ),
@@ -213,7 +213,7 @@ class CtrlAdminSubscribe extends CtrlAdmin {
     }
     $this->d['form'] = $oF->html();
     $this->d['tpl'] = 'subscribe/new';
-    $this->setPageTitle("Импортировать ящики");
+    $this->setPageTitle("Импортировать e-mail'ы");
   }
   
   public function action_send() {

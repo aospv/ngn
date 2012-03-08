@@ -918,19 +918,6 @@ width: 110px;
 border-bottom: 1px solid #EFC400; 
 background-color: #FFF9DF;
 }
-.dragBox {
-width: 15px;
-height: 21px;
-background: url(../../../i/img/black/drag-bg.gif);
-float: left;
-border: 1px solid #CCCCCC;
-margin-left: 5px;
-cursor: move;
-display: block;
-}
-.dragBox.over {
-background-color: #FFD515;
-}
 .listEdit .smIcons {
 margin-left: 5px;
 }

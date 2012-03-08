@@ -13,7 +13,7 @@ class CtrlAdminPageBlocks extends CtrlAdminPagesBase {
   protected $globalBlocksAdded;
   
   protected function init() {
-    parent::init();
+  	parent::init();    
     $this->d['globalBlocksAdded'] = 
       PageBlockCore::globalBlocksDuplicatesExists($this->pageId);
   }
@@ -86,12 +86,6 @@ class CtrlAdminPageBlocks extends CtrlAdminPagesBase {
         return;
       }
       return $oF;
-      /*
-      $query = (($hiddenParams = $oPBS->getHiddenParams()) != null) ?
-        '?'.http_build_query($hiddenParams) : '';
-      $this->redirect(Tt::getPath(3).'/json_newBlockStep3/'.
-        $this->getParam(4).'/'.$this->getParam(5).$query);
-      */
     }
   }
   
@@ -119,17 +113,21 @@ class CtrlAdminPageBlocks extends CtrlAdminPagesBase {
   }
   
   public function action_ajax_updateBlocks() {
-    foreach ($this->oReq->rq('cols') as $col) {
-      foreach ($col as $v) {
+  	//die2($this->oReq->rq('cols'));
+    //foreach ($this->oReq->rq('cols') as $col) {
+    foreach ($this->oReq->rq('cols') as $cols) {
+      foreach ($cols as $v) {
         PageBlockCore::updateColN($v['id'], $v['colN'], $this->page['id']);
+        //prr($v);
         $ids[] = $v['id'];
       }
     }
+    //die2($ids);
     DbShift::items($ids, 'pageBlocks');
   }
   
   public function action_json_editBlock() {
-    $id = $this->oReq->rq('id');
+    $id = $this->getParam(4);
     $oPBM = DbModelCore::get('pageBlocks', $id);
     $oPBS = PageBlockCore::getStructure($oPBM['type']);
     $oPBS->setPreParamsBySettings($oPBM['settings']);
@@ -137,6 +135,12 @@ class CtrlAdminPageBlocks extends CtrlAdminPagesBase {
     if ($oMM->requestUpdate($id)) return;
     $this->json['title'] = 'Редактирование блока «'.PageBlockCore::getTitle($oPBM['type']).'»';
     return $oMM->oForm;
+  }
+  
+  public function action_ajax_getBlock() {
+    $r = PageBlockCore::getBlockHtmlData(
+      DbModelCore::get('pageBlocks', $this->getParam(4)));
+    $this->ajaxOutput = $r['html'];
   }
   
   public function action_createGlobalBlocksDuplicates() {

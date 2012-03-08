@@ -19,6 +19,8 @@
 
   <!-- Site Set CSS -->
   <?= SFLM::getCssTags(SITE_SET) ?>
+  <!-- Dynamic CSS -->
+  
   <!-- Tiny MCE JS -->
   <script type="text/javascript" src="/i/js/tiny_mce/tiny_mce.js"></script>
   <!-- Site Set JS -->
@@ -27,6 +29,7 @@
   <?= StmCore::getTags() ?>
   <!-- Site Module CSS & JS -->
   <?
+  //die2($d['page']['module']);
   if (!empty($d['page']['module'])) {
     print NgnCache::func(function() use ($d) {
       return PageModuleCore::sf('site', $d['page']['module']);
@@ -37,9 +40,9 @@
   <script type="text/javascript">
   <? Tt::tpl('common/js', $d, true) ?>
   </script>
-  <? //if (Config::getVarVar('stat', 'enable')) Tt::tpl('stat'); ?>
   
   <? if ($d['user']) Tt::tpl('common/userThemeCss', $d['user']) ?>
   <? if (!empty($d['extraHeadTags'])) print $d['extraHeadTags'] ?>
   
+  <?= SFLM::getCssTags(SFLM::DYNAMIC_LIB_NAME); ?>
 </head>

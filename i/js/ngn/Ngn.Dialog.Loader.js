@@ -33,6 +33,9 @@ Ngn.Dialog.Loader.Simple = new Class({
   Extends: Ngn.Dialog.Loader,
 
   options: {
+    //cancel: false,
+    titleClose: false,
+    footer: false,
     messageBoxClass: 'dummy',
     titleBarClass: 'dialog-loader-title',
     titleTextClass: 'dummy',

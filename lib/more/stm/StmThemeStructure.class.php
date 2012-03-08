@@ -49,6 +49,10 @@ class StmThemeStructure extends Options2 {
       name: y
       title: Расстояние слева от экрана
       type: pixels
+    -
+      name: allowAdmin
+      title: Доступен для админа
+      type: bool
 # ====================================
 -
   title: Общие настройки
@@ -329,6 +333,10 @@ class StmThemeStructure extends Options2 {
   p: margin-bottom
   type: pixels
 -
+  title: Логотип
+  name: logo
+  type: image
+-
   title: Использовать в качетсве отступа от меню ширину логотипа
   name: useLogoWidthAsMenuMargin
   type: bool
@@ -336,6 +344,20 @@ class StmThemeStructure extends Options2 {
   title: Отступ справа от логотипа
   name: marginLeft
   type: pixels
+-
+  title: Отступ сверху от логотипа
+  name: logoTopMargin
+  type: pixels
+-
+  title: Отступ снизу от верхней границы "блока страницы"
+  s: ".pageLayout"
+  p: padding-top
+  type: pixels
+-
+  title: Цвет фона "блока страницы"
+  s: ".pageLayout"
+  p: background-color
+  type: color
 -
   title: Отступ снизу от заголовка
   s: "#pageTitle"

@@ -97,12 +97,12 @@ class ClassCore {
       if (preg_match('/'.$classPrefix.'(.*)/', $class, $m)) {
         if (!self::staticPropertyExists($class, $prop)) continue;
         if ($orderProp) {
-          $properties[$m[1]] = array(
+          $properties[lcfirst($m[1])] = array(
             $prop => self::getStaticProperty($class, $prop),
             $orderProp => self::getStaticProperty($class, $orderProp)
           );
         } else {
-          $properties[$m[1]] = self::getStaticProperty($class, $prop);
+          $properties[lcfirst($m[1])] = self::getStaticProperty($class, $prop);
         }
       }
     }

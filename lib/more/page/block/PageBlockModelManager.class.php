@@ -4,9 +4,12 @@ class PageBlockModelManager extends DbModelManager {
 
   protected $createParams;
 
-  public function __construct(PageBlockStructureAbstract $oPBS, array $createParams = array()) {
+  public function __construct(PbsAbstract $oPBS, array $createParams = array()) {
     parent::__construct('pageBlocks', new Form(new Fields($oPBS->getFields())));
     $this->createParams = $createParams;
+    if (($s = $oPBS->getImageSizes()) !== false)
+      $this->imageSizes = array_merge($this->imageSizes, $s);
+    $this->smResizeType = 'resample';
   }
 
   public function updateField($id, $fieldName, $value) {
@@ -18,7 +21,7 @@ class PageBlockModelManager extends DbModelManager {
   protected function _create() {
     $d = $this->createParams;
     $d['settings'] = $this->data;
-    // Костыль для блоков структуры PageBlockStructurePage
+    // Костыль для блоков структуры PbsPage
     if (!empty($d['settings']['pageId'])) $d['pageId'] = $d['settings']['pageId'];
     $this->data = $d;
     return parent::_create();

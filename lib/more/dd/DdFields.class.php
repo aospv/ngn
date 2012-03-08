@@ -15,32 +15,35 @@ class DdFields extends Fields {
     parent::__construct(array(), $options);
   }
   
+  protected $initFields = array();
+  
   protected function init() {
-    $fields = db()->select(
-      "SELECT * FROM dd_fields WHERE strName=?
+    $this->initFields = db()->select(
+      "SELECT *, name AS ARRAY_KEY FROM dd_fields WHERE strName=?
       ORDER BY oid", $this->strName);
-    $fields[] = array(
+    //die2($this->initFields);
+    $this->initFields[] = array(
       'title' => 'Дата создания',
       'name' => 'dateCreate',
       'type' => 'datetime',
       'system' => true,
       'defaultDisallow' => false
     );
-    $fields[] = array(
+    $this->initFields[] = array(
       'title' => 'Дата изменения',
       'name' => 'dateUpdate',
       'type' => 'datetime',
       'system' => true,
       'defaultDisallow' => false
     );
-    $fields[] = array(
+    $this->initFields[] = array(
       'title' => 'Дата публикации',
       'name' => 'datePublish',
       'type' => 'datetime',
       'system' => true,
       'defaultDisallow' => false
     );
-    $fields[] = array(
+    $this->initFields[] = array(
       'title' => 'Дата последнего комментария',
       'name' => 'commentsUpdate',
       'type' => 'datetime',
@@ -48,16 +51,20 @@ class DdFields extends Fields {
       'defaultDisallow' => false
     );
     // ---- filters -----
+    $fields = $this->initFields;
     if (!$this->options['getSystem'])
       $fields = Arr::filter_by_value($fields, 'system', 0);
     if (!$this->options['getDisallowed'])
       $fields = Arr::filter_by_value($fields, 'defaultDisallow', 0);
-    foreach ($fields as &$v) $v['dd'] = true;
+    foreach ($fields as &$v) {
+      $v['dd'] = true;
+      $v = Arr::filter_empties2($v);
+    }
     $this->setFields($fields);
   }
 
   public function exists($name) {
-    return isset($this->fields[$name]);
+    return isset($this->initFields[$name]);
   }
   
   public function getTagFields() {
@@ -86,3 +93,6 @@ class DdFields extends Fields {
 
 
 }
+
+
+

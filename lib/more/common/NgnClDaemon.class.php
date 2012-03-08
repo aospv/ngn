@@ -13,8 +13,8 @@ abstract class NgnClDaemon extends Options2 {
     'write-initd' => false,
   );
   
-  public function __construct(array $argv) {
-    parent::__construct();
+  public function __construct(array $argv, array $options = array()) {
+    parent::__construct($options);
     $this->argv = $argv;
     NgnCl::parseArgv($this->argv, $this->options);
     if ($this->options['write-initd'])
@@ -34,9 +34,12 @@ abstract class NgnClDaemon extends Options2 {
     ));
     if (!$this->options['no-daemon']) System_Daemon::start();
     $this->writeInitD();
+    $this->init();
     $this->start();
     System_Daemon::stop();
   }
+  
+  protected function init() {}
   
   protected function help() {
     if ($this->options['help']) {
@@ -63,12 +66,21 @@ abstract class NgnClDaemon extends Options2 {
     }
   }
   
+  /**
+   * Номер итерации
+   * @var integer
+   */
+  protected $n;
+  
+  protected $startTime;
+  
   protected function start() {
     $runningOkay = true;
-    $cnt = 1;
+    $this->n = 1;
+    $this->startTime = time();
     while (!System_Daemon::isDying() and $runningOkay) {
       $mode = '"'.(System_Daemon::isInBackground() ? '' : 'non-' ).'daemon" mode';
-      System_Daemon::info('{appName} running in %s %s/*', $mode, $cnt);
+      System_Daemon::info('{appName} running in %s %s/*', $mode, $this->n);
       // $runningOkay = parseLog('vsftpd');
       //if (!$runningOkay) {
       //  System_Daemon::err('parseLog() produced an error, '.
@@ -78,7 +90,7 @@ abstract class NgnClDaemon extends Options2 {
       $this->iteration();
       System_Daemon::iterate(2);
       if ($this->options['iterTime']) sleep($this->options['iterTime']);
-      $cnt++;
+      $this->n++;
     }
   }
   

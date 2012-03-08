@@ -12,7 +12,7 @@ class CtrlPageProfiles extends CtrlPageDdItems {
     parent::initSettings();
     $this->myProfilePage = DbModelCore::get('pages', $this->page['settings']['myProfileId']);
     //$this->page['strName'] = $this->myProfilePage['strName'];
-    $this->page->r['strName'] = $this->strName = $this->settings['strName'] = $this->myProfilePage['strName'];
+    $this->page->r['strName'] = $this->strName = $this->page['settings']['strName'] = $this->myProfilePage['strName'];
   }
   */
   

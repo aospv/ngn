@@ -1,0 +1,67 @@
+#productsTable {
+margin-bottom: 0px;
+}
+#productsTable table {
+margin-bottom: 0px;
+}
+#productsTable .products td {
+padding-bottom: 5px;
+}
+#productsTable hr {
+margin: 0px;
+background: #555555;
+}
+#productsTable table td {
+padding: 0px 20px 0px 0px;
+}
+#productsTable td, #productsTable th {
+padding-right: 10px;
+padding-bottom: 7px;
+}
+#productsTable .thumb {
+margin-right: 0px;
+}
+#productsTable .thumb img {
+height: 30px;
+}
+#productsTable .totalTitle {
+text-align: right;
+}
+#productsTable .totalRow td {
+border-top: 1px solid #CCCCCC;
+}
+#productsTable .cnt input.fld {
+width: 40px;
+height: 15px;
+vertical-align: middle;
+border-left: none;
+border-right: none;
+margin: 0px;
+}
+#productsTable .btnInput {
+width: 15px;
+height: 19px;
+padding: 0px;
+border: 1px solid #CCC;
+vertical-align: middle;
+display: inline-block;
+background: #FFF no-repeat center center;
+}
+#productsTable .btnInput:hover {
+border-color: #555;
+background-color: #CCC;
+}
+#productsTable .btnInput.prev {
+background-image: url(/i/img/black/left.gif);
+}
+#productsTable .btnInput.next {
+background-image: url(/i/img/black/right.gif);
+}
+#productsTable .total td {
+border-top: 1px solid #EFEFEF;
+padding-top: 5px;
+text-align: right;
+}
+#productsTable .total .priceV {
+text-decoration: underline;
+}

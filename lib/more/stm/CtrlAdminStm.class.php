@@ -45,22 +45,21 @@ class CtrlAdminStm extends CtrlAdmin {
   );
   
   public function action_default() {
-    $this->redirect(Tt::getPath(2).'/editTheme/'.
-      implode('/', explode(':', Config::getVarVar('theme', 'theme'))));
+  	if (($p = StmCore::getCurrentThemeParams()) == false) {
+  	  return;
+  	}
+  	$this->redirect(Tt::getPath(2).'/editTheme/'.implode('/', $p));
   }
   
   public function action_setTheme() {
     SiteConfig::updateSubVar('theme', 'theme',
-      $this->params[3].':'.$this->params[5].':'.$this->params[6]
-    );
+      $this->params[3].':'.$this->params[5].':'.$this->params[6]);
     $this->redirect(Tt::getPath(2));
   }
   
-  public function action_changeTheme() {
-    $oF = new FormThemeUpdate();
-    $this->d['form'] = $oF->html();
-    if ($oF->update()) $this->redirect();
-    $this->d['tpl'] = 'common/form';
+  public function action_json_changeTheme() {
+    $this->json['title'] = 'Изменение темы';
+    return $this->actionJsonFormUpdate(new FormThemeUpdate());
   }
   
   public function action_deleteFile() {
@@ -160,19 +159,15 @@ class CtrlAdminStm extends CtrlAdmin {
     )), array('submitTitle' => 'Продолжить создание »'));
   }
   
-  public function action_themeNewStep1() {
-    $this->setPageTitle('Создание темы. Выбор расположения');
+  public function action_json_themeNewStep1() {
+    $this->json['title'] = 'Создание темы. Выбор расположения';
     $this->initLocationForm();
-    if ($this->oLF->isSubmittedAndValid()) {
-      $this->redirect(Tt::getPath(2).'/themeNewStep2/'.$this->oLF->elementsData['location']);
-      return;
-    }
-    $this->d['form'] = $this->oLF->html();
-    $this->d['tpl'] = 'stm/editTheme';
+    $this->json['nextFormUrl'] = Tt::getPath(2).'/json_themeNewStep2/'.$this->oLF->elementsData['location'];
+    return $this->actionJsonFormUpdate($this->oLF);
   }
 
-  public function action_themeNewStep2() {
-    $this->setPageTitle('Создание темы. Выбор дизайна');
+  public function action_json_themeNewStep2() {
+    $this->json['title'] = 'Создание темы. Выбор дизайна';
     $oF = new Form(new Fields(array(
       array(
         'title' => 'Дизайн',
@@ -183,16 +178,13 @@ class CtrlAdminStm extends CtrlAdmin {
           array('siteSet' => SITE_SET))->designs, 'title', 'KEY')
       )
     )), array('submitTitle' => 'Продолжить создание »'));
-    if ($oF->isSubmittedAndValid()) {
-      $this->redirect(Tt::getPath(2).'/themeNew/'.$this->getParam(3).'/'.
-        SITE_SET.'/'.str_replace(':', '/', $oF->elementsData['design']));
-      return;
-    }
-    $this->d['form'] = $oF->html();
-    $this->d['tpl'] = 'stm/editTheme';
+    $this->json['nextFormUrl'] =
+      Tt::getPath(2).'/json_themeNew/'.$this->getParam(3).'/'.
+      SITE_SET.'/'.str_replace(':', '/', $oF->elementsData['design']);
+    return $this->actionJsonFormUpdate($oF);
   }
   
-  public function action_themeNew() {
+  public function action_json_themeNew() {
     $oDM = new StmThemeDataManager(array(
       'type' => 'theme',
       'subType' => 'design',
@@ -200,6 +192,7 @@ class CtrlAdminStm extends CtrlAdmin {
       'siteSet' => $this->getParam(4),
       'design' => $this->getParam(5)
     ));
+    
     $this->setPageTitle(
       'Создание новой темы дизайна «<b>'.$oDM->oSD->oSDS->structure['title'].'</b>»');
     if ($oDM->requestCreate()) {
@@ -249,6 +242,8 @@ class CtrlAdminStm extends CtrlAdmin {
   }
   
   public function action_json_themeFancyUpload() {
+    LogWriter::v('ddddddd', 1);
+  	
     $this->getStmThemeDM()->updateFileCurrent($_FILES['Filedata']['tmp_name'], $this->oReq->reqNotEmpty('fn'));
   }
   

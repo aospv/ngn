@@ -7,7 +7,7 @@
   </div>
   <script>
   function refrashpage() {
-    window.location = window.location;
+    window.location.reload(true);
   }
   setTimeout("refrashpage()", 30000);
   </script>

@@ -1,5 +1,7 @@
 <?php
 
+die2('depriceted');
+
 set_time_limit(0);
 define('IS_DEBUG', true);
 define('LOG_OUTPUT', true);

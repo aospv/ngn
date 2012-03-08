@@ -4,39 +4,12 @@ class UsersRegForm extends Form {
   
   protected $subscribeOnReg;
   
-  protected $fields = array(
-    array(
-      'name' => 'login',
-      'title' => 'Логин',
-      'type' => 'regLogin',
-      'required' => true
-    ),
-    array(
-      'name' => 'pass',
-      'title' => 'Пароль',
-      'type' => 'password',
-      'required' => true
-    ),
-    array(
-      'name' => 'pass2',
-      'title' => 'Пароль ещё раз',
-      'type' => 'password2',
-      'required' => true
-    ),
-    array(
-      'name' => 'email',
-      'title' => 'Ящик',
-      'type' => 'email',
-      'required' => true
-    ),
-  );
-  
   protected $mysite;
   
   protected function defineOptions() {
     parent::defineOptions();
     $this->options = array_merge($this->options, array(
-      'id' => 'userReg',
+      'id' => 'frmUserReg',
       'submitTitle' => 'Зарегистрироваться',
       'subscribeOnReg' => true,
       'active' => true
@@ -49,10 +22,44 @@ class UsersRegForm extends Form {
     $this->initRole();
     $this->initSubscribe();
     $this->initErrors();
-    parent::__construct(new Fields($this->fields));
+    parent::__construct(new Fields($this->_getFields()));
     $this->setEquality('rules', 1);
     $this->setActionFieldValue('');
     $this->setFieldsEquality('pass', 'pass2');
+  }
+  
+  protected function _getFields() {
+  	$fields = array();
+  	$fields[] = UserRegCore::getLoginField();
+  	$fields[] = array(
+      'name' => 'pass',
+      'title' => 'Пароль',
+      'type' => 'password',
+      'required' => true
+  	);
+  	$fields[] = array(
+      'name' => 'pass2',
+  	  'title' => 'Пароль ещё раз',
+  	  'type' => 'password2',
+  	  'required' => true
+  	);
+  	if (Config::getVarVar('userReg', 'emailEnable')) {
+  	  $fields[] = array(
+  	    'name' => 'email',
+        'title' => 'E-mail',
+        'type' => 'email',
+        'required' => true
+      );
+  	}
+  	if (Config::getVarVar('userReg', 'phoneEnable')) {
+  	  $fields[] = array(
+  	    'name' => 'phone',
+        'title' => 'Телефон',
+        'type' => 'phone',
+        'required' => true
+      );
+  	}
+  	return $fields;
   }
 
   /**

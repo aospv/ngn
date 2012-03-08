@@ -60,6 +60,7 @@ class CtrlAdminUsers extends CtrlAdmin {
   
   public function action_ajax_activate() {
     DbModelCore::update('users', $this->oReq->r['id'], array('active' => 1));
+    Ngn::fireEvent('users.activation', $this->oReq->r['id']);
   }
   
   public function action_ajax_deactivate() {

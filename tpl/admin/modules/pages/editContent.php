@@ -3,6 +3,9 @@
 <div id="pageControllerSettings" style="display:none"><?= json_encode($d['pcd']['page']['settings']) ?></div>
 <?
 Tt::tpl('admin/modules/pages/twoPanels',
-  array('rightPanelTpl' => $d['pcd']['tpl']) + $d['pcd']
+  $d + array(
+    'rightPanelTpl' => $d['pcd']['tpl'],
+    'rightPanelData' => $d['pcd']
+  ) 
 );
 ?>

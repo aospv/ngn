@@ -15,7 +15,7 @@ Ngn.Pm.Tr = new Class({
     if (!this.eTd) return; // Если нету проекта (нету данных)
     // назначаем на ссылку "параметры" toggle
     this.eTd.getElement('a[class^=btnParams]').addEvent('click', function(e){
-      new Event(e).stop();
+      e.preventDefault();
       this.eTr.getElements('div[class=params]').each(function(eParams, i){
         eParams.setStyle('display', eParams.getStyle('display') == 'none' ? 'block' : 'none');
       });
@@ -23,7 +23,7 @@ Ngn.Pm.Tr = new Class({
     // Константы
     this.eTd.getElement('div[class~=constants]').getElements('a[class=edit]').each(function(eA, j) {
       eA.addEvent('click', function(e){
-        new Event(e).stop();
+        e.preventDefault();
         this.eChk.set('checked', true);
         var AParams = eA.get('id').match(/.+_constant_([^_]+)_(.+)/);
         this.oPM_Table.editConstant(AParams[1], AParams[2]);
@@ -32,7 +32,7 @@ Ngn.Pm.Tr = new Class({
     // Логи
     this.eTd.getElement('div[class~=logs]').getElements('a[class=delete]').each(function(eA, j) {
       eA.addEvent('click', function(e){
-        new Event(e).stop();
+        e.preventDefault();
         this.eChk.set('checked', true);
         this.oPM_Table.deleteLog(eA.get('id').replace(this.type+'_log_', ''));
       }.bind(this));
@@ -157,7 +157,7 @@ function bindCopy(key) {
     if (eTr.getFirst().get('tag') == 'td') {
       var domain = eTr.get('id').replace('proj_', '');
       eTr.getElement('a[class='+key+']').addEvent('click', function(e){
-        new Event(e).stop();
+        e.preventDefault();
         if (!confirm('Вы действительно хотите переписать проект «'+domain+'» с '+
           (key == 'copyTestToProd' ? 'Теста на Продакшн' : 
           'Продакшна на Теста н')+'?')) return;

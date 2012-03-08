@@ -93,7 +93,7 @@ Ngn.site.top.Auth = new Class({
         }
       });
       $('btnSearch').addEvent('click', function(e){
-        new Event(e).stop();
+        e.preventDefault();
         if (!eSearch.get('value')) return;
         window.location = this.options.searcherPath + '?s=' + eSearch.get('value');
       });

@@ -285,3 +285,10 @@ margin-bottom: 10px;
 resize: none;
 }
 
+.dialog .bHandle {
+height: 5px;
+cursor: n-resize;
+}
+.dialog.resizeble .dialog-message {
+margin-bottom: 0px;
+}

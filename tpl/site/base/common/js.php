@@ -1,5 +1,6 @@
 if (!Ngn) var Ngn = {};
-Ngn.god = <?= Misc::isGod() ? 'true' : 'false' ?>;
+Ngn.isGod = <?= Misc::isGod() ? 'true' : 'false' ?>;
+Ngn.isAdmin = <?= Misc::isAdmin() ? 'true' : 'false' ?>;
 
 window.addEvent('domready', function() {
 
@@ -11,7 +12,8 @@ window.addEvent('domready', function() {
     if (ddItems) new Ngn.site.DdItems(ddItems.getElements('.item'), {
       curUserId: <?= $userId ?>,
       isAdmin: <?= (int)Misc::isAdmin() ?>,
-      editPath: <?= Arr::jsValue(empty($d['editPath']) ? null : $d['editPath']) ?>
+      editPath: <?= Arr::jsValue(empty($d['editPath']) ? null : $d['editPath']) ?>,
+      sortables: <?= $d['page']['settings']['order'] == 'oid' ? 'true' : 'false' ?>
     });
   <? } ?>
 
@@ -19,12 +21,20 @@ window.addEvent('domready', function() {
   Ngn.site.top.auth.init();
   <? } ?>
 
-  <? if (Misc::isAdmin()) { ?>new Ngn.slice.Layout();<? } ?>
+  <? if (Misc::isAdmin()) { ?>
+  new Ngn.slice.Layout();
+  Ngn.pageBlocks = new Ngn.PageBlocksEdit({
+     wrapperSelector: '.pageLayout',
+     controllerPath: '/admin/pageBlocks/' + Ngn.site.page.id,
+     colBodySelector: '.pageBlocks',
+     disableDeleteBtn: true
+  });
+  <? } ?>
   
   // Табы
   var eTabs = $('tabs');
   if (eTabs) {
-    var tabs = new SimpleTabs('tabs', {selector: 'h2[class=tab]'});
+    var tabs = new Ngn.Tabs('tabs', {selector: 'h2[class=tab]'});
     var ul = document.getElement('.tab-menu');
     var submenu = $('submenu');
     submenu.empty();
@@ -40,13 +50,13 @@ window.addEvent('domready', function() {
   }
   
   // Всплывающее окно авторизации
-  $$('a').each(function(el){
-    if (el.get('href') == '/auth') {
-      el.addEvent('click', function() {
-        new Ngn.Dialog.Auth();
-        return false;
+  $$('a.btnAuth').each(function(el){
+    el.addEvent('click', function(e) {
+      e.preventDefault();
+      new Ngn.Dialog.Auth({
+        selectedTab: 0
       });
-    }
+    });
   });
   
 
@@ -111,7 +121,7 @@ window.addEvent('domready', function() {
   // Окно авторизации при нажатие на кнопку "Новая запись"
   if (btnCreate) {
     btnCreate.addEvent('click', function(e){
-      new Event(e).stop();
+      e.preventDefault();
       new Ngn.Dialog.Auth({
         completeUrl: btnCreate.get('href')
       });
@@ -120,12 +130,12 @@ window.addEvent('domready', function() {
   <? } else { ?>
   if (btnCreate) {
     btnCreate.addEvent('click', function(e){
-      new Event(e).stop();
+      e.preventDefault();
       new Ngn.Dialog.RequestForm({
         title: false,
-        url: this.get('href').replace('new', 'json_new'),
+        url: this.get('href').replace('a=new', 'a=json_new'),
         onSubmitSuccess: function() {
-          window.location = window.location;
+          window.location.reload(true);
         }
       });
     });

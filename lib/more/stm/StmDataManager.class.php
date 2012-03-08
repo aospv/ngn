@@ -142,9 +142,14 @@ class StmDataManager extends DataManagerAbstract {
   }
   
   public function updateField($id, $fieldName, $value) {
+    if ($this->oForm->oFields->isFileType($fieldName)) $value = basename($value); // подстановка путей происходит динамически
     $o = $this->getStmData(array('id' => $id));
     $o->data['data'][$fieldName] = $value;
     $o->save();
+  }
+  
+  public function setDataValue($bracketName, $value) {
+    BracketName::setValue($this->data['data'], $bracketName, $value);
   }
   
   public function updateFileCurrent($file, $fieldName) {

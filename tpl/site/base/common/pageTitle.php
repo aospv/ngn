@@ -4,10 +4,9 @@
   <?
   if (!empty($d['topBtns'])) {
     foreach ($d['topBtns'] as $v) {
-      print '<a href="'.$v['link'].'" rel="nofollow" class="btn btn1'.
+      print '<a href="'.(empty($v['link']) ? '#' : $v['link']).'" rel="nofollow" class="btn btn1'.
         (empty($v['class']) ? '' : ' '.$v['class']).'"'.
         (empty($v['id']) ? '' : ' id="'.$v['id'].'"').'><span>'.
-        //(empty($v['class']) ? '' : '<i></i>').
         $v['title'].'</span></a>';
     }
   }

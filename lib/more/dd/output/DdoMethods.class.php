@@ -142,9 +142,13 @@ href="`.$pagePath.`/`.$id.`#msgs"><i></i> комментарии (`.$v.`)
         ),
         'showDummyImage' => array(
           'title' => 'Показывать вместо отсутствующего изображения заглушку "нет фото"',
+          'dddd' => '!$v ? `<a href="`.Tt::getPath(0).`/`.$pagePath.`/`.$id.`" class="thumb"><img src="/i/img/no-images.gif" /></a>` : `<a href="`.Tt::getPath(0).`/`.$pagePath.`/`.$id.`" class="thumb"><img src="`.Misc::getFilePrefexedPath($v, `sm_`, `jpg`).`" /></a>`',
+        ),
+        'showDummyImage2' => array(
+          'title' => 'Показывать вместо отсутствующего изображения заглушку "нет фото". Ссылку, если есть поле text не пустое',
           'dddd' => '!$v ? `<a`.(empty($o->items[$id][`text`]) ? `` : ` href="`.Tt::getPath(0).`/`.$pagePath.`/`.$id.`"`).` class="thumb"><img src="/i/img/no-images.gif" /></a>` : `<a `.(empty($o->items[$id][`text`]) ? `` : ` href="`.Tt::getPath(0).`/`.$pagePath.`/`.$id.`"`).` class="thumb"><img src="`.Misc::getFilePrefexedPath($v, `sm_`, `jpg`).`" /></a>`',
         ),
-        'middleImageUrl' => array(
+      	'middleImageUrl' => array(
           'title' => 'Средняя картинка + ссылка на URL',
           'dddd' => '$v ? `<a href="`.$o->items[$id][`url`].`" class="thumb"><img src="`.Misc::getFilePrefexedPath($v, `md_`, `jpg`).`" /></a>` : ``',
         ),

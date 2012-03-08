@@ -4,14 +4,14 @@ class PageBlockCore {
   
   /**
    * @param   string
-   * @return  PageBlockStructureAbstract
+   * @return  PbsAbstract
    */
   static public function getStructure($type, array $options = array()) {
-    return O::get('PageBlockStructure_'.$type, $options);
+    return O::get(ClassCore::nameToClass('Pbs', $type), $options);
   }
   
   static public function cachable($type) {
-    return ClassCore::getStaticProperty('PageBlockView_'.$type, 'cachable');
+    return ClassCore::getStaticProperty(ClassCore::nameToClass('Pbv', $type), 'cachable');
   }
   
   /**
@@ -24,11 +24,11 @@ class PageBlockCore {
    */
   static public function getTypeOptions() {
     return array_merge(array('' => '— выберите —'),
-      ClassCore::getStaticProperties('PageBlockStructure_', 'title', 'title'));
+      ClassCore::getStaticProperties('Pbs', 'title', 'title'));
   }
   
   static public function getTitle($type) {
-    return ClassCore::getStaticProperty('PageBlockStructure_'.$type, 'title');
+    return ClassCore::getStaticProperty(ClassCore::nameToClass('Pbs', $type), 'title');
   }
   
   static public function getDynamicBlockModels($ownPageId) {
@@ -51,6 +51,7 @@ class PageBlockCore {
     $dynamicBlockModels = self::getDynamicBlockModels($ownPageId);
     $dynamicBlockModels = array_merge($dynamicBlockModels, self::getDynamicBlockModels(0));
     $oPMSB->processDynamicBlockModels($dynamicBlockModels);
+    if ($oController) $oController->processDynamicBlockModels($dynamicBlockModels);
     foreach ($dynamicBlockModels as $oPBM)
       $blocks[] = self::getBlockHtmlData($oPBM, $oController);
     return self::$blocks[$ownPageId] = $blocks;
@@ -72,7 +73,7 @@ class PageBlockCore {
   
   static public function getBlockHtmlData(DbModel $oPBM, CtrlPage $oController = null) {
     try {
-      $pbv = O::get('PageBlockView_'.$oPBM['type'], $oPBM, $oController);
+      $pbv = O::get(ClassCore::nameToClass('Pbv', $oPBM['type']), $oPBM, $oController);
       $class = ClassCore::nameToClass('Pbvug', $oPBM['type']);
       if (isset($oController) and $oController->userGroup and O::exists($class)) {
         LogWriter::str('dd', $oPBM['id']);
@@ -82,7 +83,7 @@ class PageBlockCore {
       }
     } catch (NgnException $e) {
       $block['colN'] = $oPBM['colN'];
-      $block['html'] = $e->getMessage();
+      if (IS_DEBUG) $block['html'] = Err::getErrorText($e);
     }
     return $block;
   }

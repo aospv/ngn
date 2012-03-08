@@ -61,3 +61,19 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=40);
 a.nonActive {
 color: #666666 !important;
 }
+
+.dragBox {
+width: 15px;
+height: 21px;
+background: url(../../../i/img/black/drag-bg.gif);
+float: left;
+border: 1px solid #CCC;
+margin-left: 5px;
+cursor: move;
+display: block;
+background-color: #FFF;
+}
+.dragBox:hover {
+background-color: #FFD515;
+border-color: #555;
+}

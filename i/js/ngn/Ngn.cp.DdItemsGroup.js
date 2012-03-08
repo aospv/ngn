@@ -62,7 +62,7 @@ Ngn.DdItemsGroup = new Class({
     if (!btn) return;
     btn.setStyle('display', 'block');
     btn.addEvent('click', function(e) {
-      new Event(e).stop();
+      e.preventDefault();
       action();
     });
   },

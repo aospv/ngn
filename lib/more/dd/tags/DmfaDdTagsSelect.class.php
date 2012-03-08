@@ -1,8 +1,8 @@
 <?php
 
-class DmfaDdTagsSelect extends Dmfa {
+class DmfaDdTagsSelect extends DmfaDdTagsAbstract {
 
-  public function afterCreateUpdate(FieldEDdTagsSelect $el) {
+  protected function _afterCreateUpdate(FieldEAbstract $el) {
     if (empty($el->options['value'])) {
       DdTagsItems::delete(
         $this->oDM->strName,
@@ -17,10 +17,6 @@ class DmfaDdTagsSelect extends Dmfa {
         $el->options['value']
       );
     }
-  }
-  
-  public function beforeDelete(FieldEDdTagsSelect $el) {
-    DdTagsItems::delete($this->oDM->strName, $el->options['name'], $this->oDM->id);
   }
 
 }

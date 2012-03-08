@@ -11,7 +11,7 @@
  * Значение поля находится в $this->options['value']
  *
  */
-abstract class FieldEAbstract extends Options2 {
+abstract class FieldEAbstract extends Options2 implements ArrayAccess {
 
   public $type;
   
@@ -117,6 +117,13 @@ abstract class FieldEAbstract extends Options2 {
   public function validate() {
     if (!empty($this->error)) return false;
     $n = 1;
+    if (!empty($this->options['validator'])) {
+      foreach (Misc::quoted2arr($this->options['validator']) as $name) {
+        if (($error = O::get(ClassCore::nameToClass('FieldV', $name))->error($this->options['value'])) !== false) {
+          $this->error = $error;
+        }
+      }
+    }
     $method = 'validate'.$n;
     while (method_exists($this, $method)) {
       if ($n > 1 and empty($this->options['value'])) break;
@@ -151,7 +158,10 @@ abstract class FieldEAbstract extends Options2 {
   }
   
   public function js() {
-    return $this->_js();
+    $js = '';
+    if (!empty($this->options['jsOptions']))
+      $js .= 'Ngn.Form.ElOptions.'.$this->options['name'].' = '.Arr::jsObj($this->options['jsOptions'])."\n";
+    return "\n\n<!--{$this->type}-->\n".$js.$this->_js();
   }
   
   public function _js() {
@@ -169,6 +179,28 @@ abstract class FieldEAbstract extends Options2 {
   
   protected function defaultJs() {
     return "\nnew Ngn.Form.ElInit.factory(Ngn.Form.forms.{$this->oForm->id}, '{$this->type}');\n";
+  }
+  
+  // ------------ array access -----------
+
+  public function offsetSet($offset, $value) {
+    if (is_null($offset)) {
+      $this->options[] = $value;
+    } else {
+      $this->options[$offset] = $value;
+    }
+  }
+  
+  public function offsetExists($offset) {
+    return isset($this->options[$offset]);
+  }
+  
+  public function offsetUnset($offset) {
+    unset($this->options[$offset]);
+  }
+  
+  public function offsetGet($offset) {
+    return isset($this->options[$offset]) ? $this->options[$offset] : null;
   }
   
 }

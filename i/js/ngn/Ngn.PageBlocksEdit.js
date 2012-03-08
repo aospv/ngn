@@ -1,17 +1,34 @@
 Ngn.PageBlocksEdit = new Class({
+  Implements: [Options],
+  
+  options: {
+    wrapperSelector: '#blocks',
+    //colSelector: '.col',
+    //colBodySelector: '.blocksBody',
+    handler: '.dragBox',
+    controllerPath: window.location.pathname,
+    disableDeleteBtn: false,
+    colBodySelector: '.blocksBody'
+  },
 
-  initialize: function(colsN) {
-    if (!colsN) alert('colsN not defined');
-    this.colsN = colsN;
-    this.eBlocks = $('blocks');
-    
-    var elements = [];
-    var ii = 0;
-    this.eBlocks.getElements('.col').each(function(eCol) {
+  initialize: function(options) {
+    this.setOptions(options);
+    this.eWrapper = document.getElement(this.options.wrapperSelector);
+    this.initBlocks();
+    this.initCols();
+    this.initSortables();
+  },
+  
+  cols: [],
+  
+  initCols: function() {
+    var i = 0;
+    this.eWrapper.getElements('.col').each(function(eCol) {
+      if (!eCol.get('id')) return;
       var btnAdd = eCol.getElement('.add');
       var colN = parseInt(eCol.get('id').replace('col', ''));
       if (btnAdd) btnAdd.addEvent('click', function(e){
-        new Event(e).stop();
+        e.preventDefault();
         new Ngn.Dialog.Queue.Request.Form({
           url: Ngn.getPath(3)+'/json_newBlock/'+colN
         }, {
@@ -20,87 +37,147 @@ Ngn.PageBlocksEdit = new Class({
           }
         });
       });
-      
+      var eColBody = eCol.getElement(this.options.colBodySelector);
+      if (!eColBody) return;
       if (!eCol.get('class').match(/blocksNotAllowed/)) {
-        elements[ii] = eCol.getElement('.blocksBody');
-        ii++;
+        this.cols[i] = eColBody;
+        i++;
       }
-    });
-    this.oST = new Sortables(elements, {
+    }.bind(this));
+    
+    Ngn.equalItemHeights(this.cols, true);
+  },
+  
+  initSortables: function() {
+    this.sortables = new Sortables(this.cols, {
       revert: true,
       clone: true,
-      handle: '.block'
+      handle: this.options.handler
     });
-    this.oST.addEvent('start', function(el, clone){
+    this.sortables.addEvent('start', function(el, clone){
       clone.setStyle('z-index', 9999);
       clone.addClass('move');
     });
-    this.oST.addEvent('stop', function(el, clone){
+    this.sortables.addEvent('stop', function(el, clone){
+      el.removeClass('nonActive');
       clone.removeClass('move');
     });
-    
     // Строка отвечающая за изменение порядка
-    this.orderState = this.oST.serialize().join(',');
-    
-    this.oST.addEvent('complete', function(el, clone){
-      if (this.orderState == this.oST.serialize().join(',')) return;
+    this.orderState = this.sortables.serialize().join(',');
+    this.sortables.addEvent('complete', function(el, clone){
+      if (this.orderState == this.sortables.serialize().join(',')) return;
+      el.addClass('loading');
       new Request({
-        url: window.location.pathname + '?a=ajax_updateBlocks',
+        url: this.options.controllerPath + '/ajax_updateBlocks',
         onComplete: function() {
-          this.orderState = this.oST.serialize().join(',');
+          el.removeClass('loading');
+          this.orderState = this.sortables.serialize().join(',');
         }.bind(this)
       }).POST({
-        'cols' : this.oST.serialize(false, function(element, index){
-          if (!element.get('id')) return null;
+        cols: this.sortables.serialize(false, function(eBlock, index){
+          if (!eBlock.get('id')) return null;
           return {
-            'id': element.get('id').replace('block_', ''),
-            'colN': element.getParent().getParent().get('id').replace('col', '')
+            id: eBlock.get('id').replace('block_', ''),
+            colN: eBlock.getParent('.col').get('id').replace('col', '')
           }
-        })
-      });    
+        }.bind(this))
+      });
     }.bind(this));
-
-    this.eBlocks.getElements('.block').each(function(el) {
-      // Выравниваем editBlock по правому краю
-      (function(){
-        Ngn.setToTopRight(el.getElement('.editBlock'), el, [2, 0]);
-      }).delay(100);
-      
-      var blockId = el.get('id').replace('block_', '');
-
-      var btnEdit = el.getElement('a[class~=sm-edit]');
-      if (btnEdit) {
-        btnEdit.addEvent('click', function(e){
-          new Event(e).stop();
-          new Ngn.Dialog.RequestForm({
-            url: Ngn.getPath() + '?a=json_editBlock&id=' + blockId,
-            width: 800
-          }).show();
-        });
-      }
-      
-      var btnDelete = el.getElement('a[class~=sm-delete]');
-      if (btnDelete) {
-        btnDelete.addEvent('click', function(e){
-          if (!confirm('Вы уверены?')) return false;
-          Ngn.loading(true);
-          new Request({
-            url: window.location.pathname,
-            onComplete: function() {
-              Ngn.loading(false);
-              el.destroy();
-            }      
-          }).POST({
-            action: 'ajax_deleteBlock',
-            blockId: blockId
-          });
-          return false;
-        });
-      }
+  },
+  
+  blocks: {},
+  
+  initBlocks: function() {
+    this.eWrapper.getElements('.block').each(function(el) {
+      var b = new Ngn.PageBlockEdit(el, this);
+      this.blocks[b.id] = b;
     }.bind(this));
   }
 
 });
+
+Ngn.PageBlockEdit = new Class({
+
+  /**
+   * @var Ngn.PageBlocksEdit
+   */
+  initialize: function(eBlock, pbe) {
+    this.pbe = pbe;
+    this.eBlock = eBlock;
+    this.id = this.eBlock.get('id').replace('block_', '');
+    this.initEditBlock();
+  },
+  
+  initEditBlock: function() {
+    var el = this.eBlock;
+    Ngn.tpls.editBlock.toDOM()[0].inject(el, 'top');
+    el.getElement('.actv').dispose();
+    this.eEditBlock = el.getElement('.editBlock');
+    // Выравниваем editBlock по правому краю
+    (function(){
+      Ngn.setToTopRight(this.eEditBlock, el, [6, 0]);
+    }.bind(this)).delay(100);
+    
+    '<div class="dragBox"></div>'.toDOM()[0].inject(el, 'top');
+    
+    var btnEdit = el.getElement('a[class~=sm-edit]');
+    if (btnEdit) {
+      btnEdit.set('href', '#');
+      btnEdit.set('title', 'Редактировать блок');
+      btnEdit.addEvent('click', function(e){
+        e.preventDefault();
+        new Ngn.Dialog.RequestForm({
+          url: this.pbe.options.controllerPath + '/json_editBlock/' + this.id,
+          width: 800,
+          onSubmitSuccess: function() {
+            this.reload();
+          }.bind(this)
+        }).show();
+      }.bind(this));
+    }
+    var btnDelete = el.getElement('a[class~=sm-delete]');
+    if (btnDelete) {
+      if (this.pbe.options.disableDeleteBtn) {
+        btnDelete.dispose();
+        return;
+      }
+      btnDelete.addEvent('click', function(e){
+        e.preventDefault();
+        if (!confirm('Вы уверены?')) return;
+        Ngn.loading(true);
+        new Request({
+          url: this.pbe.options.controllerPath + '/ajax_deleteBlock',
+          onComplete: function() {
+            Ngn.loading(false);
+            el.destroy();
+          }
+        }).get({
+          blockId: this.id
+        });
+      }.bind(this));
+    }
+  },
+  
+  reload: function() {
+    this.eBlock.addClass('loading');
+    new Ngn.Request({
+      url: this.pbe.options.controllerPath + '/ajax_getBlock/' + this.id,
+      onComplete: function(html) {
+        this.eBlock.removeClass('loading');
+        this.eBlock.getElement('.bcont').set('html', html);
+      }.bind(this)
+    }).get();
+  },
+  
+  addEditBlockBtn: function(opts, func) {
+    Ngn.smBtn(opts).toDOM()[0].inject(this.eEditBlock, 'top').addEvent('click', function(e) {
+      e.preventDefault();
+      func();
+    });
+  }
+
+});
+
 
 Ngn.pb = {};
 

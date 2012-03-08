@@ -25,6 +25,14 @@ Form.Validator.addAllThese([
       else return false;
     }
   }],
+  ['validate-phone', {
+    errorMsg: 'неправильный формат',
+    test: function(element) {
+      if (!element.value) return true;
+      element.value = element.value.replace(/[\s-()]/g, '');
+      return true;
+    }
+  }],
   ['validate-skype', {
     errorMsg: 'неправильный формат',
     test: function(element) {
@@ -59,12 +67,13 @@ Form.Validator.addAllThese([
 ]);
 
 Ngn.Form = new Class({
-  Implements: [Options, Class.Occlude],
+  Implements: [Options, Events, Class.Occlude],
   
   options: {
     equalElementHeights: false,
     dialog: false,
     focusFirst: true
+    //onComplete: null
   },
   
   initialize: function(eForm, options) {
@@ -89,8 +98,10 @@ Ngn.Form = new Class({
     this.initActive();
     this.initCols();
     this.initImagePreview();
-    if (this.options.focusFirst) this.eForm.getElements(Ngn.frm.selector)[0].focus();
-    
+    if (this.options.focusFirst) {
+    	var f = this.eForm.getElements(Ngn.frm.textSelector);
+    	if (f[0]) f[0].focus();
+    }
     // this.initIframeUpload();
     // this.initSubmit();
     
@@ -130,7 +141,7 @@ Ngn.Form = new Class({
     this.btnSubmit = this.eForm.getElement('input[type=submit]');
     if (!this.btnSubmit) return;
     this.eForm.addEvent('submit', function(e){
-      //new Event(e).stop();
+      //e.preventDefault();
       if (this.submiting) return;
       if (this.validator.validate()) {
         this.submiting = true;
@@ -342,11 +353,23 @@ Ngn.Form = new Class({
         eFileNav.dispose();
       });
     });
+  },
+  
+  submitAjax: function() {
+    if (!this.validator.validate()) return;
+    c(Ngn.frm.toObj(this.eForm));
+    new Ngn.Request.JSON({
+      url: this.eForm.get('action'),
+      onComplete: function(r) {
+        this.fireEvent('complete', r);
+      }.bind(this)
+    }).post(Ngn.frm.toObj(this.eForm));
   }
   
 });
 
 Ngn.Form.forms = {};
+Ngn.Form.ElOptions = {};
 
 Ngn.Form.ElInit = new Class({
   
@@ -359,7 +382,7 @@ Ngn.Form.ElInit = new Class({
   init: function() {
     this.form.eForm.getElements('.type_'+this.type).each(function(eRow) {
       var cls = eval('Ngn.Form.El.'+ucfirst(this.type));
-      new cls(this.form, eRow);
+      new cls(this.type, this.form, eRow);
     }.bind(this));
   }
   
@@ -373,9 +396,14 @@ Ngn.Form.ElInit.factory = function(form, type) {
 
 Ngn.Form.El = new Class({
   
-  initialize: function(form, eRow) {
+  options: {},
+  
+  initialize: function(type, form, eRow) {
+    this.type = type;
     this.form = form;
     this.eRow = eRow;
+    this.name = eRow.getElement(Ngn.frm.selector).get('name');
+    if (Ngn.Form.ElOptions[this.name]) this.options = Ngn.Form.ElOptions[this.name];
     this.init();
   },
   
@@ -386,10 +414,10 @@ Ngn.Form.El = new Class({
 Ngn.Form.El.Dd = new Class({
   Extends: Ngn.Form.El,
   
-  initialize: function(form, eRow) {
+  initialize: function(type, form, eRow) {
     if (!Ngn.site.page.strName) throw new Error('StrName not defined');
     this.page = Ngn.site.page;
-    this.parent(form, eRow);
+    this.parent(type, form, eRow);
   },
   
 });
@@ -433,18 +461,45 @@ Ngn.TinySettings.Simple = new Class({
   
 });
 
+Ngn.TinySettings.Simple.Links = new Class({
+  Extends: Ngn.TinySettings.Simple,
+  
+  getSettings: function() {
+    var s = this.parent();
+    s.theme_advanced_buttons1 += ',link,unlink';
+    return s;
+  }
+  
+});
+
+
 Ngn.Form.El.WisiwigSimple = new Class({
   Extends: Ngn.Form.El.Wisiwig,
   
   init: function() {
+    var settings = new (this.getTinySettingsClass())().getSettings();
+    if (this.options.tinySettings) settings = $merge(settings, this.options.tinySettings); 
     new Ngn.TinyInit({
       parent: this.form.eForm,
-      selector: '.type_wisiwigSimple textarea',
-      settings: Ngn.TinySettings.Simple
+      selector: '.type_'+this.type+' textarea',
+      settings: settings
     });
     this.parent();
+  },
+  
+  getTinySettingsClass: function() {
+    return Ngn.TinySettings.Simple;
   }
 
+});
+
+Ngn.Form.El.WisiwigSimple2 = new Class({
+  Extends: Ngn.Form.El.WisiwigSimple,
+  
+  getTinySettingsClass: function() {
+    return Ngn.TinySettings.Simple.Links;
+  }
+  
 });
 
 Ngn.Form.El.DdTagsTreeSelect = new Class({

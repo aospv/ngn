@@ -70,54 +70,18 @@ class Comments extends Msgs {
     return $items;
   }
 
-  static protected $userId;
-  
-  static public function addUserFilter($userId) {
-    self::$userId = $userId;
-  }
-  
-  static public function getLast($limit, $pageId = 0) {
-    $pageCond = $pageId ? "AND comments.parentId=$pageId" : '';
-    $userCond = empty(self::$userId) ? '' : 'AND comments.userId='.self::$userId;
-    $limitCond = 'LIMIT '.mysql_escape_string($limit);
-    $q = "
-SELECT
-  comments.*,
-  comments.text_f AS text,
-  UNIX_TIMESTAMP(comments.dateCreate) AS dateCreate_tStamp,
-  UNIX_TIMESTAMP(comments.dateUpdate) AS dateUpdate_tStamp,
-  users.login,
-  users.name AS userName,
-  users2.login AS ansLogin,
-  pages.path,
-  pages.mysite,
-  pages.title AS pageTitle,
-  dd_items.title AS itemTitle
-FROM comments_srt
-  INNER JOIN comments_active ON
-    comments_srt.parentId=comments_active.parentId AND
-    comments_srt.id2=comments_active.id2
-  INNER JOIN comments ON comments_srt.id=comments.id
-  LEFT JOIN users AS users ON comments.userId = users.id
-  LEFT JOIN users AS users2 ON comments.ansUserId = users2.id
-  LEFT JOIN pages ON comments.parentId = pages.id
-  LEFT JOIN dd_items ON comments.parentId = dd_items.pageId AND
-                        comments.id2 = dd_items.itemId
-WHERE
-  comments_srt.active=1 AND
-  comments_active.active=1
-  $pageCond
-  $userCond
-ORDER BY comments_srt.id DESC
-$limitCond
-";
-    $r = db()->query($q);
-    foreach ($r as &$v) {
-      $v['link'] =
-      ($v['mysite'] ? 'http://'.$v['userName'].'.'.SITE_DOMAIN.'/' : '').  
-      $v['path'].'/'.$v['id2'].'#msgs';
-    }
-    return $r;
+  /**
+   * @param unknown_type $limit
+   * @param integer
+   * @param DbCond
+   * @return CommentsCollection
+   */
+  static public function getLast($limit, $pageId = 0, DbCond $dbCond = null) {
+    $cond = DbCond::get();
+    $cond->setLimit($limit);
+    $cond->setOrder('comments_srt.id DESC');
+    if ($pageId) $cond->addF('comments_srt.parentId', $pageId);
+    return O::get('CommentsCollection', $cond);
   }
   
   static public function generateActiveRecords() {

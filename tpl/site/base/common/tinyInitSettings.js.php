@@ -1,14 +1,8 @@
-<?php 
-
-if (!$d) throw new NgnException('Theme type ($d) is not defined');
-
-$oTI = new TinyInit($d);
-
-?>
+<? $oTI = new TinyInit($d) ?>
 
 Ngn.TinySettings = new Class({
 
-  getSettings: function(_settings) {
+  getSettings: function() {
     return {
       language : "ru",
       //paste_strip_class_attributes : "all",
@@ -20,7 +14,7 @@ Ngn.TinySettings = new Class({
       verify_css_classes : true, // удаляет существующие в "content_css" классы... так что нах
       //paste_use_dialog : false,
       <? if ($oTI->cssFile) { ?>
-        content_css: "<?= $oTI->cssFile.'?r='.rand(1,10000) ?>",
+        content_css: "<?= $oTI->cssFile/*.'?r='.rand(1,10000)*/ ?>",
       <? } ?>
       inlinepopups_skin: 'ngnPopup',
       width: '100%',

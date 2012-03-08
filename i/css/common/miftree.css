@@ -225,6 +225,7 @@ background-color: #292fef;
 background-color: #fff;
 border: solid 2px #e8e8f7;
 padding-left: 2px;
+z-index: 400;
 }
 
 .mif-tree-ghost span {

@@ -10,12 +10,12 @@ class UserStoreCore {
   }
   
   static public function getDeliveryWays($userId) {
-    $settings = DbModelCore::get('userStoreSettings', $userId)->r['settings'];
+    $settings = DbModelCore::take('userStoreSettings', $userId)->r['settings'];
     return Arr::filter_by_keys(StoreCore::getDeliveryWays(), $settings['deliveryWays']);
   }
   
   static public function getPaymentWays($userId) {
-    $settings = DbModelCore::get('userStoreSettings', $userId)->r['settings'];
+    $settings = DbModelCore::take('userStoreSettings', $userId)->r['settings'];
     return Arr::filter_by_keys(StoreCore::getPaymentWays(), $settings['paymentWays']);
   }
 

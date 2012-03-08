@@ -21,7 +21,11 @@ class DmfaFile extends Dmfa {
   
   public function beforeCreateUpdate(FieldEFile $el) {
     if (empty($el->options['postValue'])) return;
-    BracketName::setValue($this->oDM->data, $el->options['name'], '');
+    $this->oDM->setDataValue($el->options['name'], '');
+  }
+  
+  protected function getExt(FieldEFile $el) {
+    return File::getExtension($el->options['postValue']['tmp_name']);
   }
 
   public function afterCreateUpdate(FieldEFile $el) {
@@ -30,8 +34,7 @@ class DmfaFile extends Dmfa {
     $attachFolder = $this->getAttacheFolder();
     $attachPath = $this->getAttachePath();
     Dir::make($attachPath);
-    $filename = $this->getAttacheFilenameByEl($el).
-      '.'.File::getExtension($el->options['postValue']['tmp_name']);
+    $filename = $this->getAttacheFilenameByEl($el).'.'.$this->getExt($el);
     copy($el->options['postValue']['tmp_name'], $attachPath.'/'.$filename);
     $this->oDM->updateField($this->oDM->id, $el->options['name'], $attachFolder.'/'.$filename);
     return $attachPath.'/'.$filename;

@@ -54,7 +54,7 @@ Ngn.cp.PagesInterface = new Class({
   
   _addSubNavBtnAction: function(eBtn, action) {
     eBtn.addEvent('click', function(e) {
-      new Event(e).stop();
+      e.preventDefault();
       action();
     });
   },
@@ -123,7 +123,7 @@ Ngn.cp.PagesInterface = new Class({
       title: false,
       url: eBtn.get('href').replace('new', 'json_new'),
       onSubmitSuccess: function() {
-        window.location = window.location;
+        window.location.reload(true);
       }
     });
   },

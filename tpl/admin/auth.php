@@ -22,7 +22,7 @@
       <form action="/admin?a=cleanup" method="post" name="loginform">
       <table cellspacing="0" cellpadding="2" width="100%">
       <tr>
-        <td><?= LANG_LOGIN ?>:</td>
+        <td nowrap><?= UserRegCore::getAuthLoginTitle() ?>:</td>
         <td width="100%"><input type="text" name="authLogin" id="authLogin" value="<?= isset($_REQUEST['authLogin']) ? htmlentities($_REQUEST['authLogin']) : '' ?>" style="width:90%" /></td>
       </tr><tr>
         <td><?= LANG_PASSWORD ?>:</td>

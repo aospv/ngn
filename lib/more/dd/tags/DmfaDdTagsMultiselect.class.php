@@ -1,12 +1,12 @@
 <?php
 
-class DmfaDdTagsMultiselect extends Dmfa {
+class DmfaDdTagsMultiselect extends DmfaDdTagsAbstract {
   
-  public function afterCreateUpdate(FieldEDdTagsMultiselect $el) {
+  protected function _afterCreateUpdate(FieldEDdTagsMultiselect $el) {
     // Если данные этого поля пустые
     if (empty($el->options['value'])) {
       // Удаляем текущие итем записи
-      DdTagsItems::delete($this->oDM->strName, $el->options['value'], $this->oDM->id);
+      $this->beforeDelete($el);
     } else {
       DdTagsItems::createByIds(
         $this->oDM->strName,
@@ -15,10 +15,6 @@ class DmfaDdTagsMultiselect extends Dmfa {
         $el->options['value']
       );
     }
-  }
-  
-  public function beforeDelete(FieldEDdTagsMultiselect $el) {
-    DdTagsItems::delete($this->oDM->strName, $el->options['name'], $this->oDM->id);
   }
 
 }

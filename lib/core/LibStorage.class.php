@@ -243,6 +243,10 @@ class LibStorage {
     return preg_replace('/\?>$/m', '', $c);
   }
   
+  static public function removeByKeyword($keyword, $code) {
+    return preg_replace('/^.*\@'.$keyword.'.*$/m', '', $code);
+  }
+  
   /**
    * Подготавливает код, очищая включенный в нём библиотеки при этом, 
    * обрабатывая их тоже
@@ -252,7 +256,7 @@ class LibStorage {
    *                  Опциональный параметр. Используется только в сообщении об ошибке 
    */
   private function prepareCode(&$code, $file = null) {
-    $code = preg_replace('/^.*\@LibStorageRemove.*$/m', '', $code);
+    $code = self::removeByKeyword('LibStorageRemove', $code);
     $code = TextParsing::stripComments($code);
     // Ещё на уровне подготовки кода. Если в нём присутствует объявление класса,
     // добавляем этот класс в $this->storedClasses

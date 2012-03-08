@@ -9,7 +9,7 @@ var loadSubjects = function(obj) {
     onComplete: function() {
       obj.getElements('a').each(function(item){
         item.addEvent('click', function(e){
-          new Event(e).stop();
+          e.preventDefault();
           var forumId = item.getProperty('id');
           window.location = '<?= getLink() ?>?a=moveSubj&subjId='+subjId+'&forumId='+forumId;
         });

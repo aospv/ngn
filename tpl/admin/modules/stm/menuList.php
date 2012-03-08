@@ -79,7 +79,7 @@ foreach ($d['items'] as $v) {
 $('menus').getElements('.item').each(function(el){
   el.getElement('.hMenu').getElements('a').each(function(eA){
     eA.addEvent('click', function(e){
-      new Event(e).stop();
+      e.preventDefault();
     });
   });
   new Ngn.HorizontalMenuRoundedBg(el.getElement('.hMenu'), {

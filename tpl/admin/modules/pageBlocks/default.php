@@ -23,10 +23,6 @@ for ($colN=1; $colN <= $d['colsNumber']; $colN++) {
       print '<div class="block'.($b['global'] ? ' global' : '').
             ' size-'.$b['size'].' pbt_'.$b['type'].'"'.
             ' id="block_'.$b['id'].'">'.
-            '<div class="editBlock smIcons bordered tooltips">'.
-            (Misc::isGod() ? '<a href="" class="sm-delete" title="Удалить блок"><i></i></a>' : '').
-            '<a href="'.Tt::getPath(3).'/editBlock?id='.$b['id'].'" class="sm-edit" title="Редактировать блок"><i></i></a>'.
-            '</div>'.
             '<div class="clear"><!-- --></div>'.
             '<div class="bcont" '.Tt::enumInlineStyles($b['styles']).'>'.
             //($oPB->title ? '<h2>'.$oPB->title.'</h2>' : '').
@@ -62,5 +58,7 @@ print '</div>';
 </div>
 <script type="text/javascript">
 $('body').addClass('newLayout');
-new Ngn.PageBlocksEdit(<?= $d['colsNumber'] ?>);
+new Ngn.PageBlocksEdit({
+  controllerPath: Ngn.getPath(3)
+});
 </script>

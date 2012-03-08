@@ -33,6 +33,7 @@ class StmMenuCss {
       return;
     StmCss::extendImageUrls($this->oSMD);
     $this->oSMD->data['data']['menu'] = $this->oSTD->data['data']['menu'];
+    $this->oCss->addCssFile(STM_PATH.'/css/menu/paddings.php', $this->oSMD);
     $this->oCss->addCssFile(
       STM_MENU_PATH.'/'.$this->oSMD->data['data']['menu'].'/css.php',
       $this->oSMD

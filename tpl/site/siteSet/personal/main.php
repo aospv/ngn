@@ -12,22 +12,23 @@
     </div>
     <? } ?>
     <div class="span-24 last">
-      <div id="col2body">
-        <div id="col2nav">
-          <div class="hMenu mainmenu" id="menu">
-            <?= SiteLayout::menu($d['oController']) ?>
-            <div class="clear"><!-- --></div>
-          </div>
+      <div>
+        <div class="hMenu mainmenu" id="menu">
+          <?= SiteLayout::menu($d['oController']) ?>
+          <div class="clear"><!-- --></div>
         </div>
-        <!-- Page Layout Begin -->
-        <?
-        if (!empty($d['oController']->userGroup)) {
-          print Html::subDomainLinks(Tt::getTpl('pageLayout/'.$d['layoutN'], $d), $d['oController']->userGroup['name']);
-        } else {
-          print Html::baseDomainLinks(Tt::getTpl('pageLayout/'.$d['layoutN'], $d));
-        }
-        ?>
-        <!-- Page Layout End -->
+        <div class="pageLayout">
+          <!-- Page Layout Begin -->
+          <?
+          if (!empty($d['oController']->userGroup)) {
+            print Html::subDomainLinks(Tt::getTpl('pageLayout/'.$d['layoutN'], $d), $d['oController']->userGroup['name']);
+          } else {
+            print Html::baseDomainLinks(Tt::getTpl('pageLayout/'.$d['layoutN'], $d));
+          }
+          ?>
+          <div class="clear"><!-- --></div>
+          <!-- Page Layout End -->
+        </div>
       </div>
     </div>
   </div>

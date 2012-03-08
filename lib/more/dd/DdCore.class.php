@@ -50,7 +50,8 @@ class DdCore {
         $page['id']
       );
     }
-    if (($path = Hook::getPath('dd/initItemsManager')) !== false) include $path;
+    if (($paths = SiteHook::getPaths('dd/initItemsManager', $page['module'])) !== false)
+      foreach ($paths as $path) include $path;
     $oIM = new DdItemsManager($oItems, $oForm, $options);
     $oIM->defaultActive = (!empty($page['settings']['premoder'])) ? 0 : 1;
     if (isset($page['settings']['order']) and $page['settings']['order'] == 'oid') {
@@ -75,8 +76,21 @@ class DdCore {
   
   static public function extendItemsData(array $items) {
     foreach ($items as &$v)
-      $v['item'] = O::get('DdItems', $v['pageId'])->getItemF($v['itemId']);
+      $v = array_merge(O::get('DdItems', $v['pageId'])->getItemF($v['itemId']), $v);
     return $items;
   }
-
+  
+  static public function htmlItem($pageId, $layoutName, $id) {
+  	$ddo = new Ddo(DbModelCore::get('pages', $pageId), $layoutName);
+  	$items = new DdItems($pageId);
+  	$ddo->setItem($items->getItem($id));
+  	return $ddo->els();
+  }
+  
+  static public function htmlItems($pageId, $layoutName, array $items) {
+  	$ddo = new Ddo(DbModelCore::get('pages', $pageId), $layoutName);
+  	$ddo->setItems($items);
+  	return $ddo->els();
+  }
+  
 }

@@ -127,6 +127,13 @@ class PageLayout {
           3 => $blocks2Col + array('span' => 6)
         )
       ),
+      14 => array(
+        'descr' => 'блочная - основная',
+        'cols' => array(
+          1 => $blocksCol + array('span' => 6),
+          2 => $contentCol + array('span' => 18)
+        )
+      ),
     );
     foreach ($layouts as $k => &$layout) {
       $layouts[$k]['n'] = $k;

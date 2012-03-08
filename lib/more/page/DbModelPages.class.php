@@ -21,6 +21,10 @@ class DbModelPages extends DbModel {
     );
   }
   
+  protected function init() {
+    PageModuleCore::initPage($this);
+  }
+  
   static public function getHomepage() {
     return DbModelCore::get('pages', 1, 'home');
   }
@@ -31,11 +35,11 @@ class DbModelPages extends DbModel {
       $data['strName'] = $data['settings']['strName'];
     $page = DbModelCore::get('pages', $id);
     if (!empty($data['settings']) and !empty($page['controller'])) {
-      $data['initSettings'] = $data['settings'];
       $data['settings'] = PageControllersCore::settingsAction(
         $page,
         $data['settings']
       );
+      $data['initSettings'] = $data['settings'];
     }
     if ($page->getModule() and !empty($data['module']) and $page['module'] != $data['module'])
       O::get('DdoSettings', $page->getModule())->rename($data['module']);

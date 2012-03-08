@@ -15,5 +15,3 @@ Ngn.Dialog.Queue.Request.Form = new Class({
   }
   
 });
-
-Ngn.addBtnsAction('a.dialogForm', function() { new Ngn.Dialog.Queue.Request.Form() });

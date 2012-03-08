@@ -33,7 +33,7 @@ class StmCss {
     }
   }
   
-  public function addCssFile($file, StmData $oSTD) {
+  public function addCssFile($file, StmData $oSTD = null) {
     $this->addHeaderComments(str_replace('.php', '', str_replace(STM_PATH, '', $file)));
     $data = $oSTD->data['data'];
     $data['cssData'] = $oSTD->data['cssData'];
@@ -108,7 +108,7 @@ class StmCss {
       )
     ),
     'bgColor' => array(
-      'title' => 'Фон',
+      'title' => 'Фон ячейки меню',
       'type' => 'color'
     ),
     'bgColorActive' => array(
@@ -119,7 +119,19 @@ class StmCss {
       'title' => 'Фон ячейки меню с наведеной мышью',
       'type' => 'color',
     ),
-    'colorActive' => array(
+    'bgColor2' => array(
+      'title' => 'Фон ячейки меню 2 уровня',
+      'type' => 'color'
+    ),
+    'bgColorActive2' => array(
+      'title' => 'Фон активной ачейки меню 2 уровня',
+      'type' => 'color',
+    ),
+    'bgColorOver2' => array(
+      'title' => 'Фон ячейки меню 2 уровня с наведеной мышью',
+      'type' => 'color',
+    ),
+  	'colorActive' => array(
       'title' => 'Цвет шрифта активной ячейки меню',
       's' => '.mainmenu .active a',
       'p' => 'color',
@@ -197,8 +209,12 @@ class StmCss {
       'title' => 'Изображение фона обычной ссылки меню при наведении',
       'type' => 'image'
     ),
+    'linkSeparatorImage' => array(
+      'title' => 'Изображение разделителя по горизонтали для ячеек первого уровня',
+      'type' => 'image'
+    ),
     'linkImageActive' => array(
-      'title' => 'Изображение фона активной ссылки меню при наведении',
+      'title' => 'Изображение фона активной ссылки меню',
       'type' => 'image'
     ),
     'columnWidth' => array(

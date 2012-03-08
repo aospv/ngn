@@ -367,7 +367,7 @@ if (eSubNav) {
   eDelete = $('subNav').getElement('a[class=delete]');
   if (eDelete)
     eDelete.addEvent('click', function(e){
-      new Event(e).stop();
+      e.preventDefault();
       if (confirm('Вы уверены?')) console.debug(this);
     });
 }

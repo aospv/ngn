@@ -43,7 +43,7 @@ class SendEmail {
    */
   public function send($emails, $subject, $message, $html = true) {
     if (EMAIL_ALLOWED === false) {
-      LogWriter::str('email', "$subject\n--------------\n$message");
+      LogWriter::v('email', "$subject\n--------------\n$message");
       return true;
     }
     if ($html and $this->addHostToLinks) {
@@ -59,7 +59,6 @@ class SendEmail {
     }
     if (!$recipients) throw new NgnException('$recipients not defined');
     ////////////////////// mail() ///////////////
-    
     if ($this->method != 'smtp') {
       if ($html) {
         $headers  = 'Content-type: text/html; charset='.CHARSET."\r\n";
@@ -69,10 +68,12 @@ class SendEmail {
       }
       foreach ($recipients as $v) {
         if (!@mail($v['email'], $subject, $message, $headers)) {
+          LogWriter::v('email', 'failed');
           prr(array('send email', $v['email'], $subject, $message, $headers));
           return false;
         }
       }
+      LogWriter::v('email', 'sent');
       return true;
     }
     ////////////////////// SMTP /////////////////

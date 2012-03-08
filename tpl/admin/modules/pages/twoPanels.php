@@ -8,7 +8,7 @@
     <? Tt::tpl('admin/modules/pages/header', $d) ?>
     <!-- right scrolling element -->
     <div id="rightPanel">
-    <? Tt::tpl($d['rightPanelTpl'], $d) ?>
+    <? Tt::tpl($d['rightPanelTpl'], $d['rightPanelData']) ?>
     </div>
   </div>
   </td>

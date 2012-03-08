@@ -17,7 +17,7 @@ Ngn.LostPassForm = new Class({
       if (e.key=='enter') this.send();                
     }.bind(this));
     this.eSend.addEvent('click', function(e) {
-      new Event(e).stop();
+      e.preventDefault();
       if (this.eEmail.get('value') == defEmail) {
         alert('Введите e-mail');
         return;

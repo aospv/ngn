@@ -4,7 +4,7 @@
  * Особенностью этого типа контроллеров является то, что выполнение dispatch()
  * не возможно пока не быдет успешно выполнен метод setPage()
  */
-abstract class CtrlPage extends CtrlCommon {
+abstract class CtrlPage extends CtrlCommon implements ProcessDynamicPageBlock {
   
   /**
    * Массив с данными текущего раздела
@@ -61,7 +61,7 @@ abstract class CtrlPage extends CtrlCommon {
     try {
       if (!$this->page)
         throw new NgnException('$this->page not defined. use $this->setPageData before dispatch()');
-      if (isset($this->settings['mainTpl'])) $this->d['mainTpl'] = $this->settings['mainTpl'];
+      if (isset($this->page['settings']['mainTpl'])) $this->d['mainTpl'] = $this->page['settings']['mainTpl'];
       parent::dispatch();
       if ($this->hasOutput) {
         $this->saveUserPage();
@@ -82,14 +82,30 @@ abstract class CtrlPage extends CtrlCommon {
   
   protected function init() {
     $this->pageLabels['new'] = '→ создание '.NgnMorph::cast(
-      empty($this->settings['itemTitle']) ? 'запись' : $this->settings['itemTitle'],
-      array('ЕД', 'РД')
-    );
+      $this->page['settings']['itemTitle'], array('ЕД', 'РД'));
     $this->userId = Auth::get('id');
     $this->setActionParams();
     $this->initPriv();
     $this->initUserGroup();
     parent::init();
+  }
+  
+  protected function initLayout() {
+    if (!isset($this->d['layoutN']))
+      $this->d['layoutN'] = PageLayoutN::get($this->page['id']);
+    if ($this->action == 'new' or $this->action == 'edit')
+      $this->d['layoutN'] = 2;
+  }
+  
+  protected function initBlocks() {
+    $this->initLayout();
+    $layout = Arr::getValue(PageLayout::getLayouts(), $this->d['layoutN']);
+    $blockCols = Arr::filter_by_value($layout['cols'], 'type', 'blocks', true);
+    foreach ($blockCols as $n => $v) {
+      $this->d['col'.$n] = Tt::getTpl('common/pageBlocksOneCol', array(
+        'blocks' => PageBlockCore::getBlocksByCol($this->page['id'], $n, $this)
+      ));
+    }
   }
   
   public $userGroup = false;
@@ -105,6 +121,7 @@ abstract class CtrlPage extends CtrlCommon {
     parent::afterInit();
     $this->initMeta();
     $this->initHeadTitle();
+    $this->initBlocks();
   }
   
   public function setActionParams() {
@@ -162,16 +179,12 @@ abstract class CtrlPage extends CtrlCommon {
     }
     $this->d['pathData'] = $this->page['pathData'];
     $this->d['page'] = $this->page;
-    $this->beforeInitSettings();
-    $this->initSettings();
     $title = empty($this->page['fullTitle']) ?
       $this->page['title'] : $this->page['fullTitle'];
     $this->setHeadTitle($title);
     $this->setPageTitle($title);
     return $this;
   }
-  
-  protected function beforeInitSettings() {}
 
   private function initHeadTitle() {
     if (empty($this->d['pageMeta']['title'])) return;
@@ -191,26 +204,7 @@ abstract class CtrlPage extends CtrlCommon {
   }
   
   protected function initMeta() {
-    $this->d['pageMeta'] = db()->selectRow('SELECT * FROM pages_meta WHERE id=?d', $this->page['id']);
-  }
-  
-  protected function initSettings() {
-    $this->settings = $this->page['settings'] ? $this->page['settings'] : array();
-    if (!empty($this->requiredSettings)) {
-      foreach ($this->requiredSettings as $v) {
-        if (!isset($this->settings[$v])) {
-          //throw new NgnException("\$this->settings[$v] in '".get_class($this)."' class not defined. Page: ".getPrr($this->page));
-        }
-      }
-    }
-    if (!empty($this->defaultSettings)) {
-      foreach ($this->defaultSettings as $k => $v) {
-        if (empty($this->settings[$k])) {
-          $this->settings[$k] = $v;
-        }
-      }
-    }
-    if ($this->settings) $this->d['settings'] = $this->settings;
+    $this->d['pageMeta'] = DbModelCore::get('pages_meta', $this->page['id']);
   }
   
   private function saveUserPage() {
@@ -237,14 +231,15 @@ abstract class CtrlPage extends CtrlCommon {
   protected function extendTplData() {
     if ($this->adminMode) return;
     if (empty($this->page)) return;
-    Err::noticeSwitch(false);
-    if (($path = Hook::getPath('before')) !== false) include $path;
-    if (!empty($this->page['module']) and !PageModuleCore::isVirtual($this->page['module']) and ($paths = O::get('PageModuleInfo', $this->page['module'])->getFilePaths('afterAction.php')) !== false) include $paths[0];
-    if (($path = Hook::getPath('pageNames/'.$this->page['name'])) !== false) include $path;
-    if (($path = Hook::getPath('pageModules/'.$this->page['module'])) !== false) include $path;
-    if (($path = Hook::getPath('controllers/'.$this->page['controller'])) !== false) include $path;
-    if (($path = Hook::getPath('after')) !== false) include $path;
-    Err::noticeSwitchBefore();
+    if (($paths = SiteHook::getPaths('before', $this->page['module'])) !== false) {
+      foreach ($paths as $path) include $path;
+    }
+    if (($paths = SiteHook::getPaths('pageNames/'.$this->page['name'])) !== false)
+      foreach ($paths as $path) include $path;
+    if (($paths = SiteHook::getPaths('after', $this->page['module'])) !== false) {
+      foreach ($paths as $path) include $path;
+    }
+    //Err::noticeSwitchBefore();
   }
   
   protected function prepareTplPath() {
@@ -491,8 +486,8 @@ abstract class CtrlPage extends CtrlCommon {
   
   protected function initAction() {
     // Если в настройках раздела определен экшн по умолчанию
-    if (!empty($this->settings['defaultAction'])) {
-      $this->defaultAction = $this->settings['defaultAction'];
+    if (!empty($this->page['settings']['defaultAction'])) {
+      $this->defaultAction = $this->page['settings']['defaultAction'];
     }
     parent::initAction();
   }
@@ -508,7 +503,9 @@ abstract class CtrlPage extends CtrlCommon {
         'REPLACE INTO users_pages SET dateCreate=?, pageId=?d, title=?, url=?, userId=?d, path=?',
         dbCurTime(), $this->page['id'], $this->d['pageTitle'], $_SERVER['REQUEST_URI'],
         $userId, $this->page['path']);
-    }  
+    }
+    if (($paths = SiteHook::getPaths('afterAction', $this->page['module'])) !== false)
+      foreach ($paths as $path) include $path;
   }
   
   public $pageLabels = array(
@@ -529,6 +526,8 @@ abstract class CtrlPage extends CtrlCommon {
     $this->d['blocks'] = PageBlockCore::getBlocks($this->page['id']);
     $this->d['tpl'] = 'common/pageBlocksOneCol';
   }
+  
+  public function processDynamicBlockModels(array &$blocks) {}
 
   // ====================== Default Inctance Data ==========================
   

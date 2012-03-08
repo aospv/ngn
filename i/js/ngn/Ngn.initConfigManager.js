@@ -3,7 +3,7 @@ Ngn.initConfigManager = function() {
     var name = el.get('title');
     el.set('title', 'Удалить');
     el.addEvent('click', function(e){
-      new Event(e).stop();
+      e.preventDefault();
       if (!confirm('Вы уверены?')) return;
       eValue = $('value_' + name2id(name).replace('k_', ''));
       eValue.addClass('loader');

@@ -20,10 +20,12 @@ Ngn.frm.stmEditFieldsSaver = function(_opt) {
       }
     }
   }
+  /*
   form.initFancyUpload({
     url: Ngn.getPath(5) + '?a=' + opt.fancyUploadAction + '&fn={fn}&sessionId=' + opt.sessionId, 
     loadedFiles: [],
     chooseBtnTitle: 'Выбрать',
     hideHelp: true
   });
+  */
 };

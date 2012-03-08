@@ -17,11 +17,7 @@ Ngn.cp = {
     new Ngn.HidebleBar('header', 'up');
     this.addFirefoxAlert();
     Ngn.lightbox.add(document.getElements('a.lightbox'));
-    Ngn.addBtnsAction('a.dialogForm', function(eBtn) {
-      new Ngn.Dialog.Queue.Request.Form({
-        url: eBtn.get('data-href')
-      });
-    });
+    Ngn.dialogable();
   },
   addFirefoxAlert: function() {
     if (!Browser.Engine.gecko) {
@@ -72,7 +68,7 @@ Ngn.cp = {
       // Проверяем валидность если существуют валидационные функции
       if (this.validations[id]) {
         if (!this.validations[id]()) {
-          new Event(e).stop();
+          e.preventDefault();
           return;
         }
       }
@@ -138,7 +134,7 @@ Ngn.cp = {
     // "confirm"
     document.getElements('a[class~=confirm]').each(function(a, i) {
       a.addEvent('click', function(e){
-        new Event(e).stop();
+        e.preventDefault();
         var title = this.get('text');
         if (!title) title = this.get('title');
         if (confirm(

@@ -224,34 +224,6 @@ margin-top: 5px;
 }
 
 
-
-/*
-.module_siteFriends .ddItems .item {
-width: 115px;
-margin-right: 15px;
-float: left;
-text-align: center;
-border: none;
-}
-.module_siteFriends .ddItems .item h2 {
-font-size: 11px;
-margin-top: 0px;
-}
-.module_siteFriends .ddItems .item a.thumb {
-float: none;
-border: none;
-}
-.module_siteFriends .noImage {
-width: 100px;
-height: 60px;
-}
-.module_siteFriends .ddItems .item .editBlock {
-float: none;
-position: relative;
-height: 16px;
-}
-*/
-
 .t_sound .title, .t_sound .mp3player, .t_sound .mp3download {
 float: left;
 }

@@ -261,17 +261,21 @@ Ngn.btn = function(title, btnClass, properties) {
 };
 
 Ngn.smBtns = function(btns, bordered) {
-  if (!bordered) bordered = true;
+  if (bordered === undefined) bordered = true;
   var html = '<div class="smIcons'+(bordered ? ' bordered' : '')+'">';
   for (var i=0; i<btns.length; i++) {
     opts = $merge({
       href: '#',
       bordered: true
-    }, btns[i].opts ? btns[i].opts : {});
-    html += '<a href="'+opts.href+'" class="sm-'+btns[i].name+'" title="'+btns[i].title+'"><i></i></a>';
+    }, btns[i]);
+    html += Ngn.smBtn(opts);
   }
   html += '</div>';
   return html.toDOM()[0];
+};
+
+Ngn.smBtn = function(opts) {
+  return '<a href="'+opts.href+'" class="sm-'+opts.name+'" title="'+opts.title+'"><i></i></a>';
 };
 
 Ngn.setToCenter = function(element, eParent, offset) {
@@ -393,7 +397,7 @@ Ngn.initSubmit = function(eForm) {
   if (!btnSubmit) return;
   var submiting = false;
   btnSubmit.addEvent('click', function(e){
-    new Event(e).stop();
+    e.preventDefault();
     if (submiting) return;
     btnSubmit.disabled = true;
     btnSubmit.addClass('loading');
@@ -470,11 +474,16 @@ Ngn.storage.int = {
 
 Ngn.storage.json = {
   get: function(key) {
-    if (localStorage) {
-      return Ngn.localStorage.json.get(key);
-    } else {
-      return JSON.decode(Cookie.read(key));
+    try {
+      if (localStorage) {
+        var r = Ngn.localStorage.json.get(key);
+      } else {
+        var r = JSON.decode(Cookie.read(key));
+      }
+    } catch (e) {
+      var r = {};
     }
+    return r;
   },
   set: function(key, data) {
     if (localStorage)
@@ -605,7 +614,7 @@ Ngn.addBtnAction = function(selector, action, parent) {
   if (!eBtn) return;
   action = action.pass(eBtn);
   eBtn.addEvent('click', function(e) {
-    new Event(e).stop();
+    e.preventDefault();
     action();
   });
 };
@@ -613,7 +622,7 @@ Ngn.addBtnAction = function(selector, action, parent) {
 Ngn.addBtnsAction = function(selector, action, parent) {
   (parent ? parent : document).getElements(selector).each(function(eBtn) {
     eBtn.addEvent('click', function(e) {
-      new Event(e).stop();
+      e.preventDefault();
       action(eBtn);
     });
   });
@@ -680,7 +689,7 @@ Ngn.strReplace = function(search, replace, subject) {
   return subject;
 };
 
-Ngn.equalItemHeights = function(esItems) {
+Ngn.equalItemHeights = function(esItems, minHeight) {
   if (!esItems.length) return;
   var maxY = 0;
   var vPadding =
@@ -697,7 +706,7 @@ Ngn.equalItemHeights = function(esItems) {
   if (!maxY) return;
   maxY = maxY - vPadding;
   esItems.each(function(el){
-    el.setStyle('height', maxY);
+    el.setStyle(minHeight ? 'min-height' : 'height', maxY);
   });
 },
 
@@ -731,3 +740,39 @@ Ngn.whenElPresents = function(eParent, selector, func) {
     if (n == maxAttempts) $clear(id);
   }.periodical(100);
 };
+
+Ngn.dialogable = function() {
+  Ngn.addBtnsAction('a.dialogForm', function(eBtn) {
+    new Ngn.Dialog.Queue.Request.Form({
+      url: eBtn.get('href')
+    });
+    eBtn.set('href', '#')
+  });
+  /*
+  window.document.getElements('a.dialogable').each(function(eA){
+    var url = eA.get('href');
+    eA.set('href', '#');
+    eA.addEvent('click', function(e) {
+      e.preventDefault();
+      var dialog = eA.get('data-dialog');
+      if (dialog) {
+        var cls = eval('Ngn.'+ucfirst(dialog));
+      } else {
+        var cls = Ngn.Dialog;
+      }
+      new cls({
+        url: url
+      });
+    });
+  });
+  */
+}
+
+Ngn.EmptyError = new Class({
+  Extends: Error,
+  
+  initialize: function(v) {
+    this.message = '"' + v + '" can not be empty';
+  }
+  
+});

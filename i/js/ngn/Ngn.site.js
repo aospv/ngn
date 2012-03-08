@@ -28,7 +28,7 @@ Ngn.site = {
       if (ePass.get('value') == '') ePass.set('value', defPass);
     });            
     eEnter.addEvent('click', function(e) {
-      new Event(e).stop();      
+      e.preventDefault();      
       eForm.submit();                
     });
     eLogin.set('value', defLogin);

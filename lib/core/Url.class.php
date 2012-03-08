@@ -74,7 +74,6 @@ class Url {
     return self::$contents[$url];
   }
 
-  
   static public function copy($url, $to) {
     $out = fopen($to, 'wb'); 
     if ($out == false) { 

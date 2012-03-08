@@ -52,7 +52,7 @@ $('productsTable').getElements('.delete').each(function(eBtn) {
     new Request({
       url: '/userStoreMyOrders/ajax_delete',
       onComplete: function() {
-        window.location = window.location;
+        window.location.reload(true);
       }
     }).get({
       id: eBtn.get('data-id')

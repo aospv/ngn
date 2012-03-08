@@ -28,7 +28,7 @@ Ngn.DdCalendar = new Class({
   },
   
   btnClick: function(e, eBtn){
-    new Event(e).stop();
+    e.preventDefault();
     this.eCalendar.addClass('loader');
     new Request({
       url: eBtn.get('href'),

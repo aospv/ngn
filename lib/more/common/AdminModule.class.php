@@ -66,6 +66,15 @@ class AdminModule {
   static function getProperty($name, $property) {
     $properties = self::getProperties($name);
     return $properties[$property];
-  }  
+  }
+
+  static function sf($name) {
+    $s = '';
+    if (file_exists(STATIC_PATH.'/js/ngn/admin/'.$name.'.js'))
+      $s .= SFLM::getJsTag(STATIC_DIR.'/js/ngn/admin/'.$name.'.js');
+    if (file_exists(STATIC_PATH.'/js/ngn/admin/'.$name.'.css'))
+      $s .= SFLM::getCssTag(STATIC_DIR.'/js/ngn/admin/'.$name.'.css');
+    return $s;
+  }
   
 }

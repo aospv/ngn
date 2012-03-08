@@ -42,7 +42,7 @@
 </td></tr><tr><td>
   <div id="bottom">
     <div class="cont">
-      <a target="_blank" class="smallLogo" title="MyNinja. сервис создания сайтов"></a>
+      <a target="_blank" class="smallLogo" title="Majexa Developent Studio"></a>
       <div class="copy"><?= AdminCore::getCopyright()?></div>
     </div>
   </div>

@@ -81,7 +81,7 @@ abstract class CtrlPageDd extends CtrlPage {
   public $masterField;
   
   protected function init() {
-    $this->strName = $this->settings['strName'];
+    $this->strName = $this->page['settings']['strName'];
     $oFields = new DdFields($this->strName);
     // ----------------------------------------------------------------
     $this->itemId = isset($this->oReq->r['itemId']) ? (int)$this->oReq->r['itemId'] : 0;
@@ -91,8 +91,8 @@ abstract class CtrlPageDd extends CtrlPage {
     // Перед инициализацией класса CtrlPage, в котором инициализируется объект
     // комментариев, для этого объекта нужно определить $this->id2
     $this->id2 = $this->itemId;
-    parent::init();
     $this->d['fields'] = $oFields->getFields();
+    parent::init();
   }
   
   protected function getItemsManagerOptions() {
@@ -107,8 +107,8 @@ abstract class CtrlPageDd extends CtrlPage {
     if ($this->userGroup)
       $this->oManager->createData = array('userGroupId' => $this->userGroup['id']);
     if (!Misc::hasSuffix('edit', $this->action)) {
-      if (!empty($this->settings['createBtnTitle']))
-        $this->oManager->oForm->options['submitTitle'] = $this->settings['createBtnTitle'];
+      if (!empty($this->page['settings']['createBtnTitle']))
+        $this->oManager->oForm->options['submitTitle'] = $this->page['settings']['createBtnTitle'];
       else
         $this->oManager->oForm->options['submitTitle'] = 'Добавить';
     }
@@ -120,9 +120,9 @@ abstract class CtrlPageDd extends CtrlPage {
   }
 
   protected function setFormTpl($oForm) {
-    if (empty($this->settings['formTpl'])) return;
-    if (!$tpls = Config::getVar('formTpl.'.$this->settings['formTpl'], true)) 
-      throw new NgnException('Config var "formTpl.'.$this->settings['formTpl'].'" with form '.
+    if (empty($this->page['settings']['formTpl'])) return;
+    if (!$tpls = Config::getVar('formTpl.'.$this->page['settings']['formTpl'], true)) 
+      throw new NgnException('Config var "formTpl.'.$this->page['settings']['formTpl'].'" with form '.
             'templates not exists.');      
     foreach ($tpls as $k => $v) {
       $oForm->templates[$k] = $v;
@@ -242,8 +242,8 @@ abstract class CtrlPageDd extends CtrlPage {
   public function completeRedirect() {
     if ($this->disableCompleteRedirect) return;
     if (!isset($this->completeRedirectType) and 
-        !empty($this->settings['completeRedirectType'])) {
-      $this->completeRedirectType = $this->settings['completeRedirectType'];
+        !empty($this->page['settings']['completeRedirectType'])) {
+      $this->completeRedirectType = $this->page['settings']['completeRedirectType'];
     }
     if ($this->completeRedirectType == 'referer') {
       // referer
@@ -342,7 +342,6 @@ abstract class CtrlPageDd extends CtrlPage {
   
   protected function afterAction() {
     parent::afterAction();
-    if (($path = Hook::getPath('dd/afterAction')) !== false) include $path;
     if (($l = $this->getPageLabel()) !== null)
       $this->setPageTitle($this->d['pageTitle'].$l);
   }
@@ -378,13 +377,26 @@ abstract class CtrlPageDd extends CtrlPage {
     if ($this->useDefaultTplFolder and
     Tt::exists($this->tplFolder.'/'.$this->strName.'/'.$tpl)) {
       $this->d['tpl'] = $this->tplFolder.'/'.$this->strName.'/'.$tpl;
-    } elseif (!empty($this->settings['tplName']) and 
-    Tt::exists($this->tplFolder.'/'.$this->settings['tplName'].'/'.$tpl)) {
+    } elseif (!empty($this->page['settings']['tplName']) and 
+    Tt::exists($this->tplFolder.'/'.$this->page['settings']['tplName'].'/'.$tpl)) {
       // Если задан каталог с шаблонами и необходимый фаблон в нем существует
-      $this->d['tpl'] = $this->tplFolder.'/'.$this->settings['tplName'].'/'.$tpl;
+      $this->d['tpl'] = $this->tplFolder.'/'.$this->page['settings']['tplName'].'/'.$tpl;
     } elseif (Tt::exists($this->tplFolder.'/'.$tpl)) {
       $this->d['tpl'] = $this->tplFolder.'/'.$tpl;
     }
+  }
+  
+  public function processDynamicBlockModels(array &$blockModels) {
+    if (in_array($this->action, array('new', 'edit'))) $blockModels = array();
+    /*
+    $blockModels[] = new DbModelVirtual(array(
+      'type' => 'text',
+      'colN' => 1,
+      'settings' => array(
+        'text' => 'System edit message'
+      )
+    ));
+    */
   }
 
 }

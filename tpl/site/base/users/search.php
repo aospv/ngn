@@ -14,7 +14,7 @@
 var url = '<?= Tt::getPath() ?>';
 var userSearchBtn = $('userSearchBtn');
 userSearchBtn.addEvent('click', function(e) {
-  new Event(e).stop();
+  e.preventDefault();
   var userMask = $('userMask').getProperty('value');
   var results = $('results');
   if (!userMask) return;

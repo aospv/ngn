@@ -26,7 +26,7 @@ Ngn.FlagLink = new Class({
       if (this.text) this.text.set('text', this.options.titleOn);
     }
     this.el.addEvent('click', function(e) {
-      new Event(e).stop();
+      e.preventDefault();
       this.click();
     }.bind(this));
   },

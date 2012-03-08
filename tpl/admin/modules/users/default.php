@@ -56,7 +56,8 @@ window.addEvent('domready', function(){
     <tr>
       <th>&nbsp;</th>
       <th>Логин</th>
-      <th>Ящик</th>
+      <th>E-mail</th>
+      <th>Телефон</th>
       <th>Дата регистрации</th>
     </tr>
   </thead>
@@ -82,6 +83,7 @@ window.addEvent('domready', function(){
     </td>
     <td><?= $v['login'] ?></td>
     <td><i><?= $v['email'] ?></i>&nbsp;</td>
+    <td><i><?= $v['phone'] ?></i>&nbsp;</td>
     <td><?= !$v['dateCreate_tStamp'] ? '<small class="gray">не определена</small>' : '<small>'.datetimeStr($v['dateCreate_tStamp']).'</small>' ?></td>
   </tr>
   <? } ?>

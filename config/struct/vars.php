@@ -521,6 +521,35 @@ return array(
     'title' => 'Регистрация/профиль', 
     'static' => true, 
     'fields' => array(
+      'activation' => array(
+        'title' => 'Активация после регистрации', 
+        'type' => 'select',
+        'options' => array(
+          '' => 'отключена',
+          'email' => "по email'у",
+          'admin' => 'только администратором' 
+        )
+      ), 
+      'emailEnable' => array(
+        'title' => "Включить заполнение e-mail'a при регистрации",
+        'type' => 'bool'
+      ),
+      'phoneEnable' => array(
+        'title' => "Включить заполнение телефона при регистрации",
+        'type' => 'bool'
+      ),
+      'loginAsFullName' => array(
+        'title' => "Использовать логин, как полное имя",
+        'type' => 'bool'
+      ),
+      'authorizeAfterReg' => array(
+        'title' => 'Авторизовывать после регистрации',
+        'type' => 'bool'
+      ),
+      'vkAuthEnable' => array(
+        'title' => 'Включить авторизацию Вконтакте',
+        'type' => 'bool'
+      ),
       'allowLoginEdit' => array(
         'title' => 'Разрешить изменение логина', 
         'type' => 'bool'
@@ -530,7 +559,11 @@ return array(
         'type' => 'bool'
       ), 
       'allowEmailEdit' => array(
-        'title' => 'Разрешить изменение ящика', 
+        'title' => 'Разрешить изменение e-mail', 
+        'type' => 'bool'
+      ),
+      'allowPhoneEdit' => array(
+        'title' => 'Разрешить изменение телефона', 
         'type' => 'bool'
       ),
       'allowNameEdit' => array(
@@ -544,7 +577,7 @@ return array(
       'pageIds' => array(
         'title' => 'Дополнительные разделы в блоке авторизованого пользователя',
         'type' => 'fieldList',
-        'fieldsType' => 'pageId'
+        'fieldsType' => 'pageId',
       ),
       'redirectToFirstPage' => array(
         'title' => 'Перенаправлять после авторизации с фронтенда на первый раздел из указанных выше',
@@ -1075,6 +1108,21 @@ return array(
       'pass' => array(
         'title' => 'Пароль',
         'type' => 'password'
+      )
+    )
+  ),
+  'store' => array(
+    'type' => 'hash',
+    'static' => true,
+    'title' => 'Магазин',
+    'fields' => array(
+      'orderControllerSuffix' => array(
+        'title' => 'Контроллер заказа',
+        'type' => 'storeOrderControllerSuffix'
+      ),
+      'ordersPageId' => array(
+        'title' => 'Раздел с базой заказов',
+        'type' => 'pageId'
       )
     )
   ),

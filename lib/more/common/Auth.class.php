@@ -34,12 +34,7 @@ class Auth {
   
   const ERROR_EMPTY_LOGIN_OR_PASS = 4;
   
-  static $errorsText = array(
-    self::ERROR_AUTH_NO_LOGIN => 'Пользователь с таким логином не зарегистрирован',
-    self::ERROR_AUTH_WRONG_PASS => 'Неверный пароль',
-    self::ERROR_AUTH_USER_NOT_ACTIVE => 'Пользователь не активирован',
-    self::ERROR_EMPTY_LOGIN_OR_PASS => 'Пустой логин или пароль'
-  );
+  static $errorsText;
   
   static public function setMethod($method) {
     self::$method = $method;
@@ -48,18 +43,6 @@ class Auth {
   static public function cryptPass($pass) {
   return md5(md5(md5($pass)));
     return $pass;
-  }
-  
-  /**
-   * Возвращаеммый этой функцией массив будет сохранен в сессию
-   *
-   * @param   string  Логин
-   * @return  array
-   */
-  static function getUsersData($login) {
-    return db()->select(
-      'SELECT id, login, pass, active, userDataPageId FROM users WHERE login=?',
-      $login);
   }
 
   /**
@@ -70,24 +53,25 @@ class Auth {
    * @return  bool
    */
   static function checkLoginPass($login, $encryptedPass) {
-    if (!$usersData = self::getUsersData($login)) {
-      // Если не было найдено ниодного пользователя
-      self::error(self::ERROR_AUTH_NO_LOGIN);
-      return false;
-    }
-    // Перебираем всех пользователей по этому логину
-    foreach ($usersData as $userData) {
-      if ($userData['pass'] == $encryptedPass) {
-        if ($userData['active'] == 1) {
-          return $userData;
-        }
-        else {
-          self::error(self::ERROR_AUTH_USER_NOT_ACTIVE);
+  	$login = trim($login);
+    if (($user = DbModelCore::get('users', $login, 'login')) === false) {
+      if (($user = DbModelCore::get('users', $login, 'email')) === false) {
+      	if (($user = DbModelCore::get('users', trim($login, '+'), 'phone')) === false) {
+      	  self::error(self::ERROR_AUTH_NO_LOGIN);
           return false;
-        }
-      } else {
-        $wrongPass = true;
+      	}
       }
+    }
+    if ($user['pass'] == $encryptedPass) {
+      if ($user['active']) {
+        return $user;
+      }
+      else {
+        self::error(self::ERROR_AUTH_USER_NOT_ACTIVE);
+        return false;
+      }
+    } else {
+      $wrongPass = true;
     }
     // Если для всех перебраных пользователей пароль неверен
     if ($wrongPass) {
@@ -232,7 +216,7 @@ class Auth {
   }
   
   static private function loginBySession() {
-    return isset($_SESSION['auth']) ? $_SESSION['auth'] : null;
+    return isset($_SESSION['auth']) ? $_SESSION['auth'] : false;
   }
   
   static public $postAuth = false;
@@ -251,7 +235,7 @@ class Auth {
         return false;
       }
       $r = self::login($login, self::cryptPass($pass));
-      if ($r)	self::$postAuth = true;
+      if ($r) self::$postAuth = true;
       return $r;
     } else {
       return false;
@@ -264,7 +248,7 @@ class Auth {
    * @return bool
    */
   static function loginPage() {
-    if (!$r = self::loginByPost()) {
+    if (($r = self::loginByPost()) === false) {
       if (self::$method == 'cookie') {
         return self::loginByCookie();
       } else {
@@ -309,3 +293,10 @@ class Auth {
   }
     
 }
+
+Auth::$errorsText = array(
+  Auth::ERROR_AUTH_NO_LOGIN => "Пользователь с таким логином, email'ом или телефоном не зарегистрирован",
+  Auth::ERROR_AUTH_WRONG_PASS => 'Неверный пароль',
+  Auth::ERROR_AUTH_USER_NOT_ACTIVE => 'Пользователь не активирован',
+  Auth::ERROR_EMPTY_LOGIN_OR_PASS => 'Пустой логин или пароль'
+);

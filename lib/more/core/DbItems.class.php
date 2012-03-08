@@ -38,7 +38,6 @@ class DbItems implements UpdatableItems {
   
   public function update($id, array $data) {
     $data['dateUpdate'] = dbCurTime();
-    LogWriter::v('aaa', $data);
     $this->db->query("UPDATE {$this->table} SET ?a WHERE id=?d", Arr::serialize($data), $id);
   }
   

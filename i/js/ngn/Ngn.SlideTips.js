@@ -34,17 +34,17 @@ Ngn.SlideTips = new Class({
     }.bind(this));
 
     this.btnClose.addEvent('click', function(e) {
-      new Event(e).stop();
+      e.preventDefault();
       this.element.dispose();
     }.bind(this));
     
     this.ePrev.addEvent('click', function(e){
-      new Event(e).stop();
+      e.preventDefault();
       this.prev();
     }.bind(this));
     
     this.eNext.addEvent('click', function(e){
-      new Event(e).stop();
+      e.preventDefault();
       this.next();
     }.bind(this));
 

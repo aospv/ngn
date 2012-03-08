@@ -19,10 +19,10 @@ Ngn.Dialog.Tiny = new Class({
     });
     this.eTextarea.setStyle('width', '100%'); // нужно выставлять ширину именно яваскриптом
     (function(){
-      tinyMCE.init(new Ngn.TinySettings().getSettings({
+      tinyMCE.init($merge(new Ngn.TinySettings().getSettings(), {
         'elements': this.id,
         'attachId': this.id
-      }));          
+      }));
     }).delay(100, this);
     return this.eTextarea;
   },

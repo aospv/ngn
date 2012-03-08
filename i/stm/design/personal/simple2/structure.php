@@ -4,12 +4,6 @@ return array(
   'title' => 'Простой 2',
   'fields' => array(
     array(
-      'title' => 'Логотип',
-      'name' => 'logo',
-      'type' => 'image',
-      'tune' => true
-    ),
-    array(
       'title' => 'Фоновая картинка лейаута',
       'name' => 'layoutBg',
       'type' => 'image'
@@ -25,11 +19,6 @@ return array(
       'type' => 'pixels'
     ),
     array(
-      'title' => 'Отступ сверху от логотипа',
-      'name' => 'logoTopMargin',
-      'type' => 'pixels'
-    ),
-    array(
       'title' => 'Фоновая картинка заголовочного блока',
       'name' => 'mainHeaderBg',
       'type' => 'image'
@@ -41,7 +30,7 @@ return array(
     ),
     array(
       'title' => 'Цвет текста футера',
-      's' => '#footer',
+      's' => '#footer, #footer a',
       'p' => 'color',
       'type' => 'color'
     ),

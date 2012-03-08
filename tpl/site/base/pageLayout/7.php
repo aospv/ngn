@@ -1,36 +1,20 @@
-<div class="span-6 col">
+<div class="span-6 col" id="col1">
   <div class="body">
-  <?
-  Tt::tpl('common/pageBlocksOneCol', array(
-    'blocks' => PageBlockCore::getBlocksByCol($d['page']['id'], 1, $d['oController'])
-  ));        
-  ?>
+    <?= $d['col1'] ?>
   </div>
 </div>
-<div class="span-6 col">
+<div class="span-6 col" id="col2">
   <div class="body">
-  <?
-  Tt::tpl('common/pageBlocksOneCol', array(
-    'blocks' => PageBlockCore::getBlocksByCol($d['page']['id'], 2, $d['oController'])
-  ));        
-  ?>
+    <?= $d['col2'] ?>
   </div>
 </div>
-<div class="span-6 col">
+<div class="span-6 col" id="col3">
   <div class="body">
-  <?
-  Tt::tpl('common/pageBlocksOneCol', array(
-    'blocks' => PageBlockCore::getBlocksByCol($d['page']['id'], 3, $d['oController'])
-  ));        
-  ?>
+    <?= $d['col3'] ?>  
   </div>
 </div>
-<div class="span-6 last col">
+<div class="span-6 last col"  id="col4">
   <div class="body">
-  <?
-  Tt::tpl('common/pageBlocksOneCol', array(
-    'blocks' => PageBlockCore::getBlocksByCol($d['page']['id'], 4, $d['oController'])
-  ));        
-  ?>
+    <?= $d['col4'] ?>  
   </div>
 </div>

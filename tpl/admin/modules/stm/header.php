@@ -7,13 +7,13 @@ $links[] = array(
 );
 $links[] = array(
   'title' => 'Изменить тему',
-  'class' => 'edit',
-  'link' => Tt::getPath(2).'/changeTheme',
+  'class' => 'edit dialogForm',
+  'link' => Tt::getPath(2).'/json_changeTheme',
 );
 $links[] = array(
   'title' => 'Создать тему',
-  'class' => 'add',
-  'link' => Tt::getPath(2).'/themeNewStep1',
+  'class' => 'add dialogForm',
+  'link' => Tt::getPath(2).'/json_themeNewStep1',
 );
 if ($d['action'] == 'editTheme') {
   $links[] = array(

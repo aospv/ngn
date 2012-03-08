@@ -96,7 +96,7 @@ class FormBase extends Options2 {
   
   public function __construct(array $options = array()) {
     parent::__construct($options);
-    $this->id = $this->options['id'];
+    if (isset($this->options['id'])) $this->id = $this->options['id'];
     $this->oReq = empty($this->options['oReq']) ? O::get('Req') : $this->options['oReq'];
     $this->initSubmit();
   }
@@ -136,7 +136,7 @@ class FormBase extends Options2 {
   }
 
   public function isSubmittedAndValid() {
-    return $this->isSubmitted() and !$this->hasErrors;
+    return $this->isSubmitted() and $this->validate();
   }
   
   protected function htmlFormOpen() {
@@ -299,10 +299,12 @@ class FormBase extends Options2 {
   }
   
   protected function wrapCols($html) {
-    if (!strstr($html, "type_col")) return $html;
+    if (!strstr($html, 'type_col')) return $html;
+    $n = 0;
+    foreach ($this->els as $v) if ($v['type'] == 'col') $n++;
     return preg_replace(
       '/(<\!-- Open fields(?:[^>]*)-->(?:.*)<\!-- Close fields(?:[^>]*)-->)/sm',
-      '<div class="colSet">$1<div class="clear"><!-- --></div></div>',
+      '<div class="colSet colN'.$n.'">$1<div class="clear"><!-- --></div></div>',
       $html);
   }
   
@@ -317,9 +319,10 @@ class FormBase extends Options2 {
           $this->js .= "\n\n// ------- $method ------- \n\n".$c;
       }
     }
-    if ($this->js != '')
+    if ($this->js != '') {
+      $this->js = str_replace('<!--', '/*', str_replace('-->', '*/', $this->js)); 
       return "\n\n<div id=\"{$this->id}js\" class=\"inlineJs\" style=\"display:none\">{$this->js}</div>";
-      //return "\n\n<script>(function() {{$this->js}}).delay(10);</script>";
+    }
     return '';
   }
 
@@ -348,6 +351,7 @@ class FormBase extends Options2 {
       $this->lastError = $this->globalError;
       $this->hasErrors = true;
     }
+    return !$this->hasErrors;
   }
   
   public $lastError;

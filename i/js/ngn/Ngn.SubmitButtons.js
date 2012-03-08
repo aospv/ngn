@@ -52,7 +52,7 @@ Ngn.SubmitButtons2 = {
     });
     */    
     eBtn.addEvent('click', function(e){
-      new Event(e).stop();
+      e.preventDefault();
       eForm.submit();
     });
   }

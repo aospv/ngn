@@ -275,9 +275,11 @@ class Html {
   }
   
   static public function baseDomainLinks($html) {
-    return preg_replace(
+    return preg_replace_callback(
       '/(href|src|action)="(?!\/\/|http:\/\/)\/*([^"]+)/',
-      '$1="//'.SITE_DOMAIN.'/$2',
+      function($m) {
+        return $m[1].'="//'.SITE_DOMAIN.'/'.ltrim($m[2], '/');
+      },
       $html
     );
   }

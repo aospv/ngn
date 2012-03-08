@@ -45,5 +45,5 @@ print '</div>';
 ?>
 
 <script type="text/javascript">
-new Ngn.PageBlocksEdit(<?= $pageBlocksConf['colsN'] ?>);
+new Ngn.PageBlocksEdit();
 </script>

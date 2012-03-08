@@ -28,7 +28,7 @@ Ngn.Dialog.RequestFormBase = new Class({
     window.addEvent('keypress', function(e) {
       return;
       if (e.key != 'enter' || e.target.get('tag') == 'textarea') return;
-      new Event(e).stop();
+      e.preventDefault();
       this.submit();
     }.bind(this));
   },

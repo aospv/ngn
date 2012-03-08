@@ -14,4 +14,6 @@ abstract class Pcsa {
     $this->page = $page;
   }
   
+  abstract public function action(array $initSettings);
+  
 }

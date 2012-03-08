@@ -5,6 +5,10 @@ class DbModelSlices extends DbModel {
   protected $cssClass = 'sliceType_wisiwig';
   
   protected $absolute;
+  
+  protected $prop = array(
+    'allowAdmin' => true
+  );
 
   public function html($default = null) {
     if ($this->r['type'] == 'text') $this->setPlainTextMode(true);
@@ -14,7 +18,10 @@ class DbModelSlices extends DbModel {
       'class="slice pad-bottom '.
       'sliceId_'.$this->r['id'].' '.
       ($this->r['absolute'] ? 'sliceAbsolute ' : '').
-      $this->cssClass.($this->isGlobal() ? ' slice_global' : '').'">'.
+      $this->cssClass.
+      ($this->isGlobal() ? ' slice_global' : '').
+      ($this->prop['allowAdmin'] ? ' allowAdmin' : '').
+      '">'.
       '<div class="slice-title hidden">'.$this->r['title'].'</div>'.
       '<div class="slice-text">'.$text.'</div>'.
       '</div>'.

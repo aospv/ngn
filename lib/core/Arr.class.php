@@ -102,10 +102,7 @@ class Arr {
   }
   
   static public function getValue(array $arr, $key) {
-    foreach ($arr as $k => $v)
-      if ($k == $key)
-        return $v;
-    return false;
+    return isset($arr[$key]) ? $arr[$key] : false;
   }
   
   static public function getValueByKey(array $arr, $k1, $v1) {
@@ -357,16 +354,25 @@ class Arr {
     return $arr2;
   }
   
+  
   static public function to_options(array $arr, $key = null) {
     $r = array();
-    if ($key) 
-      foreach ($arr as $k => $v)
-        $r[$k] = $v[$key];
-    else {
-      foreach ($arr as $v)
-        $r[$v] = $v;
+    if ($key) { 
+      foreach ($arr as $k => $v) {
+        if (is_array($v[$key]))
+          $r[$v[$key][0]] = $v[$key][1];
+        else
+          $r[$k] = $v[$key];
+      }
+    } else {
+      foreach ($arr as $v) {
+        if (is_array($v))
+          $r[$v[0]] = $v[1];
+        else
+          $r[$v] = $v;
+      }
     }
-     return $r;
+    return $r;
   }
   
   static public function to_assoc($arr, $key) {

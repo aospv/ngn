@@ -8,20 +8,27 @@ class StmCore {
   $pageName = 'main',
   $linkDddd = '`<a href="`.$link.`"><span>`.$title.`</span></a><i></i><div class="clear"></div>`'
   ) {
-    return Menu::ul($pageName, self::getCurrentMenuData()->data['data']['levels'], $linkDddd);
+    $data = self::getCurrentMenuData();
+    return Menu::ul($pageName, $data ? $data->data['data']['levels'] : 1, $linkDddd);
   }
   
   static function slices() {
-    if (($slices = self::getCurrentThemeData()->data['data']['slices']) == null) return;
+    if (($data = self::getCurrentThemeData()) === false) return '';
+    if (($slices = $data->data['data']['slices']) == null) return;
     foreach ($slices as $v)
-      $html .= Slice::html($v['id'], $v['title'], array('absolute' => true));
+      $html .= Slice::html($v['id'], $v['title'], array(
+        'absolute' => true,
+        'allowAdmin' => $v['allowAdmin']
+      ));
     return $html;
   }
   
   // --------------------------------------------------------
   
   static public function getCurrentThemeParams() {
-    return explode(':', Config::getVarVar('theme', 'theme'));
+    $r = Config::getVarVar('theme', 'theme');
+    if (empty($r['theme']) or $r['theme'] == ':') return false;
+    return explode(':', $r);
   }
   
   static public function enabled() {
@@ -34,7 +41,8 @@ class StmCore {
    * @return StmThemeData
    */
   static public function getCurrentThemeData() {
-    list($location, $id) = self::getCurrentThemeParams();
+  	if (($r = self::getCurrentThemeParams()) === false) return false;
+    list($location, $id) = $r;
     return new StmThemeData(new StmDataSource($location), array('id' => $id));
   }
   
@@ -42,7 +50,8 @@ class StmCore {
    * @return StmMenuData
    */
   static public function getCurrentMenuData() {
-    list($location, $id) = explode(':', Config::getVarVar('theme', 'theme'));
+  	if (($r = self::getCurrentThemeParams()) === false) return false;
+    list($location, $id) = $r;
     return new StmMenuData(new StmDataSource($location), array('id' => $id));
   }
   
@@ -82,7 +91,7 @@ class StmCore {
   }
   
   static public function getTags() {
-    if (!Config::getVarVar('theme', 'enabled', true)) return '';
+    if (!Config::getVarVar('theme', 'enabled', true) or !Config::getVarVar('theme', 'theme')) return '';
     return
       '<link rel="stylesheet" type="text/css" media="screen, projection" href="/'.
       (empty($_GET['theme']) ?
@@ -94,6 +103,11 @@ class StmCore {
         SFLM::getCachedUrl('s2/js/common/theme').'?'.BUILD :
         's2/js/common/theme?'.http_build_query($_GET['theme'])).
       '"></script>';
+  }
+  
+  static public function cc() {
+    SFLM::clearPathCache('s2/css/common/theme');
+    SFLM::clearPathCache('s2/js/common/theme');
   }
   
 }

@@ -8,7 +8,7 @@ abstract class StmThemeSf {
   /**
    * @var StmThemeData
    */
-  protected $oSD;
+  public $oSD;
 
   public function __construct(StmThemeData $oSD) {
     $this->oSD = $oSD;

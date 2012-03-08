@@ -76,6 +76,12 @@ Ngn.TreeEditPages = new Class({
       window.location = Ngn.getPath(1) + '/ddOutput/' + this.tree.selected.data.id;
     }.bind(this));
     
+    this.createButton('meta', this.eButtons.getElement('a[class~=meta]'), function() {
+      new Ngn.Dialog.RequestForm({
+        url: Ngn.getPath(1) + '/pageMeta/' + this.tree.selected.data.id
+      });
+    }.bind(this));
+    
     this.createButton('privileges', this.eButtons.getElement('a[class~=privileges]'), function() {
       //c(Ngn.getPath(1) + '/privileges/' + this.tree.selected.data.id + '/pagePrivileges');
       new Ngn.Dialog.RequestForm({
@@ -104,6 +110,7 @@ Ngn.TreeEditPages = new Class({
       this.toggleButton('editContent', node.data.editableContent);
       this.toggleButton('controllerSettings', true);
       this.toggleButton('editProp', true);
+      this.toggleButton('meta', true);
       this.toggleButton('pageBlocks', true);
       this.toggleButton('layout', true);
       this.toggleButton('privileges', true);

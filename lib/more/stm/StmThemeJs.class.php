@@ -7,6 +7,7 @@ class StmThemeJs extends StmThemeSf {
   protected function init() {
     $this->initHomeOffset();
     $this->initMenu();
+    $this->initCart();
   }
   
   protected function initHomeOffset() {
@@ -25,5 +26,18 @@ Ngn.layout.homeTopOffset = $y;
     $oThemeCss = new StmThemeCss($this->oSD);
     if ($oThemeCss->oMenuCss) $this->js .= CssCore::getProloadJs($oThemeCss->oMenuCss->oCss->css);
   }
-
+  
+  protected function initCart() {
+    if (empty($this->oSD->data['data']['slices']) or
+      Arr::getValueByKey($this->oSD->data['data']['slices'], 'id', 'cart') === false) return;
+    $opt = Arr::jsObj(array(
+      'storeOrderController' => StoreCore::getOrderController()
+    ));
+    $this->js .= "
+window.addEvent('domready',function() {
+  Ngn.cart.initBlock($('slice_cart').getElement('.slice-text'), $opt);
+});
+";
+  }
+  
 }

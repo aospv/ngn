@@ -3,19 +3,28 @@ Ngn.slice = {};
 Ngn.slice.Layout = new Class({
   
   initialize: function() {
-    var offsetY;
     if (Ngn.layout.isHome() && Ngn.layout.homeTopOffset)
-      offsetY = Ngn.layout.homeTopOffset;
-    Ngn.layout.getElement().getElements('.sliceType_wisiwig').each(function(el, n) {
-      var slice = new Ngn.slice.Edit.Tiny(el, Ngn.layout.getPageId());
-      if (slice.absoluteSlice && offsetY)
-        slice.absoluteSlice.offsetY = offsetY;
-    });
-    Ngn.layout.getElement().getElements('.sliceType_text').each(function(el, n) {
-      new Ngn.slice.Edit.Text(el, Ngn.layout.getPageId());
-      if (slice.absoluteSlice && offsetY)
-        slice.absoluteSlice.offsetY = offsetY;
-    });
+      this.offsetY = Ngn.layout.homeTopOffset;
+    this.initElements();
+    this.initEdit();
+  },
+  
+  initElements: function() {
+    this.elements = document.getElements('.slice');
+  },
+  
+  initEdit: function() {
+    this.elements.each(function(el, n) {
+      if (Ngn.isGod || (el.hasClass('allowAdmin') && Ngn.isAdmin)) {
+        //c(el);
+        if (el.hasClass('sliceType_text'))
+          var slice = new Ngn.slice.Edit.Text(el);
+        else
+          var slice = new Ngn.slice.Edit.Tiny(el);
+        if (slice.absoluteSlice && this.offsetY)
+          slice.absoluteSlice.offsetY = this.offsetY;
+      }
+    }.bind(this));
   }
   
 });
@@ -27,9 +36,8 @@ Ngn.slice.Absolute = new Class({
   
   initialize: function(sliceEdit) {
     this.sliceEdit = sliceEdit;
-    var x = '<button>+</button>'.toDOM()[0].inject(sliceEdit.container);
-    var v = '<button>|</button>'.toDOM()[0].inject(sliceEdit.container);
-    var h = '<button>-</button>'.toDOM()[0].inject(sliceEdit.container);
+    var btnMove = this.sliceEdit.eEditBlock.getElement('.sm-move');
+    this.sliceEdit.container.addClass('allowDrag');
     var opt = {
       onSnap: function() {
         this.sliceEdit.container.addClass('dragging')
@@ -41,15 +49,7 @@ Ngn.slice.Absolute = new Class({
     };
     new Drag.Move(sliceEdit.container, $merge({
       modifiers: {'x': 'left', 'y': 'top'},
-      handle: x
-    }, opt));
-    new Drag.Move(sliceEdit.container, $merge({
-      modifiers: {'x': '', 'y': 'top'},
-      handle: v
-    }, opt));
-    new Drag.Move(sliceEdit.container, $merge({
-      modifiers: {'x': 'left', 'y': ''}, 
-      handle: h
+      handle: btnMove
     }, opt));
   },
   
@@ -62,7 +62,7 @@ Ngn.slice.Absolute = new Class({
       }.bind(this)
     }).POST({
       'id': this.sliceEdit.id,
-      'x': this.sliceEdit.container.getStyle('left'),
+      'x': parseInt(this.sliceEdit.container.getStyle('left')),
       'y': parseInt(this.sliceEdit.container.getStyle('top')) - this.offsetY
     });
   }
@@ -88,21 +88,23 @@ Ngn.slice.Edit = new Class({
         this.id +'. Must be: ' + this.id + '_pageId');
       this.pageId = this.id.replace(/[^_]+_(\d+).*/, '$1');
     }
-    
     this.container = container;
-    this.eEditBlock = new Element('div', {'class' : 'editBlock smIcons bordered'})
-      .inject(this.container, 'top');
-    this.eBtnEdit = new Element('a', {
-      'title': 'Редактировать «' + this.getTitle() + '»',
-      'class': 'sm-edit',
-      'href': '#'
-    }).inject(this.eEditBlock);
-    new Element('i').inject(this.eBtnEdit);
+    this.container.addClass('editable');
+    this.eEditBlock = Ngn.smBtns([{
+      href: '#',
+      title: 'Редактировать «' + this.getTitle() + '»',
+      name: 'edit'
+    }], true).addClass('editBlock').inject(this.container, 'top');
+    Ngn.setToTopRight(this.eEditBlock);
+    
     this.eText = this.container.getElement('.slice-text');
     this.absolute = container.hasClass('sliceAbsolute');
-    if (this.absolute && Ngn.god)
+    if (this.absolute && Ngn.isGod)
       this.absoluteSlice = new Ngn.slice.Absolute(this);
+    
+    this.btnEdit = this.eEditBlock.getElement('.sm-edit');
     this.initEditBtn();
+    
   },
   
   getTitle: function() {
@@ -145,7 +147,7 @@ Ngn.slice.Edit.Tiny = new Class({
   Extends: Ngn.slice.Edit,
   
   initEditBtn: function() {
-    this.eBtnEdit.addEvent('click', function(e) {
+    this.btnEdit.addEvent('click', function(e) {
       new Ngn.Dialog.Tiny(this.getDialogSettings());
       return false;
     }.bind(this));
@@ -161,7 +163,7 @@ Ngn.slice.Edit.Text = new Class({
   Extends: Ngn.slice.Edit,
   
   initEditBtn: function() {
-    this.eBtnEdit.addEvent('click', function(e) {
+    this.btnEdit.addEvent('click', function(e) {
       new Ngn.Dialog.Textarea(this.getDialogSettings());
       return false;
     }.bind(this));

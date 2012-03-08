@@ -62,6 +62,7 @@ abstract class StmData extends Options {
     if (!$this->canEdit and !Misc::isGod())
       throw new NgnException('not allowed to create or change common theme data');
     Config::updateVar($this->getFile(), $this->data, true);
+    StmCore::cc();
     return $this;
   }
   

@@ -3,7 +3,7 @@
 /**
  * Page module static blocks
  */
-abstract class PmsbAbstract {
+abstract class PmsbAbstract implements ProcessDynamicPageBlock {
 
   /**
    * CtrlPage

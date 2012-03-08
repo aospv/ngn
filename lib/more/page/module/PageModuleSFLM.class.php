@@ -37,13 +37,13 @@ class PageModuleSFLM {
     $this->name = $name;
     $this->module = $module;
     $this->info = O::get('PageModuleInfo', $module);
-    if (file_exists("{$this->info->folderPath}/{$this->name}.php")) {
-      $this->dynamic = include "{$this->info->folderPath}/{$this->name}.php";
+    if (($this->dynamic = $this->info->getData($this->name)) !== false) {
+      //die2($this->dynamic);
       $this->initDynamic('css');
       $this->initDynamic('js');
-    }
-    if (isset($this->dynamic['depends'])) {
-      $this->wpaths = O::get('PageModuleSFLM', $name, $this->dynamic['depends'])->wpaths;
+      if (isset($this->dynamic['depends'])) {
+        $this->wpaths = O::get('PageModuleSFLM', $name, $this->dynamic['depends'])->wpaths;
+      }
     }
     $this->addStaticPath('css');
     $this->addStaticPath('js');

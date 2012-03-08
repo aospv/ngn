@@ -47,9 +47,9 @@ class CtrlPageUserData extends CtrlPage {
     // комментариев, для этого объекта нужно определить $this->id2
     $this->id2 = $this->dataUserId;
 
-    if (!empty($this->settings['allowEmail'])) {
+    if (!empty($this->page['settings']['allowEmail'])) {
       if (!Auth::get('id')) {
-        if (!empty($this->settings['allowAnonimEmail']))
+        if (!empty($this->page['settings']['allowAnonimEmail']))
           $this->allowEmailSend = true;
       } else {
         $this->allowEmailSend = true;
@@ -98,8 +98,8 @@ class CtrlPageUserData extends CtrlPage {
    *
    */
   protected function initProfiles() {
-    if (empty($this->settings['profilePageIds'])) return;
-    foreach ($this->settings['profilePageIds'] as $pageId) {
+    if (empty($this->page['settings']['profilePageIds'])) return;
+    foreach ($this->page['settings']['profilePageIds'] as $pageId) {
       $page = DbModelCore::get('pages', $pageId);
       $this->d['profiles'][] = array(
         'page' => $page,
@@ -113,8 +113,8 @@ class CtrlPageUserData extends CtrlPage {
   protected function initUserItems() {
     /* @var $oPages Pages */
     $oPages = O::get('Pages');
-    if (isset($this->settings['userItems'])) {
-      foreach ($this->settings['userItems'] as $v) {
+    if (isset($this->page['settings']['userItems'])) {
+      foreach ($this->page['settings']['userItems'] as $v) {
         $oItems = new DdItems($v['pageId']);
         $oItems->cond->setLimit(empty($this->settigns['userItemsLimit']) ? 20 : $this->settigns['userItemsLimit']);
         $oItems->cond->addF('userId', $this->dataUserId);
@@ -195,7 +195,7 @@ class CtrlPageUserData extends CtrlPage {
     $this->d['form'] = $oF->html();
     $this->d['tpl'] = $this->getTpl('form');
     
-    $strName = $this->settings['profiles'][0]['strName'];
+    $strName = $this->page['settings']['profiles'][0]['strName'];
     $oFld = new DdFields($strName, $this->page['id']);
 
 
@@ -284,7 +284,7 @@ class CtrlPageUserData extends CtrlPage {
   }
   
   public function action_comments() {
-    if (!$this->settings['commentsEnable'])
+    if (!$this->page['settings']['commentsEnable'])
       throw new NgnException('Comments desibled');
     $this->setPageTitle('Комментарии');
     $this->setPathData(Tt::getPath(), 'Комментарии');
@@ -298,7 +298,7 @@ class CtrlPageUserData extends CtrlPage {
   }
   
   public function action_answers() {
-    if (!$this->settings['answersEnable'])
+    if (!$this->page['settings']['answersEnable'])
       throw new NgnException('Answers desibled');
     $this->setPageTitle('Ответы');
     $this->setPathData(Tt::getPath(), 'Ответы');

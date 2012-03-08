@@ -12,7 +12,7 @@
   <tr>
     <th></th>
     <th>Логин</th>
-    <th>Ящик</th>
+    <th>E-mail</th>
   </tr>
 </thead>
 <tbody>

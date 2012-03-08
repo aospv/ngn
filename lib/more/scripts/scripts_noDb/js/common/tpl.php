@@ -1,4 +1,4 @@
 <?php
 
-if (!empty(O::get('Req')->r['name'])) $d = O::get('Req')->r;
-print "Ngn.tpls.{$d['name']} = ".Arr::jsString(Tt::getTpl($d['path']), $d['d']).";";
+Misc::checkEmpty($_REQUEST, array('name', 'path'));
+print "Ngn.tpls.{$_REQUEST['name']} = ".Arr::jsString(Tt::getTpl($_REQUEST['path'])).";";

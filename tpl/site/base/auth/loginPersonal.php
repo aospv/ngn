@@ -1,9 +1,11 @@
 <?php 
 
+/*
 if (($pageIds = Config::getVarVar('userReg', 'pageIds', true))) {
   $pages = db()->query('SELECT id, title, path FROM pages WHERE id IN (?a)',
     Arr::explodeCommas($pageIds));
 } 
+*/
 
 ?>
 

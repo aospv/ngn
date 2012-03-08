@@ -20,7 +20,7 @@
     <tr>
       <td><?= $v['email'] ?></td>
       <td class="tools">
-        <a class="iconBtn <?= $v['type'] == 'users' ? 'users' : 'email' ?>" title="<?= $v['type'] == 'users' ? 'Пользователь' : 'Ящик' ?>"><i></i></a>
+        <a class="iconBtn <?= $v['type'] == 'users' ? 'users' : 'email' ?>" title="<?= $v['type'] == 'users' ? 'Пользователь' : 'E-mail' ?>"><i></i></a>
       </td>
       <td><?= date('d.m.Y H:i:s', $v['returnDate_tStamp']) ?></td>
     </tr>

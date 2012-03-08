@@ -21,7 +21,7 @@ if (!($userId = $d['oController']->userId)) return;
       title: '<?= $dialogTitle ?>',
       url: '/c/userStore/json_settings',
       onSubmitSuccess: function() {
-        window.location = window.location;
+        window.location.reload(true);
       }
     });
   }]);

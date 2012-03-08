@@ -114,12 +114,12 @@ class DdItems extends DdItemsGetter {
     parent::activate($id);
     db()->query('UPDATE comments_active SET active=1 WHERE parentId=?d AND id2=?d',
       $this->pageId, $id);
-    DdTagsItems::activate($this->strName, $id);
+    //DdTagsItems::activate($this->strName, $id);
   }
 
   public function deactivate($id) {
     parent::deactivate($id);
-    DdTagsItems::deactivate($this->strName, $id);
+    //DdTagsItems::deactivate($this->strName, $id);
     db()->query('UPDATE comments_active SET active=0 WHERE parentId=?d AND id2=?d',
       $this->pageId, $id);
   }

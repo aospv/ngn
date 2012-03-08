@@ -13,9 +13,15 @@ abstract class FieldEInput extends FieldEAbstract {
   }
   
   protected function getTagsParams() {
-    $opt = Arr::filter_by_keys($this->options, array('name', 'maxlength', 'value'));
+  	$opts = $this->options;
+  	if (isset($opts['value'])) $opts['value'] = $this->prepareInputValue($opts['value']);
+    $opt = Arr::filter_by_keys($opts, array('name', 'maxlength', 'value'));
     htmlspecialcharsR($opt);
     return $opt;
+  }
+  
+  protected function prepareInputValue($value) {
+    return $value;
   }
   
   public function _html() {

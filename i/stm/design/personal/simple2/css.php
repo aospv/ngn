@@ -34,9 +34,7 @@ margin-left: <?= $d['marginLeft'] ?>;
 <? } ?>
 }
 
-.pageBlocks .block {
-margin-bottom: 15px;
-}
+
 
 <? if ($d['mainHeaderBg']) { ?>
 .mainHeader {

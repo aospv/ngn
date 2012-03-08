@@ -19,7 +19,7 @@ $('msgText').addEvent('keydown', function(e){
   }
 });
 $('msgForm').getElement('.btnSubmit').addEvent('click', function(e){
-  new Event(e).stop();
+  e.preventDefault();
   $('msgForm').submit();
 });
 </script>

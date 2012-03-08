@@ -154,7 +154,7 @@ window.addEvent('domready',function() {
       if (!$('link').get('value')) {
         alert('<?= LANG_FILL_LINK ?>');
         $('link').focus();
-        new Event(e).stop();
+        e.preventDefault();
         return;
       }
     } else {

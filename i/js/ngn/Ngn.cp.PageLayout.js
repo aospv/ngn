@@ -13,7 +13,7 @@ Ngn.cp.PageLayout = new Class({
       if (el.hasClass('sel'))
         this.eSel = el;
       el.addEvent('click', function(e) {
-        new Event(e).stop();
+        e.preventDefault();
         if (this.change(el.get('data-n'))) {
           if (this.eSel) this.eSel.removeClass('sel');
           el.addClass('sel');

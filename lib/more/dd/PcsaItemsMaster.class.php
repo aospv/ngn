@@ -2,7 +2,7 @@
 
 class PcsaItemsMaster extends Pcsa {
   
-  public function action($initSettings) {
+  public function action(array $initSettings) {
     if (empty($initSettings['slavePageId'])) return;
     DbModelPages::addSettings(
       $initSettings['slavePageId'],

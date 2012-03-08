@@ -17,6 +17,10 @@ class DbModelUsers extends DbModel {
     }
   }
   
+  static public function unpack(array &$r) {
+    if (!empty($r['phone'])) $r['phone'] = '+'.$r['phone'];
+  }
+  
   static public function searchUser($mask) {
     $mask = $mask.'%';
     return db()->selectCol("

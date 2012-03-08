@@ -17,10 +17,11 @@ class Lib {
    *
    * @param   string  Путь к файлу относительно корня NGN-каталога или имя класса
    */
-  static public function required($_path) {
+  static public function required($_path, Req $req = null) {
     if (!in_array($_path, self::$cl)) self::$cl[] = $_path;
     if (self::vendorAutoloader($_path) !== false) return;
-    if (!$path = self::getPath($_path, false)) return false;
+    if (($path = self::getPath($_path, false)) == false) return false;
+    if ($req) $_REQUEST = $req->r;
     require_once $path;
   }
   

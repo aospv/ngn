@@ -3,9 +3,13 @@
 return array(
   'title' => 'Простое с фоном',
   'properties' => array(
-    'menuHeight',
+    //'menuHeight',
     'backgroundImage',
+    'linkSeparatorImage',
+    'linkImageActive',
     'linkImageHover',
-    'linkImageActive'
+  	'bgColor2',
+  	'bgColorActive2',
+  	'bgColorOver2',  	
   )
 );

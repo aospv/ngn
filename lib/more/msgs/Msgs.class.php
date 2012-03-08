@@ -123,50 +123,43 @@ class Msgs {
 
   public function getActiveCond() {
     return $this->canEdit ? '1' : "{$this->table}.active = 1";
-  }  
+  }
   
-  public function create($text, $userId = 0, $ansId = 0, $pageTitle = null, 
-                         $pageLink = null, $nick = null) {
-
-    
-
-    if (!$text = trim($text)) {
-      throw new NgnValidError('Пустой текст');
-    }
-    
+  public $forceDublicatesCheck;
+  
+  public $dateCreate;
+  
+  public function create(array $data) {
+    Arr::checkEmpty($data, 'text');
+    if (!$text = trim($data['text'])) throw new NgnValidError('Пустой текст');
     // Защита от повторного постинга одного и того же сообщения одним пользователем
-    foreach (db()->selectCol(
-    "SELECT text FROM {$this->table} WHERE userId=?d ORDER BY id DESC LIMIT 3",
-    $userId) as $_text) {
-      if ($_text == $text) throw new NgnValidError('Такое сообщение уже было только что добавлено');
+    if (!$this->forceDublicatesCheck) {
+      foreach (db()->selectCol(
+      "SELECT text FROM {$this->table} WHERE userId=?d ORDER BY id DESC LIMIT 3",
+      $data['userId']) as $_text) {
+        if ($_text == $text) throw new NgnValidError('Такое сообщение уже было только что добавлено');
+      }
     }
-    
-    
-    $textF = $this->formatHTML($text, 666);
-    if ($ansId and $ansMsg = $this->getMsg($ansId)) $ansUserId = $ansMsg['userId'];
-    else $ansUserId = null;
-    
-    $id = db()->query("
-    INSERT INTO {$this->table} SET
-      {$this->id1Field}=?d,
-      {$this->id2Field}=?d,
-      text=?,
-      text_f=?,
-      dateCreate=?,
-      dateUpdate=?,
-      userId=?d,
-      ansId=?d,
-      ansUserId=?d,
-      nick=?,
-      ip=?,
-      pageTitle=?,
-      link=?,
-      active=1",
-    $this->id1, $this->id2, $text, $textF, dbCurTime(), dbCurTime(),
-    $userId, $ansId, $ansUserId, $nick, $_SERVER['REMOTE_ADDR'], $pageTitle, $pageLink);
-    // Добавляем записть в табличку для сортировки    
-    db()->query('INSERT INTO comments_srt SET id=?d, active=1, parentId=?d, id2=?d',
-      $id, $this->id1, $this->id2);      
+    $data['text_f'] = $this->formatHTML($data['text'], 666);
+    if (!empty($data['ansId']) and $ansMsg = $this->getMsg($data['ansId']))
+      $data['ansUserId'] = $ansMsg['userId'];
+    else $data['ansUserId'] = null;
+    $data[$this->id1Field] = $this->id1;
+    $data[$this->id2Field] = $this->id2;
+    if (!isset($data['dateCreate'])) $data['dateCreate'] = dbCurTime();
+    $data['dateUpdate'] = $data['dateCreate'];
+    $data['ip'] = $_SERVER['REMOTE_ADDR'];
+    $d = $data;
+    unset($d['userGroupId']);
+    $id = db()->insert($this->table, $d);
+    // Добавляем записть в табличку для сортировки
+    db()->insert('comments_srt', array(
+      'id' => $id,
+      'active' => 1,
+      'parentId' => $this->id1,
+      'id2' => $this->id2,
+      'userGroupId' => !empty($data['userGroupId']) ? $data['userGroupId'] : 0
+    ));
     $this->updateCount();
     $this->subscribeItem();
     $this->clearCache();

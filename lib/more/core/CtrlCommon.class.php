@@ -269,7 +269,7 @@ abstract class CtrlCommon extends Options {
    * Вывод шаблона этого контроллера
    */
   public function getOutput() {
-    if ($this->isJson) {
+  	if ($this->isJson) {
       // JSON OUTPUT HERE
       if (!empty($this->oReq->r['ifr']))
         return '<textarea id="json">'.json_encode($this->json).'</textarea>';
@@ -364,10 +364,7 @@ abstract class CtrlCommon extends Options {
     $this->hasOutput = true;
     // Для этих типов экшена, вывод основного шаблона запрещается
     // Это значит что вывод будет осуществляться в самих экшенах
-    if (
-    isset($this->action) and
-    ($a = $this->parsePrefixedAction($this->action))
-    ) {
+    if (($a = $this->parsePrefixedAction($this->action)) !== false) {
       $this->hasOutput = false;
       $this->actionPrefix = $a[0];
       $this->actionBase = $a[1];
@@ -686,7 +683,7 @@ abstract class CtrlCommon extends Options {
         $path = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
       }
     } elseif ($path == 'fullpath') {
-      redirect(Tt::getPath() . ($_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : ''));
+      redirect(Tt::getPath().($_SERVER['QUERY_STRING'] ? '?'.$_SERVER['QUERY_STRING'] : ''));
       return;
     }
     if ($path) {
@@ -873,10 +870,11 @@ abstract class CtrlCommon extends Options {
     $this->json['form'] = Tt::getTpl('common/form', array('form' => $oF->html()));
     if (!empty($oF->options['title'])) $this->json['title'] = $oF->options['title'];
     $this->json['submitTitle'] = $oF->options['submitTitle'];
+    return $oF;
   }
   
   protected function actionJsonFormUpdate(Form $oF) {
-    if ($oF->update()) return;
+    if ($oF->update()) return true;
     return $oF;
   }
   

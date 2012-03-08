@@ -1,10 +1,17 @@
 <?php
 return array (
-  'allowLoginEdit' => 1,
-  'allowPassEdit' => 1,
-  'allowEmailEdit' => 1,
-  'allowNameEdit' => 1,
-  'allowMysiteThemeEdit' => 0,
+  'activation' => '',
+  'authorizeAfterReg' => true,
+  'vkAuthEnable' => false,
+  'emailEnable' => true,
+  'phoneEnable' => false,
+  'loginAsFullName' => false,
+  'allowLoginEdit' => true,
+  'allowPassEdit' => true,
+  'allowEmailEdit' => true,
+  'allowPhoneEdit' => true,
+  'allowNameEdit' => true,
+  'allowMysiteThemeEdit' => false,
   'pageIds' => array(),
-  'redirectToFirstPage' => 0
+  'redirectToFirstPage' => false
 );

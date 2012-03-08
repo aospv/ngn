@@ -49,6 +49,11 @@ class Req extends Options {
   public $p;
   
   /**
+   * @var $_GET
+   */
+  public $g;
+  
+  /**
    * @var $_FILES
    */
   public $files;
@@ -80,6 +85,7 @@ class Req extends Options {
     $this->r = $new;
     if (!empty($this->r['a'])) $this->r['action'] = $this->r['a'];
     $this->p = $_POST;
+    $this->g = $_GET;
     $this->files = self::convertFiles($_FILES);
   }
   
@@ -184,6 +190,10 @@ class Req extends Options {
   public function reqAnyway($name) {
     if (empty($this->r[$name])) return '';
     return $this->r[$name];
+  }
+  
+  public function param($n) {
+    return Misc::checkEmpty($this->params[$n], "params[$n]");
   }
 
 }

@@ -31,7 +31,7 @@ Ngn.Items = new Class({
     //////////////// Delete ///////////////
     this.eItems.getElements('a[class~=delete]').each(function(el, i){
       el.addEvent('click', function(e){
-        new Event(e).stop();
+        e.preventDefault();
         if (!confirm('Вы уверены?')) return;
         var eItem = el.getParent().getParent();
         var eLoading = eItem;
@@ -50,7 +50,7 @@ Ngn.Items = new Class({
     ////////////// Activate ///////////////
     this.eItems.getElements('a[class$=activate]').each(function(el, i){
       el.addEvent('click', function(e){
-        new Event(e).stop();
+        e.preventDefault();
         var eItem = el.getParent().getParent();
         var eLoading = eItem;
         var active = !el.get('class').test('deactivate');
@@ -81,7 +81,7 @@ Ngn.Items = new Class({
       eFlagName.removeProperty('title');
       el.addEvent('click', function(e){
         var flag = el.get('class').match(/flagOn/) ? true : false;
-        new Event(e).stop();
+        e.preventDefault();
         var eItem = this.options.itemsLayout == 'tile' ? el.getParent() : el.getParent().getParent();
         var eLoading = eItem;
         eLoading.addClass('loading');
@@ -105,7 +105,7 @@ Ngn.Items = new Class({
     var eBtn = eItem.getElement(btnSelector);
     if (!eBtn) return;
     eBtn.addEvent('click', function(e){
-      new Event(e).stop();
+      e.preventDefault();
       action(eItem.retrieve('itemId'), eBtn);
     }.bind(this));
   },

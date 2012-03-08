@@ -3,12 +3,13 @@
 return array(
   'allowedAdminModules' => array (
     'pages',
-    //'pageBlocks',
+    'pageBlocks',
     'privMsgs',
     'photoImport',
-    'stat'
+    'stat',
+    //'slices'
     //'backup',
-    //'tags'
+    'tags'
   ),
   'allowedPageModules' => array (
     'link',

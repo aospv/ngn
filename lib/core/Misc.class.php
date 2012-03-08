@@ -164,23 +164,28 @@ class Misc {
    *
    * @param   string  Пример: "s2/css/icons.css"
    */
-  static public function getScriptPath($path) {
+  static public function getScriptPath($path, $strict = true) {
+    $path = Misc::clearFirstSlash($path);
     if (preg_match('/^s2\/(.*)/', $path))
       $path2 = preg_replace('/^s2\/(.*)/', '/more/scripts/scripts_noDb/$1', $path);
     elseif (preg_match('/^s\/(.*)/', $path))
       $path2 = preg_replace('/^s\/(.*)/', '/more/scripts/scripts/$1', $path);
-    
-    if (file_exists(LIB_PATH.'/'.$path2))
-      return LIB_PATH . $path2;
-    if (file_exists(LIB_PATH.'/'.$path2.'.php'))
-      return LIB_PATH.'/'.$path2.'.php';
-  
-    elseif (file_exists(SITE_LIB_PATH.'/more/scripts/'.$path2))
-      return SITE_LIB_PATH.'/more/scripts/' . $path2;
-    elseif (file_exists(SITE_LIB_PATH.'/more/scripts/'.$path2.'.php'))
-      return SITE_LIB_PATH.'/more/scripts/'.$path2.'.php';
+
+    if (file_exists(SITE_LIB_PATH.$path2))
+      return SITE_LIB_PATH.$path2;
+    elseif (file_exists(SITE_LIB_PATH.$path2.'.php'))
+      return SITE_LIB_PATH.$path2.'.php';
+      
+    elseif (file_exists(LIB_PATH.$path2))
+      return LIB_PATH.$path2;
+    elseif (file_exists(LIB_PATH.$path2.'.php'))
+      return LIB_PATH.$path2.'.php';
+      
     else
-      throw new NgnException('Script by path "'.$path2.'" not found');
+      //$strict ?
+        throw new NgnException('Script by path "'.$path2.'" not found. Variants: ');
+        //return false;
+      
   }
   
   static public function quoted2arr($s) {
@@ -431,7 +436,7 @@ class Misc {
     $c = ob_get_contents();
     ob_end_clean();
     return $c;
-  }  
+  }
   
   static public function iconvR($in, $out, &$d) {
     if (is_array($d))

@@ -13,7 +13,7 @@ Ngn.IconBtn = new Class({
     this.el = el;
     this.toggle(true);
     this.el.addEvent('click', function(e) {
-      new Event(e).stop();
+      e.preventDefault();
       if (!this.enable) return;
       action(this);
     }.bind(this));

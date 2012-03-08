@@ -15,20 +15,58 @@ Ngn.site.DdItems = new Class({
     curUserId: null,
     isAdmin: false,
     editPath: null,
-    useUserId: false
+    useUserId: false,
+    sortables: false
   },
   
   initialize: function(esItems, options) {
     this.setOptions(options);
+    this.esItems = esItems;
     if (!this.options.editPath) {
       this.options.editPath = Ngn.getPath(1);
     } else {
       this.options.useUserId = true;
     }
     this.editBlockTpl = Ngn.tpls.editBlock;
-    esItems.each(function(eItem) {
+    this.esItems.each(function(eItem) {
       if (this.options.isAdmin || eItem.get('data-userId') == this.options.curUserId)
         this.addEditBlock(eItem);
+    }.bind(this));
+    this.initSortables();
+  },
+  
+  initSortables: function() {
+    if (!this.options.sortables) return;
+    this.sortables = new Sortables(this.esItems.getParent(), {
+      revert: true,
+      clone: true,
+      handle: '.dragBox'
+    });
+    this.sortables.addEvent('start', function(el, clone){
+      clone.setStyle('z-index', 9999);
+      clone.addClass('move');
+    });
+    this.sortables.addEvent('stop', function(el, clone){
+      el.removeClass('nonActive');
+      clone.removeClass('move');
+    });
+    // Строка отвечающая за изменение порядка
+    this.orderState = this.sortables.serialize().join(',');
+    this.sortables.addEvent('complete', function(el, clone){
+      //if (this.orderState == this.sortables.serialize().join(',')) return;
+      el.addClass('loading');
+      new Request({
+        url: Ngn.getPath(1) + '/ajax_reorder',
+        onComplete: function() {
+          el.removeClass('loading');
+          this.orderState = this.sortables.serialize().join(',');
+        }.bind(this)
+      }).POST({
+        ids: this.sortables.serialize(false, function(eItem, index){
+          if (eItem.hasClass('move')) return;
+          return eItem.get('data-id');
+        }.bind(this))
+      });
     }.bind(this));
   },
   
@@ -40,6 +78,9 @@ Ngn.site.DdItems = new Class({
       Ngn.strReplace('{id}', eItem.get(idParam),
         this.editBlockTpl)).toDOM()[0];
     eEditBlock.inject(eCont);
+    if (this.options.sortables)
+      '<div class="dragBox"></div>'.toDOM()[0].inject(eCont, 'top');
+    this.initSortables(eItem);
     eCont.setStyle('position', 'relative');
     Ngn.setToTopRight(eEditBlock, eCont, [10, 3]);
     eEditBlock.setStyle('width', eEditBlock.getSize().x+'px');
@@ -47,18 +88,20 @@ Ngn.site.DdItems = new Class({
     var btnEdit = eEditBlock.getElement('.sm-edit');
     btnEdit.removeEvent('click');
     btnEdit.addEvent('click', function(e) {
-      new Event(e).stop();
+      e.preventDefault();
       new Ngn.Dialog.RequestForm({
         title: false,
+        messageAreaClass: 'dialog-message dialog-dd',
+        width: 700,
         url: btnEdit.get('href').replace('edit', 'json_edit'),
         onSubmitSuccess: function() {
-          window.location = window.location;
+          window.location.reload(true);
         }
       });
     });
     var btnDelete = eEditBlock.getElement('.sm-delete');
     btnDelete.addEvent('click', function(e) {
-      new Event(e).stop();
+      e.preventDefault();
       if (!confirm('Вы уверены?')) return;
       var eItem = eEditBlock.getParent('.item');
       var fx = new Fx.Morph(eItem, { duration: 'short', link: 'cancel' });
@@ -80,7 +123,7 @@ Ngn.site.DdItems = new Class({
     btnActivate.set('title', active ? 'Скрыть' : 'Показать');
     if (btnActivate) {
       btnActivate.addEvent('click', function(e) {
-        new Event(e).stop();
+        e.preventDefault();
         eItem.addClass('loading');
         new Ngn.Request({
           url: btnActivate.get('href').replace(

@@ -27,10 +27,6 @@ Ngn.addBtnAction("#userStoreRules", function() {
 </script>
 ';
 });
-Ddo::addFuncByName('buyBtn', function($v) {
-  return '<a href="#" class="btn" data-authorId="'.$v['authorId'].'"><span>'.$v['title'].'</span></a>';
-});
-
 
 function colorPalette($imageFile, $numColors) {
   $granularity = 5;
@@ -98,4 +94,4 @@ EOT;
   return $t;
 });
 
-class DdoSpmUserStore extends DdoSite {}
+class DdoSpmUserStore extends DdoSpmStore {}

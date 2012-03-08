@@ -15,7 +15,7 @@ Ngn.msgs.AnswerBlock = new Class({
       'class': 'gray',
       'events': {
         'click': function(e){
-          new Event(e).stop();
+          e.preventDefault();
           this.objMsgs.answerOff();
         }.bind(this)
       }

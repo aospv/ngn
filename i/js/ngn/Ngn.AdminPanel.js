@@ -51,7 +51,7 @@ Ngn.DevPanel = new Class({
       return false;
     }.bind(this));
     $('sqlDataToggleBacktrace').addEvent('click', function(e){
-      new Event(e).stop();
+      e.preventDefault();
       var display = ($('sqlData').getElement('.backtrace').getStyle('display') == 'block') ?
         'none' : 'block';
       $('sqlData').getElements('.backtrace').each(function(el){

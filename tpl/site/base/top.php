@@ -66,9 +66,3 @@
    </div>
  <? } ?>
 </div>
-
-<? if ($cnt = count(StoreCart::get()->getIds())) { ?>
-<div class="item" style="padding-left:50px; background: #FFFFFF; padding-bottom: 5px;">
-  Корзина: <a href="/userStoreOrder"><b><?= $cnt ?></b> товар</a>
-</div>
-<? } ?>

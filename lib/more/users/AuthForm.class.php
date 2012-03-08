@@ -2,11 +2,15 @@
 
 class AuthForm extends Form {
 
-  public function __construct($submitTitle = 'Войти') {
+  protected function defineOptions() {
+    $this->options['id'] = 'frmAuth';
+  }
+  
+  public function __construct(array $options = array()) {
     $fields = array(
       array(
         'name' => 'authLogin',
-        'title' => 'Логин',
+        'title' => UserRegCore::getAuthLoginTitle(),
         'type' => 'text',
         'required' => true
       ),
@@ -17,8 +21,7 @@ class AuthForm extends Form {
         'required' => true
       )
     );
-    parent::__construct(new Fields($fields));
-    $this->options['submitTitle'] = $submitTitle;
+    parent::__construct(new Fields($fields), $options);
   }
   
   public function isSubmittedAndValid() {

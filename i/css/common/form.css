@@ -54,6 +54,9 @@ padding-bottom: 5px; /* должно быть таким же как и отст
 .apeform h3 {
 padding-left: 5px;
 }
+.apeform .staticText {
+padding: 0px 10px;
+}
 .apeform .element.errorRow {
 background: #FFDFDF;
 border-bottom-color: #FF7F7F;
@@ -166,7 +169,7 @@ clear: both;
 float: left;
 padding-right: 0px;
 }
-.fieldSet .element input {
+.fieldSet .element input[type=text] {
 width: 150px;
 }
 .fieldSet a.sm-add {
@@ -196,15 +199,20 @@ visibility: hidden;
 .apeform .colSet {
 display: table;
 }
+.apeform .colSet.colN2 .type_col {
+width: 50%;
+}
+.apeform .colSet.colN3 .type_col {
+width: 33%;
+}
+.apeform .colSet.colN4 .type_col {
+width: 25%;
+}
+.apeform .colSet.colN5 .type_col {
+width: 20%;
+}
 .apeform .type_col {
 display: table-cell;
-}
-.apeform .type_col .colBody {
-width: 375px;
-}
-.apeform .type_col2 {
-width: 150px;
-float: left;
 }
 
 .apeform .type_col, .apeform .type_co2 {

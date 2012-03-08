@@ -32,13 +32,13 @@ if (isset($d['params'][3])) {
   }
   /*
   $links[] = array(
-    'title' => 'Добавить ящик',
+    'title' => 'Добавить e-mail',
     'class' => 'add',
     'link' => Tt::getPath(2).'/newEmail/'.$d['params'][3]
   );
   */
   $links[] = array(
-    'title' => "Добавить ящики",
+    'title' => "Добавить e-mail'ы",
     'class' => 'import',
     'link' => Tt::getPath(2).'/import/'.$d['params'][3]
   );

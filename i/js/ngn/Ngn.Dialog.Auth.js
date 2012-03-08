@@ -5,22 +5,31 @@ Ngn.Dialog.Auth = new Class({
   options: {
     tabsSelector: 'h2[class=tab]',
     onAuthComplete: $empty,
-    reloadOnAuth: false,
+    reloadOnAuth: true,
     completeUrl: null,
-    url: '/c/auth',
+    url: '/userReg/ajax_auth',
     selectedTab: 1,
-    footer: false,
+    //footer: false,
     width: 410,
     draggable: true,
     openerType: 'default',
-    fromVkEnabled: false
+    fromVkEnabled: false,
+    okDestroy: false
   },
   
   initialize: function(opts) {
+    opts.ok = this.submit.bind(this);
     this.parent(opts);
+    this.toggle('ok', false);
     if (this.options.completeUrl) this.options.reloadOnAuth = true;
     if (this.options.fromVkEnabled && Ngn.fromVk) this.options.selectedTab = 2;
     this.dialog.addClass('dialog-tabs');
+  },
+  
+  submit: function() {
+    this.loading(true);
+    var formId = this.tabs.tabs[this.tabs.selected].name;
+    this.forms[formId].submitAjax();
   },
   
   vkInitialized: false,
@@ -30,9 +39,11 @@ Ngn.Dialog.Auth = new Class({
   },
   
   vkInit: function() {
+    var eVkAuth = $('vkAuth');
+    if (!eVkAuth) return;
     if (this.vkInitialized) return;
     if (!Ngn.vkApiId) throw new  Error('VK API ID does not defined in config');
-    var eVkApiTransport = new Element('div', {id: 'vk_api_transport'}).inject($('vkAuth'));
+    var eVkApiTransport = new Element('div', {id: 'vk_api_transport'}).inject(eVkAuth);
     var vkResultReceived = false;
     window.vkAsyncInit = function() {
       VK.init({apiId: Ngn.vkApiId});
@@ -62,16 +73,22 @@ Ngn.Dialog.Auth = new Class({
   },
   
   urlRequest: function(_response) {
+    this.toggle('ok', true);
     this.parent(_response);
-    var tabs = new SimpleTabs(this.message, {
+    this.tabs = new Ngn.Tabs(this.message, {
       selector: this.options.tabsSelector,
       show: this.options.selectedTab,
       stopClickEvent: true,
       onSelect: function(toggle, container, index) {
-        if (container.get('id') == 'vkAuth') this.vkInit();
+        if (container.get('id') == 'vkAuth') {
+          this.vkInit();
+          this.footer.setStyle('display', 'none');
+        } else {
+          this.footer.setStyle('display', 'block');
+        }
       }.bind(this)
     });
-    tabs.menu.inject(this.titleText);
+    this.tabs.eMenu.inject(this.titleText);
     this.message.getElements('form').each(function(eForm, n) {
       this.initForm(eForm);
     }.bind(this));
@@ -104,37 +121,47 @@ Ngn.Dialog.Auth = new Class({
     }).post(data);
   },
   
+  forms: {},
+  
   initForm: function(eForm) {
     var form = new Ngn.Form(eForm);
+    this.forms[eForm.get('id')] = form;
     form.validator.options.scrollToErrorsOnSubmit = false;
-    var postLogin;
-    var postPass;
-    eForm.set('send', {
-      onComplete: function(response) {
-        if (response == 'success') {
-          this.authComplete();
-        } else {
-          var par = eForm.getParent();
-          eForm.dispose();
-          par.set('html', response);
-          this.initForm(par.getElement('form'));
-        }
-      }.bind(this)
-    });
-    eForm.addEvent('submit', function(e) {
-      new Event(e).stop();
-      if (!form.validator.validate()) return;
-      eForm.getElement('input[type=submit]').set('disabled', true);
-      eForm.send();
+    form.addEvent('complete', function(r) {
+      this.loading(false);
+      if (r.success) {
+        eForm.get('id') == 'frmAuth' ?
+          this.submitSuccessAuth(r) :
+          this.submitSuccessUserReg(r);
+      } else {
+        if (!r.form) throw new Ngn.EmptyError('r.form');
+        var par = eForm.getParent();
+        eForm.dispose();
+        par.set('html', r.form);
+        this.initForm(par.getElement('form'));
+      }
     }.bind(this));
-    //this.fireEvent('request');
+  },
+  
+  submitSuccessAuth: function(r) {
+    this.authComplete();
+  },
+  
+  submitSuccessUserReg: function(r) {
+    if (r.activation) {
+      this.close();
+      this.fireEvent('activation', r.activation);
+    } else if (r.authorized) {
+      this.authComplete();
+    }
   },
   
   authComplete: function() {
     this.fireEvent('authComplete', this);
     this.close();
     if (this.options.reloadOnAuth) {
-      new Ngn.Dialog.Loader.Simple('Подождите...', {
+      new Ngn.Dialog.Loader.Simple({
+        title: 'Подождите...',
         hasFaviconTimer: false
       });
       this.options.completeUrl ?

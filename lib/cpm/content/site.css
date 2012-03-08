@@ -1,0 +1,9 @@
+.mainBody .slice {
+display: none;
+}
+.mainBody .apeform {
+padding-right: 10px;
+}
+.mceLayout iframe {
+height: 500px;
+}

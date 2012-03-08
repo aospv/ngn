@@ -27,7 +27,7 @@
   </div>
   <? if ($_POST['authLogin'] and $_AUTH["msg"]) { ?><div class="alert"><?= $_AUTH["msg"] ?></div><? } ?>
   <script type="text/javascript">
-  $('btnLogin').addEvent('click', function(e){ new Event(e).stop(); $('loginForm').submit(); });
+  $('btnLogin').addEvent('click', function(e){ e.preventDefault(); $('loginForm').submit(); });
   $('userLogin').addEvent('keydown', function(e){ if (e.keyCode==13) { $('loginForm').submit(); }});
   $('userPass').addEvent('keydown', function(e){ if (e.keyCode==13) { $('loginForm').submit(); }});
   </script>

@@ -10,16 +10,14 @@ class CtrlScripts extends CtrlCommon {
     if (! $this->folder)
       throw new NgnException('$this->folder not defined');
     $this->hasOutput = false;
-    
     if (!isset($this->params[1])) {
       // Если путь к с крипту не указан
       $this->printList();
       return;
     }
-    
     // Получаем путь из исходного "s/path/to/script" в обрезаный "path/to/script"
     $path = preg_replace('/[^\/]*\/(.*)/', '$1', O::get('Req')->path);
-    
+
     if (strstr($path, 'js/')) {
       header('Content-type: text/javascript; charset='.CHARSET);
     } elseif (strstr($path, 'css/')) {
@@ -27,11 +25,11 @@ class CtrlScripts extends CtrlCommon {
     } else {
       header("Content-type: text/html; charset=".CHARSET);
     }
-    $scriptPath = 'more/scripts/' . $this->folder . '/' . $path . '.php';
-    $scriptPath2 = 'more/scripts/' . $this->folder . '/' . $path;
+    $scriptPath = 'more/scripts/'.$this->folder.'/'.$path.'.php';
+    $scriptPath2 = 'more/scripts/'.$this->folder.'/'.$path;
     if (Lib::getPath($scriptPath, false)) {
       //prr($scriptPath);
-      Lib::required($scriptPath);
+      Lib::required($scriptPath, $this->oReq);
     } elseif (Lib::getPath($scriptPath2, false)) {
       //prr($scriptPath2);
       Lib::required($scriptPath2);
@@ -43,7 +41,7 @@ class CtrlScripts extends CtrlCommon {
   /**
    * Выводит список скриптов с сылками на них рекурсивно
    */
-  function printList() {
+  protected function printList() {
     foreach (Dir::getFilesR(LIB_PATH.'/more/scripts/' . $this->folder) as $v) {
       $v = str_replace(LIB_PATH.'/more/scripts/scripts/', '', $v);
       $v = str_replace('.php', '', $v);

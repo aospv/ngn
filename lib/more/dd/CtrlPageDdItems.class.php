@@ -31,21 +31,14 @@ class CtrlPageDdItems extends CtrlPageDd {
     if ($this->isListParams()) $this->defaultAction = 'list';
     parent::initAction();
   }
-  
-  protected function beforeInitSettings() {
-    parent::beforeInitSettings();
-    $this->defaultSettings += array(
-      'itemTitle' => 'запись',
-    );
-  }
 
   protected function init() {
     if ($this->page->getS('ownerMode') == 'userGroup' and !O::get('SiteRequest')->getSubdomain())
       throw new NgnException('Controller must work only with subdomains');
     $this->d['isItemsController'] = true;
-    if (!empty($this->settings['editTime']))
-      $this->editTime = $this->settings['editTime'];
-    $this->itemsCacheEnabled = empty($this->settings['disableItemsCache']);
+    if (!empty($this->page['settings']['editTime']))
+      $this->editTime = $this->page['settings']['editTime'];
+    $this->itemsCacheEnabled = empty($this->page['settings']['disableItemsCache']);
     /**
      * @todo необходимо сделать ревизию и убрать из init()
      * те функции, что вызываются только для получания одной или нескольких записей
@@ -78,8 +71,8 @@ class CtrlPageDdItems extends CtrlPageDd {
         $this->order = $this->params[2] . ($this->params[3] == 'a' ? ' ASC' : ' DESC');
       }
     }
-    if (!isset($this->order) and !empty($this->settings['order']))
-      $this->setOrder($this->settings['order']);
+    if (!isset($this->order) and !empty($this->page['settings']['order']))
+      $this->setOrder($this->page['settings']['order']);
     /////////////////////
     // преобразование пути происходив в экшене. так что нужно заменить последний элемент пути до выполнения экшенов
     if ($this->userGroup) $this->d['pathData'][0] = array(
@@ -106,8 +99,8 @@ class CtrlPageDdItems extends CtrlPageDd {
   
   protected function initDateRange2RangeFilter() {
     if (
-    empty($this->settings['dateFieldBegin']) or 
-    empty($this->settings['dateFieldEnd'])
+    empty($this->page['settings']['dateFieldBegin']) or 
+    empty($this->page['settings']['dateFieldEnd'])
     ) return;
     
     $m = array();
@@ -118,10 +111,10 @@ class CtrlPageDdItems extends CtrlPageDd {
       $from = date('Y-m-d');
       $to = '9000-01-01';
     }
-    //if (empty($this->settings['futureItems']))
+    //if (empty($this->page['settings']['futureItems']))
     $this->oManager->oItems->cond->addRange2RangeFilter(
-      $this->settings['dateFieldBegin'],
-      $this->settings['dateFieldEnd'],
+      $this->page['settings']['dateFieldBegin'],
+      $this->page['settings']['dateFieldEnd'],
       $from,
       $to
     );
@@ -176,8 +169,8 @@ class CtrlPageDdItems extends CtrlPageDd {
   }
 
   protected function initPagination() {
-    if (!empty($this->settings['n'])) {
-      $this->oManager->oItems->setN($this->settings['n']);
+    if (!empty($this->page['settings']['n'])) {
+      $this->oManager->oItems->setN($this->page['settings']['n']);
     } else {
       $this->oManager->oItems->setN(Config::getSubVar('dd', 'itemsN'));
     }
@@ -198,8 +191,8 @@ class CtrlPageDdItems extends CtrlPageDd {
   protected function afterAction() {
     if ($this->hasOutput) {
       $this->__call('initPath');
-      if (empty($this->d['pageTitle']) and !empty($this->settings['itemTitle']))
-        $this->setPageTitle($this->settings['itemTitle']);
+      if (empty($this->d['pageTitle']) and !empty($this->page['settings']['itemTitle']))
+        $this->setPageTitle($this->page['settings']['itemTitle']);
       if (isset($this->d['itemUser'])) $this->pageUser = $this->d['itemUser'];
       elseif (isset($this->d['itemsUser'])) $this->pageUser = $this->d['itemsUser'];
     }
@@ -229,7 +222,7 @@ class CtrlPageDdItems extends CtrlPageDd {
     if (!($item = $this->setItemData())) return;
     if (Privileges::extendItemPriv($item, Auth::get('id'), $this->editTime)) {
       // Если включено премодерирование, ограничиваем данную привилегию до "editOnly"
-      !empty($this->settings['premoder']) ? $this->priv['editOnly'] = 1 : $this->priv['edit'] = 1;
+      !empty($this->page['settings']['premoder']) ? $this->priv['editOnly'] = 1 : $this->priv['edit'] = 1;
     }
     $this->initAllowedActions();
   }
@@ -242,7 +235,7 @@ class CtrlPageDdItems extends CtrlPageDd {
   public function action_list() {
     // @todo убрать этот кусок куда-нибудь в ф-ю
     // Вывод формы по умолчанию
-    if (!empty($this->settings['showFormOnDefault']))
+    if (!empty($this->page['settings']['showFormOnDefault']))
       $this->showFormOnDefault();
     
     /////////////////////////////////////////////////////////////
@@ -252,8 +245,8 @@ class CtrlPageDdItems extends CtrlPageDd {
     // В каких случаях это необходимо?
     // Ответ: в случае записей пользователя
     if ($this->strictFilters and
-       isset($this->settings['userFilterRequired']) and
-       $this->settings['userFilterRequired'] and
+       isset($this->page['settings']['userFilterRequired']) and
+       $this->page['settings']['userFilterRequired'] and
        $this->params[$this->paramFilterN] !=
        'u') {
         // Если необходимо присутствие фильтра по пользователю, а он не задан
@@ -289,17 +282,17 @@ class CtrlPageDdItems extends CtrlPageDd {
    * Определяет ID для всех слайсов находящихся в списке записей (перед ними и после)
    */
   protected function initListSlicesId() {
-    if (empty($this->settings['listSlicesType'])) {
+    if (empty($this->page['settings']['listSlicesType'])) {
       $this->d['listSlicesId'] = $this->page['id'];
       return;
-    } elseif (preg_match('/tag_(\w+)/', $this->settings['listSlicesType'], $m)) {
+    } elseif (preg_match('/tag_(\w+)/', $this->page['settings']['listSlicesType'], $m)) {
       if (!$this->tagsSelected) {
         $this->d['listSlicesId'] = $this->page['id'];
       } elseif (($tag = Arr::getValueByKey($this->tagsSelected, 'groupName', $m[1])) !== false) {
         $this->d['listSlicesId'] = $this->page['id'].'_'.$tag['id'];
         $this->d['listSlicesTitle'] = $tag['title'];
       }
-    } elseif (preg_match('/v_(\w+)/', $this->settings['listSlicesType'], $m)) {
+    } elseif (preg_match('/v_(\w+)/', $this->page['settings']['listSlicesType'], $m)) {
       $this->d['listSlicesId'] = 
         Arr::get_value($this->oManager->oItems->cond->filters['filter'], 'key', $m[1], 'value');
     }
@@ -348,7 +341,7 @@ class CtrlPageDdItems extends CtrlPageDd {
 
   private $tagsTypes;
 
-  private $tagsSelected = array();
+  public $tagsSelected = array();
   
   protected $filterParams = array();
 
@@ -432,7 +425,7 @@ class CtrlPageDdItems extends CtrlPageDd {
   protected $dateParam;
 
   private function setFilterDate($dateParam) {
-    if (empty($this->settings['dateField'])) {
+    if (empty($this->page['settings']['dateField'])) {
       throw new NgnException('Filter use date. You must define "dateField" in page settings.');
     }
     $this->dateParam = $dateParam;
@@ -472,7 +465,7 @@ class CtrlPageDdItems extends CtrlPageDd {
     // Устанавливаем параметры для фильтров
     if ($this->dateType == self::DATE_RANGE) {
       $this->oManager->oItems->cond->addRangeFilter(
-        $this->settings['dateField'], 
+        $this->page['settings']['dateField'], 
         $this->datePeriod['from']['y'] . '-' . $this->datePeriod['from']['m'] . '-' . $this->datePeriod['from']['d'], 
         $this->datePeriod['to']['y'] . '-' . $this->datePeriod['to']['m'] . '-' . $this->datePeriod['to']['d']
       );
@@ -483,7 +476,7 @@ class CtrlPageDdItems extends CtrlPageDd {
         $this->day.' '.mb_strtolower($m[(int)$this->month], CHARSET).
         ' '.$this->year.')');
       // ------------  
-      $this->oManager->oItems->addF($this->settings['dateField'], 
+      $this->oManager->oItems->addF($this->page['settings']['dateField'], 
         sprintf('%04d-%02d-%02d', $this->year, $this->month, $this->day), 
         'DATE');
     } elseif ($this->dateType == self::DATE_MY) {
@@ -491,12 +484,12 @@ class CtrlPageDdItems extends CtrlPageDd {
       $m = Config::getVar('ru-months');
       $this->setPageTitle($this->d['pageTitle'].' ('.$m[(int)$this->month].' '.$this->year.')');
       // ------------  
-      $this->oManager->oItems->addF($this->settings['dateField'], 
+      $this->oManager->oItems->addF($this->page['settings']['dateField'], 
         (int)$this->month, 'MONTH');
-      $this->oManager->oItems->addF($this->settings['dateField'], 
+      $this->oManager->oItems->addF($this->page['settings']['dateField'], 
         (int)$this->year, 'YEAR');
     } elseif ($this->dateType == self::DATE_Y) {
-      $this->oManager->oItems->addF($this->settings['dateField'], 
+      $this->oManager->oItems->addF($this->page['settings']['dateField'], 
         (int)$this->year, 'YEAR');
     }
   }
@@ -601,10 +594,13 @@ class CtrlPageDdItems extends CtrlPageDd {
     $this->initUserGroupFilter();
     $this->oManager->oItems->setPagination(true);
     $this->oManager->oItems->cond->setOrder($this->order);
-    if (($path = Hook::getPath('dd/initItems')) !== false) include $path;
+    $hookPaths = SiteHook::getPaths('dd/initItems', $this->page['module']);
     if ($this->itemsCacheEnabled) {
-      $this->d['itemsHtml'] = O::get('DdItemsCacher', $this->oManager->oItems)->html();
+      $cacher = new DdItemsCacher($this->oManager->oItems);
+      if ($hookPaths) foreach ($hookPaths as $path) include $path;
+      $this->d['itemsHtml'] = $cacher->initHtml()->html();
     } else {
+      if ($hookPaths) foreach ($hookPaths as $path) include $path;
       $this->d['items'] = $this->oManager->oItems->getItems();
     }
     $this->d['pagination'] = $this->oManager->oItems->getPagination();
@@ -616,8 +612,8 @@ class CtrlPageDdItems extends CtrlPageDd {
    * Добавляет данные 'items' без разбивки на страницы
    */
   public function setItemsOnItem() {
-    if (!empty($this->settings['tagField'])) {
-      $oTags = DdTags::get($this->strName, $this->settings['tagField']);
+    if (!empty($this->page['settings']['tagField'])) {
+      $oTags = DdTags::get($this->strName, $this->page['settings']['tagField']);
       if (
       !$oTags->getGroup()->isMulti() and
       !empty($this->tagsSelected[0])
@@ -625,16 +621,16 @@ class CtrlPageDdItems extends CtrlPageDd {
         $this->oManager->oItems->addF(
           'id',
           $oTags->getGroup()->isTree() ?
-            DdTagsItems::getIdsByName($this->strName, $this->settings['tagField'],
+            DdTagsItems::getIdsByName($this->strName, $this->page['settings']['tagField'],
               $this->tagsSelected[0]['id']) :
-            DdTagsItems::getIdsByName($this->strName, $this->settings['tagField'],
+            DdTagsItems::getIdsByName($this->strName, $this->page['settings']['tagField'],
               $this->tagsSelected[0]['name'])
         );
       }
     }
     $this->oManager->oItems->cond->setOrder($this->order);
-    if (!empty($this->settings['setItemsOnItemLimit']))
-      $this->oManager->oItems->cond->setLimit($this->settings['setItemsOnItemLimit']);
+    if (!empty($this->page['settings']['setItemsOnItemLimit']))
+      $this->oManager->oItems->cond->setLimit($this->page['settings']['setItemsOnItemLimit']);
     $this->d['items'] = $this->oManager->oItems->getItems();
   }
 
@@ -745,14 +741,14 @@ class CtrlPageDdItems extends CtrlPageDd {
   protected function initItemPath() {
     if (!$this->itemData)
       return; // Если не определены данные конкретной записи, то ничего делать и не нужно
-    if (!empty($this->settings['tagField'])) {
-      $oTags = DdTags::get($this->strName, $this->settings['tagField']);
-      $this->setTagTreePath($oTags, $this->itemData[$this->settings['tagField']]);
+    if (!empty($this->page['settings']['tagField'])) {
+      $oTags = DdTags::get($this->strName, $this->page['settings']['tagField']);
+      $this->setTagTreePath($oTags, $this->itemData[$this->page['settings']['tagField']]);
     }
-    if (!empty($this->settings['titleField']) and 
-        isset($this->itemData[$this->settings['titleField']])) {
-      $this->setCurrentPathData($this->itemData[$this->settings['titleField']]);
-      $this->setPageTitle($this->itemData[$this->settings['titleField']]);
+    if (!empty($this->page['settings']['titleField']) and 
+        isset($this->itemData[$this->page['settings']['titleField']])) {
+      $this->setCurrentPathData($this->itemData[$this->page['settings']['titleField']]);
+      $this->setPageTitle($this->itemData[$this->page['settings']['titleField']]);
     } else {
       $title = !empty($this->itemData['title']) ? $this->itemData['title'] : '...';
       $this->setPathData(Tt::getPath(1).'/'.$this->itemData['id'], $title);
@@ -770,13 +766,13 @@ class CtrlPageDdItems extends CtrlPageDd {
     foreach ($flds as $fld)
       $this->d['tags'][$fld] = DdTags::get($this->strName, $fld)->getData();
     // Действия только для случаев, если в настройках раздела выбрано поле 'tagField' 
-    if (!empty($this->settings['tagField']) and
-    !empty($this->itemData[$this->settings['tagField']])) {
+    if (!empty($this->page['settings']['tagField']) and
+    !empty($this->itemData[$this->page['settings']['tagField']])) {
       // Выбранные тэги
       $this->tagsSelected[] = 
-        isset($this->itemData[$this->settings['tagField']][0]) ?
-        $this->itemData[$this->settings['tagField']][0] :
-        $this->itemData[$this->settings['tagField']];
+        isset($this->itemData[$this->page['settings']['tagField']][0]) ?
+        $this->itemData[$this->page['settings']['tagField']][0] :
+        $this->itemData[$this->page['settings']['tagField']];
       $this->d['tagsSelected'] = $this->tagsSelected;
     }
   }
@@ -804,7 +800,7 @@ class CtrlPageDdItems extends CtrlPageDd {
     $tagsFlat = DdTagsHtml::treeToList($branchFromRoot);
     foreach ($tagsFlat as $v) {
       $this->setPathData(Tt::getPath(1).'/t2.'.
-        $this->settings['tagField'].'.'.$v['id'], $v['title']);
+        $oTags->getGroup()->name.'.'.$v['id'], $v['title']);
     }
     // Определяем заголовком страницы последний тэг дерева
     $this->setPageTitle($tagsFlat[count($tagsFlat)-1]['title']);
@@ -832,7 +828,7 @@ class CtrlPageDdItems extends CtrlPageDd {
     $this->initItemTagsData();
     $this->setItemCanRate($this->itemData);
     $this->d['item'] = $this->itemData;
-    if (!empty($this->settings['setItemsOnItem'])) $this->setItemsOnItem();
+    if (!empty($this->page['settings']['setItemsOnItem'])) $this->setItemsOnItem();
     $this->click(); // Клик
     // Комменты
     if (isset($this->subControllers['comments'])) {
@@ -843,15 +839,15 @@ class CtrlPageDdItems extends CtrlPageDd {
     $this->initListTagPath();
     // Получаем существующие месяца
     /*
-    if (!empty($this->settings['dateField'])) {
-      if (! isset($this->itemData[$this->settings['dateField']]))
+    if (!empty($this->page['settings']['dateField'])) {
+      if (! isset($this->itemData[$this->page['settings']['dateField']]))
         throw new NgnException('No dateField');
       $this->d['year'] = date('Y', 
-        $this->itemData[$this->settings['dateField'] . '_tStamp']);
+        $this->itemData[$this->page['settings']['dateField'] . '_tStamp']);
       $this->d['month'] = date('n', 
-        $this->itemData[$this->settings['dateField'] . '_tStamp']);
+        $this->itemData[$this->page['settings']['dateField'] . '_tStamp']);
       $this->d['months'] = $this->oManager->oItems->getMonths(
-        $this->settings['dateField']);
+        $this->page['settings']['dateField']);
     }
     */
   }
@@ -919,11 +915,7 @@ class CtrlPageDdItems extends CtrlPageDd {
   }
 
   public function action_ajax_reorder() {
-    foreach ($this->oReq->rq('items') as $item) {
-      preg_match('/item_(\d*)_(\d*)/', $item, $m);
-      $ids[] = $m[1];
-    }
-    $this->oManager->oItems->reorderItems($ids);
+    $this->oManager->oItems->reorderItems($this->oReq->rq('ids'));
   }
 
   public function action_getFile() {
@@ -1009,9 +1001,9 @@ class CtrlPageDdItems extends CtrlPageDd {
 
   protected function initCalendarData() {
     return;
-    if (!isset($this->settings['dateField']) or !$this->settings['dateField'])
+    if (!isset($this->page['settings']['dateField']) or !$this->page['settings']['dateField'])
       return;
-    $this->oManager->oItems->dateField = $this->settings['dateField'];
+    $this->oManager->oItems->dateField = $this->page['settings']['dateField'];
     $calendar = new CalendarItems($this->d['page']['path'], $this->oManager->oItems);
     if ($this->month) {
       $month = $this->month;
@@ -1023,9 +1015,9 @@ class CtrlPageDdItems extends CtrlPageDd {
     $this->d['calendar'] = $this->getBesideMonths($month, $year);
     $this->d['calendar']['table'] = $calendar->getMonthView($month, $year);
     // Получаем существующие месяца
-    if ($this->settings['dateField']) {
+    if ($this->page['settings']['dateField']) {
       $this->d['months'] = $this->oManager->oItems->getMonths(
-        $this->settings['dateField']);
+        $this->page['settings']['dateField']);
     }
   }
   
@@ -1051,21 +1043,21 @@ class CtrlPageDdItems extends CtrlPageDd {
   }
 
   public function action_rss() {
-    $limit = !empty($this->settings['rssN']) ? $this->settings['rssN'] : 20;
+    $limit = !empty($this->page['settings']['rssN']) ? $this->page['settings']['rssN'] : 20;
     $header['title'] = SITE_TITLE.': '.$this->page['title'];
     $header['description'] = $this->page['title'].' '.$_SERVER['SERVER_NAME'];
     $header['link'] = "http://".$_SERVER['SERVER_NAME'].Tt::getPath();
-    $this->oManager->oItems->setN($this->settings['rssN'] ? $this->settings['rssN'] : 20);
+    $this->oManager->oItems->setN($this->page['settings']['rssN'] ? $this->page['settings']['rssN'] : 20);
     $this->oManager->oItems->cond->setOrder('dateCreate DESC');
     $n = 0;
     foreach ($this->oManager->oItems->getItems() as $v) {
       $n++;
       $items[] = array(
-        'title' => $v[$this->settings['rssTitleField']] ?
-          str_replace('<', '{', str_replace('>', '}', $v[$this->settings['rssTitleField']])) :
+        'title' => $v[$this->page['settings']['rssTitleField']] ?
+          str_replace('<', '{', str_replace('>', '}', $v[$this->page['settings']['rssTitleField']])) :
           '{нет заголовка}', 
-        'description' => !empty($this->settings['rssDescrField']) ?
-          $v[$this->settings['rssDescrField']] : '', 
+        'description' => !empty($this->page['settings']['rssDescrField']) ?
+          $v[$this->page['settings']['rssDescrField']] : '', 
         'link' => 'http://'.SITE_DOMAIN.'/'.$this->page['path'].'/'.$v['id'], 
         'author' => $v['authorLogin'], 
         'guid' => isset($v['link']) ? $v['link'] : '', 
@@ -1112,7 +1104,7 @@ class CtrlPageDdItems extends CtrlPageDd {
    * Инициализация функционала для работы контроллера под сабдоменом
    */
   protected function initMysite() {
-    if (!empty($this->settings['mysite']) and empty($this->options['subdomain']))
+    if (!empty($this->page['settings']['mysite']) and empty($this->options['subdomain']))
       throw new NgnException('Controller must work only with subdomain');
     if (!isset($this->options['subdomain'])) return;
     if (!($this->mysiteOwner = DbModelCore::get('users', $this->options['subdomain'], 'name')))

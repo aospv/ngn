@@ -22,7 +22,7 @@ var searchUser = function() {
 }
 var searchLogin = $('searchLogin');
 $('userSearchBtn').addEvent('click', function(e){
-  new Event(e).stop();
+  e.preventDefault();
   searchUser();
 });
 searchLogin.addEvent('keydown', function(e){

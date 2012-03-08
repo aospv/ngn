@@ -6,11 +6,11 @@
 abstract class Pbvug {
 
   /**
-   * @var PageBlockViewAbstract
+   * @var PbvAbstract
    */
   protected $pbv;
 
-  public function __construct(PageBlockViewAbstract $pbv) {
+  public function __construct(PbvAbstract $pbv) {
     $this->pbv = $pbv;
     $this->init();
   }

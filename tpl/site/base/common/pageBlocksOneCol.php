@@ -12,11 +12,9 @@ foreach ($d['blocks'] as $b) {
   ' colN'.$b['colN'].'" '.
   'id="block_'.$b['id'].'"'.
   '>'.
-  '<div class="roundCorners top"><i class="l"></i><i class="r"></i><div class="clear"></div></div>'.
-    '<div class="bcont"'.Tt::enumInlineStyles($b['styles']).'>'.
-      $b['html'].
-    '</div>'.
-  '<div class="roundCorners bottom"><i class="l"></i><i class="r"></i><div class="clear"></div></div>'.
+  '<div class="bcont"'.Tt::enumInlineStyles($b['styles']).'>'.
+    $b['html'].
+  '</div>'.
   '</div>';
 }
 print '<div class="clear"><!-- --></div>';

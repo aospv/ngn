@@ -206,10 +206,10 @@ abstract class DataManagerAbstract extends Options2 {
    */
   protected function makeCreate() {
     try {
-      $this->elementTypeAction('beforeCreateUpdate');
       // Данные необходимо обязательно получать из формы, т.к. обработка их происходит внутри
       // элементов полей. Форма будет возвращать единственно правильный вариант данных
       $this->data = $this->oForm->getData();
+      $this->elementTypeAction('beforeCreateUpdate');
       $this->fieldTypeAction('form2sourceFormat', $this->data);
       $this->form2sourceFormat(); 
       $this->addCreateData();
@@ -235,6 +235,10 @@ abstract class DataManagerAbstract extends Options2 {
     return $id;
   }
   
+  public function setDataValue($flatName, $value) {
+    BracketName::setValue($this->data, $flatName, $value); 
+  }
+  
   protected function beforeCreate() {}
   protected function afterCreate() {}
   
@@ -247,8 +251,8 @@ abstract class DataManagerAbstract extends Options2 {
   protected function makeUpdate($id) {
     $this->id = $id;
     $this->beforeUpdateData = $this->getItemNonFormat($this->id);
-    if (empty($this->beforeUpdateData))
-      throw new NgnException("Item ID={$this->id} does not exists");
+    //if (empty($this->beforeUpdateData))
+      //throw new NgnException("Item ID={$this->id} does not exists");
     try {
       $this->data = $this->oForm->getData();
       $this->fieldTypeAction('form2sourceFormat', $this->data);
@@ -332,7 +336,7 @@ abstract class DataManagerAbstract extends Options2 {
    * @param  integer/null  $id
    */
   protected function fieldTypeAction($method, array &$data) {
-    if (empty($data)) throw new EmptyException($this->getName().': $data');
+    //if (empty($data)) throw new EmptyException($this->getName().': $data');
     foreach (array_keys($data) as $k) {
       if (($fieldType = $this->oForm->oFields->getType($k)) === false) continue;
       if (($o = $this->getDmfa($fieldType)) === false) continue;
@@ -504,7 +508,11 @@ abstract class DataManagerAbstract extends Options2 {
     $opt = Arr::jsObj($opt, false);
     $this->oForm->defaultElements[] = array(
       'type' => 'js',
-      'js' => "new Ngn.TinyInit($opt);"
+      'js' => '
+new Ngn.TinyInit($merge(
+  {settings: new Ngn.TinySettings().getSettings()},
+  '.$opt.'
+));'
     );
     $this->oForm->tinyInitialized = true;
   }
@@ -533,6 +541,20 @@ abstract class DataManagerAbstract extends Options2 {
   
   public function getAttachePath() {
     return UPLOAD_PATH.'/'.$this->getAttacheFolder();
+  }
+  
+  static public function extendImageData(array $data, array $fields) {
+    foreach ($fields as $v) {
+      if (empty($data[$v['name']])) continue;
+      if (FieldCore::hasAncestor($v['type'], 'image')) {
+        $data[$v['name']] = '/'.UPLOAD_DIR.'/'.$data[$v['name']];
+        if (FieldCore::hasAncestor($v['type'], 'imagePreview')) {
+          $data['sm_'.$v['name']] = Misc::getFilePrefexedPath($data[$v['name']], 'sm_', 'jpg');
+          $data['md_'.$v['name']] = Misc::getFilePrefexedPath($data[$v['name']], 'md_', 'jpg');
+        }
+      }
+    }
+    return $data;
   }
   
 }

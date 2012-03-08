@@ -49,10 +49,11 @@ Ngn.Dialog = new Class({
     reduceHeight: false,
     baseZIndex: 300,
     //'maxHeight: null,
+    //resizeble: Ngn.Dialog.Resizeble,
 
     onComplete: $empty(),
     onClose: $empty(),
-    //onOkClose: $empty(),
+    onOkClose: $empty(),
     onCancelClose: $empty(),
     onHide: $empty(),
     onRequest: $empty(),
@@ -92,7 +93,7 @@ Ngn.Dialog = new Class({
       onFailure: this.errorMessage.bind(this)
     });
     
-    this.dialogId = 'mavd' + Math.ceil(Math.random() * 100000) + '_dialog';
+    this.dialogId = this.options.id + '_dialog';
     this.dialogN = Ngn.dialogs.length() + 1;
     Ngn.dialogs[this.dialogId] = this;
     
@@ -122,7 +123,7 @@ Ngn.Dialog = new Class({
       //this.options.maxHeight;
     
     // dialog box sections and borders
-    var db_message = new Element('div', {
+    this.eMessage = new Element('div', {
       'class': this.options.messageBoxClass
     }).inject(this.dialog);
     
@@ -131,7 +132,7 @@ Ngn.Dialog = new Class({
       this.titlebar = new Element('div', {
         'id': this.options.id + '_title',
         'class': this.options.titleBarClass
-      }).inject(db_message);
+      }).inject(this.eMessage);
       
       this.titleText = new Element('span', {'class':this.options.titleTextClass, 'html': this.options.title}).inject(this.titlebar);
 
@@ -150,14 +151,17 @@ Ngn.Dialog = new Class({
     this.message = new Element('div', {
       'id': this.options.id + '_message', 
       'class': this.options.messageAreaClass + (this.options.title === false ? ' ' + this.options.noTitleClass : '') + (this.options.footer === false ? ' ' + this.options.noFooterClass : '')
-    }).inject(db_message).setStyle('height', (this.options.height=='auto'?'auto':this.options.height.toInt()+'px'));
+    }).inject(this.eMessage).setStyle('height', (this.options.height=='auto'?'auto':this.options.height.toInt()+'px'));
     
     if ($defined(this.options.url)) {
       this.dotter = new Dotter(this.message);
       this.dotter.start();
       this.request.options.url = this.options.url;
       this.message.addClass('dialog-loading');
-      (function() {this.request.send()}).delay(100, this);
+      (function() {
+        
+    	this.request.send()
+      }).delay(100, this);
       if (this.options.autoShow) this.delayedShow = true;
     } else if ($defined(this.options.message)){
       if (this.options.setMessageDelay) {
@@ -173,7 +177,7 @@ Ngn.Dialog = new Class({
       this.footer = new Element('div', {
         'id': this.options.id + '_footer',
         'class': this.options.footerClass
-      }).inject(db_message);
+      }).inject(this.eMessage);
 
       new Element('div', {'class': 'foot-wrap'}).inject(this.footer);
 
@@ -228,6 +232,8 @@ Ngn.Dialog = new Class({
 
     this.fireEvent('complete');
     this.init();
+    
+    if (this.options.resizeble) new this.options.resizeble(this);
 
     // execute onComplete function, if present.
     if (this.options.autoShow && !this.request.running) { this.show(); }
@@ -237,8 +243,9 @@ Ngn.Dialog = new Class({
   
   init: function() {},
   
-  initReduceHeight: function() {
-    if ($defined(this.initHeight)) return;
+  initReduceHeight: function(force) {
+    if (force || !this.options.reduceHeight) return;
+    //if (this.initHeight) return;
     this.initHeight = this.message.getSize().y;
     window.addEvent('resize', this.reduceHeight.bind(this));
     this.reduceHeight();
@@ -289,7 +296,7 @@ Ngn.Dialog = new Class({
          - 10) + 'px');
     }
     
-    if (this.options.reduceHeight) this.initReduceHeight();
+    this.initReduceHeight();
     this.screen_center();
   },
   
@@ -338,7 +345,6 @@ Ngn.Dialog = new Class({
   openShade: function() {
     if ($defined(this.eShade)) return;
     this.eShade = new Element('div', {
-      //'id': 'dialog_shade'+this.dialogId,
       'class': this.options.shadeClass,
       'styles': {
         'z-index': this.options.baseZIndex + (this.dialogN * 2) - 1
@@ -424,14 +430,52 @@ Ngn.Dialog = new Class({
   
 });
 
-
-Ngn.Dialog.Confirm = new Class({
+Ngn.Dialog.Msg = new Class({
   Extends: Ngn.Dialog,
   
   options: {
-    noPadding: false
-  },
+    noPadding: false,
+    messageAreaClass: 'dialog-message large',
+    title: false
+  }
 
+});
+
+Ngn.Dialog.Resizeble = new Class({
+  
+  initialize: function(dialog) {
+    this.dialog = dialog;
+    this.eHandle = new Element('div', {
+      'class': 'handle bHandle'
+    });
+    this.dialog.dialog.addClass('resizeble');
+    var eResizeble = this.getResizebleEl();
+    var storeK = this.dialog.options.id+'_height';
+    var h = Ngn.storage.get(storeK);
+    if (h) eResizeble.setStyle('height', h+'px');
+    new Drag(eResizeble, {
+      preventDefault : true,
+      stopPropagation: true,
+      snap: 0,
+      handle: this.eHandle,
+      modifiers: {y: 'height', x: null},
+      onComplete: function() {
+        c(eResizeble.getSize().y);
+        Ngn.storage.set(storeK, eResizeble.getSize().y);
+      }
+    });
+    this.eHandle.inject(this.dialog.eMessage);
+  },
+  
+  getResizebleEl: function() {
+    return this.dialog.eMessage;
+  }
+  
+});
+
+Ngn.Dialog.Confirm = new Class({
+  Extends: Ngn.Dialog.Msg,
+  
   initialize: function(_opts) {
     var opts = $merge(_opts, {
       cancel: false,
@@ -509,8 +553,6 @@ Ngn.Dialog.Prompt = new Class({
     }
   }
 });
-
-
 
 Ngn.Dialog.Alert = new Class({
   Extends: Ngn.Dialog,

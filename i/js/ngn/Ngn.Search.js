@@ -14,19 +14,19 @@ Ngn.Search = new Class({
     //this.settings = new Hash.Cookie('set'+this.name, {duration: 3600});
     //this.eMask.setProperty('value', this.settings.get('mask'));
     this.eSearchBtn.addEvent('click', function(e) {
-      new Event(e).stop();
+      e.preventDefault();
       if (this.searchInProgress) return;
       this._search();
     }.bind(this));
     this.eSearchAllBtn.addEvent('click', function(e) {
-      new Event(e).stop();
+      e.preventDefault();
       if (this.searchInProgress) return;
       this.eMask.setProperty('value', '%');
       this._search();
     }.bind(this));
     this.eMask.addEvent('keypress', function(e) {
       if (e.key=='enter') {
-        new Event(e).stop();
+        e.preventDefault();
         this._search();
       }
     }.bind(this));  

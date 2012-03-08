@@ -360,7 +360,7 @@ TextboxListBit.Editable = new Class({
 		growing: true,
 		growingOptions: {},
 		stopEnter: true,
-		addOnBlur: false,
+		addOnBlur: true,
 		addKeys: 'enter'
 	},
 

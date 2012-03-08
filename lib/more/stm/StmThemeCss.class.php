@@ -27,6 +27,16 @@ class StmThemeCss extends StmThemeSf {
     $this->initAutoCss();
     $this->initStaticCss();
     $this->initMenuCss();
+    $this->initMCss();
+  }
+  
+  protected function initMCss() {
+  	$folder = STM_THEME_PATH.'/'.$this->oSD->id.'/m';
+  	if (file_exists($folder) and is_dir($folder)) {
+  	  $css = file_get_contents($folder.'/css/common/design.css');
+  	  $css = str_replace('/m/', '/'.STM_THEME_WPATH.'/'.$this->oSD->id.'/m/', $css);
+  	  $this->oCss->css .= $css;
+  	}
   }
   
   protected function extendImageUrls() {

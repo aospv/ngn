@@ -2,6 +2,9 @@
 
 class Slice {
 
+  /**
+   * @return DbModelSlices
+   */
   static public function getOrCreate(array $data) {
     if (($r = DbModelCore::get('slices', $data['id'])) !== false) {
       return $r;
@@ -18,7 +21,7 @@ class Slice {
       'title' => $title,
       'type' => $type,
       'absolute' => !empty($options['absolute'])
-    ))->html($default);
+    ))->setProp('allowAdmin', !empty($options['allowAdmin']))->html();
   }
   
   static public function deleteByPageId($pageId) {

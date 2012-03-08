@@ -72,7 +72,6 @@ class PageModuleCore {
     } else {
       return PageControllersCore::getPropObj($page['controller'])->title;
     }
-    //throw new NgnException("There is no such module or controller as '$module'");
   }
   
   static public function sf($name, $module) {
@@ -91,13 +90,18 @@ class PageModuleCore {
     include $paths[0];
   }
   
-  static public function info($module, $name) {
+  static public function getInfo($module) {
     if (!PageModuleCore::isVirtual($module)) {
       $o = new PageModuleInfo($module);
-      return $o->get($name);
+      return $o;
     } else {
       return false;
     }
+  }
+  
+  static public function initPage(DbModelPages $page) {
+    if (empty($page->r['settings']['itemTitle']))
+      $page->r['settings']['itemTitle'] = 'запись';
   }
 
 }

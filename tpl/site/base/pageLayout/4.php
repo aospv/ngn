@@ -1,17 +1,12 @@
 <!-- дополнительная - основная - дополнительная -->
 
-<div class="span-5 col">
+<div class="span-5 col" id="col1">
   <div class="body">
-  <?
-  Tt::tpl('common/pageBlocksOneCol', array(
-    'blocks' => PageBlockCore::getBlocksByCol($d['page']['id'], 1, $d['oController'])
-  ));
-  ?>
+    <?= $d['col1'] ?>  
   </div>
 </div>
-<div class="span-14 col">
+<div class="span-14 col" id="col2">
   <div class="body moduleBody<?= $d['bodyClass'] ?>">
-    <div class="roundCorners top"><i class="l"></i><i class="r"></i><div class="clear"></div></div>
     <div class="bcont">
       <? if (!empty($d['orderMenu'])) { ?>
         <div id="orderMenu" class="submenu hMenu">
@@ -34,15 +29,10 @@
         <? Tt::tpl($d['tpl'], $d) ?>
       </div>
     </div>
-    <div class="roundCorners bottom"><i class="l"></i><i class="r"></i><div class="clear"></div></div>
   </div>
 </div>
-<div class="span-5 last col">
+<div class="span-5 last col" id="col3">
   <div class="body">
-  <?
-  Tt::tpl('common/pageBlocksOneCol', array(
-    'blocks' => PageBlockCore::getBlocksByCol($d['page']['id'], 3, $d['oController'])
-  ));
-  ?>
+    <?= $d['col3'] ?>  
   </div>
 </div>

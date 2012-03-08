@@ -2,6 +2,10 @@
 
 class CtrlCommonVkAuth extends CtrlCommon {
 
+  protected function init() {
+    Misc::checkEmpty(Config::getVarVar('userReg', 'vkAuthEnable'));
+  }
+
   public function action_ajax_exists() {
     $this->ajaxSuccess = DbModelCore::get('users', $this->oReq->rq('login'), 'login');
   }

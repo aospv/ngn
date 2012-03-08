@@ -14,7 +14,7 @@
         href="<?= Tt::getPath(3) ?>?a=<?= ($v['active'] ? 'deactivate' : 'activate') . '&id='.$v['id'] ?>"><i></i></a>
       <a class="iconBtn subscribe" title="Разослать"
         href="<?= Tt::getPath(2) ?>/send/<?= $v['id'] ?>"><i></i></a>
-      <a class="iconBtn email" title="Подписанные ящики"
+      <a class="iconBtn email" title="Подписанные email'ы"
         href="<?= Tt::getPath(2) ?>/emails/<?= $v['id'] ?>"><i></i></a>
       <? if ($v['useUsers']) { ?>
         <a class="iconBtn users" title="Подписанные пользователи"
@@ -22,7 +22,7 @@
       <? } else { ?>
         <a class="iconBtn dummy"><i></i></a>
       <? } ?>
-      <a class="iconBtn import" title="Добавить ящики"
+      <a class="iconBtn import" title="Добавить e-mail'ы"
         href="<?= Tt::getPath(2) ?>/import/<?= $v['id'] ?>"><i></i></a>
       <a class="iconBtn list" title="Рассылки"
         href="<?= Tt::getPath(2).'/subs/'.$v['id'] ?>"><i></i></a>

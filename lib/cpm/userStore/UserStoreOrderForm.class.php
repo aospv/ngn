@@ -1,22 +1,17 @@
 <?php
 
-class UserStoreOrderForm extends Form {
+class UserStoreOrderForm extends StoreOrderFormBase {
 
   protected $storeUserId;
   
   public function __construct($storeUserId) {
     $oF = new UserStoreCustomerFields($storeUserId);
+    $this->storeUserId = $storeUserId;
     // Добавляем список текущих товаров для заказа в первую колонку полей
-    $oF->fields = Arr::injectAfter($oF->fields, 'col1', array(
-      'name' => 'orderItems',
-      'text' => '<p><b>Вы покупаете следующие товары:</b></p>'.
-        Tt::getTpl('userStoreOrder/cartProducts', StoreCart::get()->getItems()),
-      'type' => 'staticText',
-    ), 'name');
+    $oF->fields = Arr::injectAfter($oF->fields, 'col1', $this->getCartProductsField(), 'name');
     parent::__construct($oF, array(
       'submitTitle' => 'Отправить заказ'
     ));
-    $this->storeUserId = $storeUserId;
     $this->addVisibilityCondition('col2', 'deliveryWay', 'v != "self"');
   }
   

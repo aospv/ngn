@@ -77,7 +77,8 @@ class Ddo {
     $this->debug = $debug;
   }
   
-  protected function initFields() {
+  public function initFields() {
+    if (isset($this->fields)) return;
     $this->oFields = new DdoFields($this->oSettings, $this->layoutName, $this->page['strName']);
     $this->oFields->isItemsList = $this->list;
     $this->fields = $this->oFields->getFields();
@@ -86,6 +87,8 @@ class Ddo {
         $class = 'DdoFieldType'.ucfirst($v['type']);
         $this->ddddByType[$v['type']] = $class::$dddd;
       }
+    if (($hookPaths = SiteHook::getPaths('ddo/initFields', $this->page['module'])) !== false)
+      foreach ($hookPaths as $v) include $v;
   }
   
   public function setItem($item) {
@@ -293,7 +296,7 @@ flowplayer("player`.$id.`", "/i/js/flowplayer/flowplayer-3.2.7.swf");
     'ddItemsSelect' => '`<b>`.$v[`title`].`</b>`',
     'static' => '$title',
     'user' => '`<a href="`.Tt::getUserPath($authorId).`">`.$authorLogin.`</a>`',
-    'price' => '$v ? $v.` руб.` : ``',
+    'price' => '$v ? `<span class="v">`.$v.` руб.</span> <small class="dgray">`.$title.`</small>` : ``',
     'phone' => '$v ? `<span class="icon18"><img src="/i/img/icons/phone.png" /></span>`.$v : ``',
     'icq' => '$v ? `<span class="icon18"><img src="http://status.icq.com/online.gif?icq=`.$v.`&img=5" alt="Статус ICQ" /></span>`.$v : ``',
     'skype' => '$v ? `<a href="skype:`.$v.`?call" class="dgray"><img src="/i/img/icons/skype.gif" class="icon18" />`.$v.`</a>` : ``',

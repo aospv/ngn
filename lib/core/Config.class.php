@@ -5,18 +5,24 @@ class Config {
   static $tab = "  ";
 
   static function regexp($func, $k) {
-    return
-      str_replace('{f}', $func,
+    return str_replace('{f}', $func,
       str_replace('{k}', $k,
-        '/{f}\s*\(\s*[\'"]{k}["\'],\s*?(.*)?\s*\)\s*;/i'
+        '/{f}\s*\(\s*[\'"]{k}["\'],\s*(.*)\s*\)\s*;/i'
     ));
   }
   
-  static $constantsRegexp = 'define\([\'"](.*)["\'],\s*(.*)\)\s*;';
+  static function clearQuotes($v) {
+    return preg_replace('/[\'"]?(.*)[\'"]?/U', '$1', $v);
+  }
   
-  static $vars;
-
-  static $funcs = array('define', 'setConstant');
+  static public function __getConstant($c, $k) {
+    if (preg_match(self::regexp('define', $k), $c, $m)) {
+      return self::clearQuotes($m[1]);
+    } elseif (preg_match(self::regexp('setConstant', $k), $c, $m)) {
+      return self::clearQuotes($m[1]);
+    }
+    return self::noConst;
+  }
   
   static public function _updateConstant($c, $k, $v, $formatValue = true) {
     foreach (self::$funcs as $func) {
@@ -30,6 +36,12 @@ class Config {
     }
     return $c;
   }
+  
+  static $constantsRegexp = 'define\([\'"](.*)["\'],\s*(.*)\)\s*;';
+  
+  static $vars;
+
+  static $funcs = array('define', 'setConstant');
   
   static public function updateConstant($file, $k, $v, $formatValue = true) {
     $c = self::_updateConstant(file_get_contents($file), $k, $v, $formatValue);
@@ -175,15 +187,6 @@ class Config {
   }
   
   const noConst = 311111;
-  
-  static public function __getConstant($c, $k) {
-    if (preg_match(self::regexp('define', $k), $c, $m)) {
-      return $m[1];
-    } elseif (preg_match(self::regexp('setConstant', $k), $c, $m)) {
-      return $m[1];
-    }
-    return self::noConst;
-  }
 
   static public function getConstant($file, $k, $quitely = false) {
     if (!file_exists($file)) {

@@ -6,7 +6,7 @@ class SubPaTagsTree extends SubPa {
    * @return DdTagsTagsBase
    */
   protected function getTags() {
-    $oTags = DdTags::getByGroupId($this->oPA->getParam(1));
+    $oTags = DdTags::getByGroupId($this->oPA->getParam(2));
     return $oTags;
   }
 	

@@ -120,14 +120,17 @@ class DispatcherSite extends Dispatcher {
         if (($this->page = DbModelPages::getHomepage()) === false)
           throw new NgnException('Homepage not found');
       } else {
-        if (PageControllersCore::virtualCtrlExists($this->oReq->params[0])) {
-          $this->virtualCtrl = $this->oReq->params[0];
-          $this->page = PageControllersCore::getVirtualCtrlPageModel($this->oReq->params[0]);
+        $routes = Config::getVar('routes');
+        if (isset($routes[$this->oReq->params[0]])) $cntl = $routes[$this->oReq->params[0]];
+        else $cntl = $this->oReq->params[0];
+        if (PageControllersCore::virtualCtrlExists($cntl)) {
+          $this->virtualCtrl = $cntl;
+          $this->page = PageControllersCore::getVirtualCtrlPageModel($cntl);
         } elseif (($this->page = 
-        DbModelCore::get('pages', $this->oReq->params[0], 'path')) !== false) {
+        DbModelCore::get('pages', $cntl, 'path')) !== false) {
           // by path
         } elseif (($this->page = 
-        DbModelCore::get('pages', $this->oReq->params[0], 'name')) !== false) {
+        DbModelCore::get('pages', $cntl, 'name')) !== false) {
           // by name
         }
       }

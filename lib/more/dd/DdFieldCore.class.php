@@ -180,12 +180,25 @@ $r = array(
     'virtual' => true,
     'order' => 150
   ),
+  'ddStaticText' => array(
+    'dbType' => 'VARCHAR',
+    'dbLength' => 255,
+    'title' => 'Статический текст в форме',
+    'virtual' => true,
+    'order' => 150
+  ),
   'floatBlock' => array(
     'title' => 'Блок для обтекания',
     'order' => 160,
     'virtual' => true,
     'system' => true,
     'noElementTag' => true
+  ),
+  'header' => array(
+    'title' => 'Заголовок',
+    'order' => 160,
+    'virtual' => true,
+    //'system' => true,
   ),
   'groupBlock' => array(
     'title' => 'Блок для группировки',

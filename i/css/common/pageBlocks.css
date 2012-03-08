@@ -11,6 +11,8 @@ float: left;
 .pageBlocks .block {
 width: 100%;
 float: left;
+margin-bottom: 7px;
+background: #FFF;
 /*
 height: 100px;
 overflow: hidden;
@@ -37,11 +39,11 @@ height: 16px;
 display: none;
 }
 
-.pageBlocks .blockHeader {
+.pageBlocks .btitle {
 border-bottom: 2px solid #CCCCCC;
 margin-bottom: 7px;
 }
-.pageBlocks .blockHeader h2 {
+.pageBlocks .btitle h2 {
 margin-bottom: 5px;
 }
 
@@ -115,10 +117,9 @@ margin-bottom: 7px;
 .pbt_tpl {
 margin-bottom: 0px !important;
 }
-
 .pbt_iconLink {
 margin-bottom: 5px !important;
 }
-.pageBlocks .pbt_text.block {
-margin-bottom: 0px;
+.pageBlocks .block.loading {
+background: url(/i/img/loader-horizontal.gif) repeat-x 0px -10px;
 }

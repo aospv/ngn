@@ -40,6 +40,7 @@ $cords = array(
   'tag' => array(2, -30),
   'tag2' => array(-90, -30),
   'tag3' => array(-136, -30),
+  'shift' => array(-482, -494),
 );
 
 foreach ($cords as $class => $c) {

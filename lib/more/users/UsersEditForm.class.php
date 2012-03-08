@@ -14,35 +14,6 @@ class UsersEditForm extends UsersRegForm {
    */
   protected $user;
   
-  protected $fields = array(
-    array(
-      'name' => 'login',
-      'title' => 'Логин',
-      'type' => 'regLogin',
-      'required' => true
-    ),
-    array(
-      'name' => 'passBegin',
-      'title' => 'Изменить пароль',
-      'type' => 'headerToggle'
-    ),
-    array(
-      'name' => 'pass',
-      'title' => 'Пароль',
-      'help' => 'Оставьте пустым, если не хотите менять',
-      'type' => 'password'
-    ),
-    array(
-      'type' => 'headerClose'
-    ),
-    array(
-      'name' => 'email',
-      'title' => 'Ящик',
-      'type' => 'email',
-      'required' => true
-    )
-  );
-  
   protected function defineOptions() {
     parent::defineOptions();
     $this->options['submitTitle'] = 'Сохранить';
@@ -53,15 +24,43 @@ class UsersEditForm extends UsersRegForm {
     if (!($this->user = DbModelCore::get('users', $this->userId)))
       throw new NgnException("User ID={$this->userId} does not exists");
     parent::__construct($options);
-    $this->setElementsData(Arr::dropK($this->user->toArray(), 'pass'));
+    $this->setElementsData(Arr::dropK($this->user->r, 'pass'));
+  }
+  
+  protected function _getFields() {
+    return array(
+      UserRegCore::getLoginField(),
+      array(
+        'name' => 'passBegin',
+        'title' => 'Изменить пароль',
+        'type' => 'headerToggle'
+      ),
+      array(
+        'name' => 'pass',
+        'title' => 'Пароль',
+        'help' => 'Оставьте пустым, если не хотите менять',
+        'type' => 'password'
+      ),
+      array(
+        'type' => 'headerClose'
+      ),
+      array(
+        'name' => 'email',
+        'title' => 'Ящик',
+        'type' => 'email',
+      ),
+      array(
+        'name' => 'phone',
+        'title' => 'Телефон',
+        'type' => 'phone',
+      ),
+    );    
   }
   
   protected $filterFields = array('login', 'user', 'pass', 'email', 'name');
   
   protected function _update(array $data) {
-    $data = Arr::filter_by_keys($data, $this->filterFields);
-    Arr::filter_empties($data);
-    $this->user->setArray($data)->save();
+    DbModelCore::update('users', $this->userId, $data);
     $this->afterUserUpdate($this->userId, $data);
   }
 

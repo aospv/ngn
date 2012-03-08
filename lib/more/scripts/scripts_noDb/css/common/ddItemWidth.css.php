@@ -22,10 +22,11 @@ width: <?= ($d['page']['settings']['smW']+4) ?>px;
 }
 <? } ?>
 
+/*
 .hgrpt_floatBlock {
 width: <?= ($d['page']['settings']['smW']-55) ?>px;
 }
-
+*/
 
 /*
 foreach (NgnOrmQuery::create()->select('*')->from('M_Pages')->

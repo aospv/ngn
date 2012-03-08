@@ -29,7 +29,7 @@ Ngn.msgs.MsgsLayout = new Class({
     // btnSubmit
     this.btnCreate = $('btnSubmit');
     this.btnCreate.addEvent('click', function(e) {
-      new Event(e).stop();
+      e.preventDefault();
       this.create();
     }.bind(this));
     this.parent(url);

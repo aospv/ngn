@@ -13,10 +13,6 @@
 </div>
 <div class="span-10 last col">
   <div class="body">
-  <?
-  Tt::tpl('common/pageBlocksOneCol', array(
-    'blocks' => PageBlockCore::getBlocksByCol($d['page']['id'], 2, $d['oController'])
-  ));
-  ?>
+    <?= $d['col2'] ?>
   </div>
 </div>

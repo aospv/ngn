@@ -1,18 +1,31 @@
+<? if ($d['backgroundImage']) { ?>
+<? $d['menuHeight'] = $d['backgroundImage']['h'] ?>
 .mainmenu {
 padding: 0px 10px 0px 10px;
 height: <?= $d['menuHeight'] ?>px;
 background: url(<?= $d['backgroundImage']['url'] ?>) no-repeat;
 }
-.mainmenu a {
+<? } ?>
+<? if ($d['menuHeight']) { ?>
+.mainmenu > ul > li > a {
 height: <?= $d['menuHeight'] ?>px;
 }
-.mainmenu a span {
-display: block;
-padding: 12px 20px 0px 20px;
+<? } ?>
+<? if ($d['linkSeparatorImage']) { ?>
+.mainmenu li a {
+background: url(<?= $d['linkSeparatorImage']['url'] ?>) top right no-repeat;
 }
+<? } ?>
+<? if ($d['linkImageActive']) { ?>
 .mainmenu li.active a {
-background-image: url(<?= $d['linkImageActive']['url'] ?>);
+background: url(<?= $d['linkImageActive']['url'] ?>) top right;
 }
+<? } ?>
+<? if ($d['linkImageHover']) { ?>
 .mainmenu li.over a {
-background-image: url(<?= $d['linkImageHover']['url'] ?>);
+background: url(<?= $d['linkImageHover']['url'] ?>) top right;
 }
+<? } ?>
+
+<? include dirname(dirname(__DIR__)).'/css/menu/bgColors.php' ?>
+<? include dirname(dirname(__DIR__)).'/css/submenu/simple.php' ?>

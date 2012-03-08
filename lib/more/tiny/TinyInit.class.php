@@ -1,6 +1,6 @@
 <?php
 
-class TinyInit {
+class TinyInit extends Options2 {
   
   protected $themeAdvancedStyles;
   
@@ -10,17 +10,16 @@ class TinyInit {
   
   protected $theme;
   
-  protected $themeType;
+  protected $requiredOptions = array('themeType');
   
   protected $tags;
   
-  public function __construct($themeType) {
-    $this->tags = Config::getVar('tiny.'.$themeType.'.allowedTags');
-    $this->themeType = $themeType;
-    $this->theme = ($themeType == 'site' ? 'advanced' : 'advanced');
+  public function init() {
+    $this->tags = Config::getVar('tiny.'.$this->options['themeType'].'.allowedTags');
+    $this->theme = ($this->options['themeType'] == 'site' ? 'advanced' : 'advanced');
     
     // Инициализация пользовательских CSS-классов 
-    $_classes = Config::getVar('tiny.'.$themeType.'.classes', true);
+    $_classes = Config::getVar('tiny.'.$this->options['themeType'].'.classes', true);
     $classes[] = 'Ссылка на скачивание=ifLink';
     $classes[] = 'Превьюшка=iiLink';
     foreach ($_classes as $v) $classes[] = "{$v['title']}={$v['class']}";
@@ -29,8 +28,14 @@ class TinyInit {
     // Заменяем , на |
     foreach ($this->tags as $k => $v)
       $this->tags[$k] = str_replace(',', '|', $v); 
-    $this->clearTags = Misc::clearConfigTags($this->tags); 
-    $this->cssFile = SFLM::getCachedUrl('s2/css/common/tiny.css', true);
+    $this->clearTags = Misc::clearConfigTags($this->tags);
+    $this->initCssFile();
+  }
+  
+  protected function initCssFile() {
+    $this->cssFile = empty($this->options['cssFile']) ? 
+      SFLM::getCachedUrl('s2/css/common/tiny.css', true) :
+      $this->options['cssFile'];
   }
   
   public function getTheme() {
@@ -49,7 +54,7 @@ class TinyInit {
   }
   
   public function getPlugins() {
-    if ($this->themeType == 'site') {
+    if ($this->options['themeType'] == 'site') {
       return 'safari,fullscreen,inlinepopups';
     } else {
       return 'safari,inlinepopups,imageuploader,imagesuploader,fileuploader'.

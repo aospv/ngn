@@ -3,6 +3,7 @@ Ngn.frm = {};
 Ngn.frm.html = {};
 
 Ngn.frm.selector = 'input,select,textarea';
+Ngn.frm.textSelector = 'input[type=text,password],select,textarea';
 
 Ngn.frm.virtualElements = [];
 
@@ -136,7 +137,7 @@ Ngn.frm.headerToggleFx = function(btns) {
     }
     if (saved != undefined) setArrow(opened);
     btn.addEvent('click', function(e) {
-      new Event(e).stop();
+      e.preventDefault();
       opened ? fx.slideOut() : fx.slideIn();
       opened = !opened;
     });
@@ -164,7 +165,7 @@ Ngn.frm.HeaderToggle = new Class({
     if (saved == undefined) this.toggle(this.opened); 
     else this.toggle(saved);
     this.eBtn.addEvent('click', function(e) {
-      new Event(e).stop();
+      e.preventDefault();
       this.toggle(!this.opened);
       Ngn.storage.set(this.eBtn.get('data-name'), this.opened);
     }.bind(this));
@@ -312,7 +313,7 @@ Ngn.frm.initCopySelectTitle = function(eSelectField, eSlaveField) {
 
 Ngn.frm.makeDialogabble = function(eLink, action, options) {
   eLink.addEvent('click', function(e) {
-    new Event(e).stop();
+    e.preventDefault();
     new Ngn.Dialog.RequestForm(Object.merge({
       url: eLink.get('href').replace(action, 'json_'+action),
       onSubmitSuccess: function() {

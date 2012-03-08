@@ -195,7 +195,7 @@ var mooSelecta = new Class({
     var lbl = document.getElement("label[for="+el.get("id")+"]");
     if (el.get("id") && lbl) {
       lbl.addEvent("click", function(e) {
-        new Event(e).stop();
+        e.preventDefault();
         el.fireEvent("focus");
       });
     }
@@ -227,7 +227,7 @@ var mooSelecta = new Class({
     // attach a click event to trigger element
     el.retrieve("triggerElement").addEvents({
       click: function(e) {
-        new Event(e).stop();
+        e.preventDefault();
         // toggler, click on opened closes it.
         el.fireEvent((this.focused == el) ? "blur" : "focus");
       }.bind(this)
@@ -261,7 +261,7 @@ var mooSelecta = new Class({
 
         switch(e.code) {
           case 40: // down arrow option navigation
-            new Event(e).stop();
+            e.preventDefault();
             // ops should really be cached outside here
             ops = this.focused.retrieve("wrapper").getElements("div."+this.options.optionClass);
             done = false;
@@ -282,7 +282,7 @@ var mooSelecta = new Class({
 
           break;
           case 38: // up arrow option navigation
-            new Event(e).stop();
+            e.preventDefault();
             ops = this.focused.retrieve("wrapper").getElements("div."+this.options.optionClass);
             done = false;
 
@@ -304,7 +304,7 @@ var mooSelecta = new Class({
 
           break;
           case 13: // enter
-            new Event(e).stop();
+            e.preventDefault();
             this.focused.retrieve("wrapper").getElements("div."+this.options.optionClassSelected).fireEvent("click");
           break;
           case 9: // tabbed out, blur auto...
@@ -313,7 +313,7 @@ var mooSelecta = new Class({
           case 34:
           case 35:
             // go to last option via pgdn or end
-            new Event(e).stop();
+            e.preventDefault();
             old = this.focused;
             this.focused.retrieve("wrapper").getElements("div."+this.options.optionClass).getLast().fireEvent("click");
             old.fireEvent("focus");
@@ -322,7 +322,7 @@ var mooSelecta = new Class({
           case 33:
           case 36:
             // go to first option via pgup or home
-            new Event(e).stop();
+            e.preventDefault();
             old = this.focused;
             this.focused.retrieve("wrapper").getElement("div."+this.options.optionClass).fireEvent("click");
             old.fireEvent("focus");

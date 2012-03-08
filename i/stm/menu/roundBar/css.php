@@ -14,10 +14,6 @@ padding-right: <?= $d['radius'] ?>px;
 .mainmenu li {
 height: <?= $d['menuHeight'] ?>px;
 }
-.mainmenu a span {
-display: block;
-padding: <?= (int)$d['spanPaddingTop'].'px '.(int)$d['spanPaddingRight'].'px '.(int)$d['spanPaddingBottom'].'px '.(int)$d['spanPaddingLeft'].'px' ?>; 
-}
 .mainmenu li.active {
 background-color: <?= $d['bgColorActive'] ?>;
 }

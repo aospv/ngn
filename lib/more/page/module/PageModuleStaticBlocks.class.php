@@ -7,8 +7,9 @@ class PageModuleStaticBlocks {
 
   public function __construct(CtrlPage $oController) {
     if (empty($oController->page['module'])) return false;
-    $info = PageModuleCore::info($oController->page['module'], 'blocks');
-    if ($info and !empty($info['disableModuleParentBlocks'])) {
+    if (($info = PageModuleCore::getInfo($oController->page['module'])) === false) return;
+    $info = $info->getData('blocks');
+    if (!empty($info['disableModuleParentBlocks'])) {
       if (($class = PageModuleCore::getClass($oController->page['module'], 'Pmsb')) !== false) {
         $this->blocksObjs[] = O::get($class, $oController);
       }

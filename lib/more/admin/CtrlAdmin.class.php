@@ -47,7 +47,6 @@ abstract class CtrlAdmin extends CtrlCp {
     $this->initModules();
     $this->initTopLinks();
     $this->setModuleTitle($this->d['adminModuleTitle']);
-    $this->d['settings'] = $this->settings = $this->getSettings();
     $this->d['msg'] = Auth::get('msg');
     $this->d['god'] = $this->god = $this->params[0] == 'god' ? true : false;
   }

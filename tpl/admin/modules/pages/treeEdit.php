@@ -8,6 +8,9 @@
   <a href="#" class="iconBtn link" title="Открыть раздел на сайте"><i></i></a>
   <!-- <a href="#" class="iconBtn rename" title="<?= LANG_RENAME ?>"><i></i></a> -->
   <a href="#" class="iconBtn editProp" title="Редактировать параметры"><i></i></a>
+  <? if (AdminModule::isAllowed('pageMeta')) { ?>
+  <a href="#" class="iconBtn meta" title="Редактировать мета-теги"><i></i></a>
+  <? } ?>
   <? if ($d['god']) { ?>
   <a href="#" class="iconBtn editOptions" title="Редактировать свойства контроллера"><i></i></a>
   <a href="#" class="iconBtn pageBlocks" title="Редактировать блоки"><i></i></a>

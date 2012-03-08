@@ -130,14 +130,10 @@ abstract class SubPaMsgs extends SubPa {
       return false;
     }
     try {
-      $id = $this->oMsgs->create(
-        $this->oPA->oReq->r['text'],
-        Auth::get('id'),
-        isset($this->oPA->oReq->r['ansId']) ? $this->oPA->oReq->r['ansId'] : 0,
-        null,
-        null,
-        !empty($this->oPA->oReq->r['nick']) ? $this->oPA->oReq->r['nick'] : null
-      );
+      $d = $this->oPA->oReq->r;
+      $d['userId'] = Auth::get('id');
+      $d['userGroupId'] = $this->oPA->userGroup ? $this->oPA->userGroup['id'] : 0;
+      $this->oMsgs->create($d);
     } catch (NgnValidError $e) {
       $this->error = $e->getMessage();
       return false;

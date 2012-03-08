@@ -10,7 +10,12 @@ class PcpDdItems extends PcpDd {
         'name' => 'order', 
         'title' => 'Сортировка', 
         'type' => 'ddOrder'
-      ), 
+      ),
+      array(
+        'name' => 'manualOrder',
+        'title' => 'включить ручную сортировку',
+        'type' => 'bool'
+      ),
       array(
         'name' => 'dateField', 
         'title' => 'Поле даты', 

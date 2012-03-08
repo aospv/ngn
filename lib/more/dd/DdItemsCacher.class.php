@@ -20,7 +20,7 @@ class DdItemsCacher {
   /**
    * @var Ddo
    */
-  protected $oDdo;
+  public $oDdo;
   
   protected $prefix;
   
@@ -40,14 +40,18 @@ class DdItemsCacher {
     $this->prefix = $oItems->table;
     $this->oCache = self::getCache();
     $this->ids = $this->oItems->getItemIds();
+    $this->oDdo = DdoSiteFactory::get($this->page, $ddoLayout);
+  }
+  
+  public function initHtml() {
     foreach ($this->ids as $id) {
       if (($r = $this->getHtml($id)) !== false)
         $this->html[$id] = $r;
       else
         $absent[] = $id;
     }
-    $this->oDdo = DdoSiteFactory::get($this->page, $ddoLayout);
     if (isset($absent)) $this->saveHtml($absent);
+    return $this;
   }
   
   protected function getHtml($id) {

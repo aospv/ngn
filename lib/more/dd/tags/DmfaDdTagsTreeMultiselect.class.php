@@ -1,10 +1,10 @@
 <?php
 
-class DmfaDdTagsTreeMultiselect extends Dmfa {
+class DmfaDdTagsTreeMultiselect extends DmfaDdTagsAbstract {
 
-  public function afterCreateUpdate(FieldEDdTagsTreeMultiselect $el) {
+  protected function _afterCreateUpdate(FieldEAbstract $el) {
     if (empty($el->options['value'])) {
-      DdTagsItems::delete($this->oDM->strName, $el->options['name'], $this->oDM->id);
+      $this->beforeDelete($el);
     } else {
       DdTagsItems::createByIdsCollection(
         $this->oDM->strName,
@@ -19,10 +19,6 @@ class DmfaDdTagsTreeMultiselect extends Dmfa {
         )->getParentIds($el->options['value'])
       );
     }
-  }
-  
-  public function beforeDelete(FieldEDdTagsTreeMultiselect $el) {
-    DdTagsItems::delete($this->oDM->strName, $el->options['name'], $this->oDM->id);
   }
   
 }

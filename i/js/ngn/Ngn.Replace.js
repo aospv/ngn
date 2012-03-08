@@ -13,18 +13,18 @@ Ngn.Replace = new Class({
     this.eTo.setProperty('value', this.settings.get('to'));
     this.eTo.addEvent('keypress', function(e) {
       if (e.key=='enter') {
-        new Event(e).stop();
+        e.preventDefault();
         this._search();
       }
     }.bind(this));
     this.eReplaceBtn.addEvent('click', function(e) {
-      new Event(e).stop();
+      e.preventDefault();
       if (this.searchInProgress) return;
       this._replace();
     }.bind(this));
     this.eIsRegexp.setProperty('checked', this.settings.get('isRegexp'));
     this.eIsRegexp.addEvent('change', function(e) {
-      new Event(e).stop();
+      e.preventDefault();
       this.settings.set('isRegexp', this.eIsRegexp.getProperty('checked'));
     }.bind(this));
   },

@@ -7,9 +7,12 @@
  * Т.е. для siteSet'а "personal" будет подключены библиотеки с именем "personal"
  */
 class SFLM {
+
+  const DYNAMIC_LIB_NAME = 'dynamic';
   
   static public $cssLibs = array(
     // ---------- Main libs -------------
+    self::DYNAMIC_LIB_NAME => array(),
     'common' => array(
       'i/css/common.css',
       'i/css/common/btns.css',
@@ -123,6 +126,13 @@ class SFLM {
       'i/css/common/text.css',
       'i/css/common/tiny.css',
       's2/css/common/theme'
+    ),
+    'tinyPageBlocks' => array(
+      'i/css/common/screen.css',
+      'i/css/common/text.css',
+      'i/css/common/tiny.css',
+      's2/css/common/theme',
+      's2/css/common/tiny.pageBlocks.css',
     )
   );
   
@@ -158,7 +168,8 @@ class SFLM {
       'i/js/mooRainbow.js',
       'i/js/ngn/Ngn.UlMenu.js',
       'i/js/ngn/Ngn.Select.js',
-      'i/js/ngn/Ngn.Tips.js'
+      'i/js/ngn/Ngn.Tips.js',
+      's2/js/common/tpl?name=editBlock&path=editBlocks/jsTpl.editBlock'
     ),
     'lightbox' => array(
       'i/js/milkbox.js',
@@ -214,8 +225,6 @@ class SFLM {
       'i/js/ngn/Ngn.TreeEditTags.js',
       //'i/js/ngn/Ngn.ContextMenu.js',
       //'i/js/firebug.js',
-      'i/js/ngn/Ngn.PageBlockCreate.js',
-      'i/js/ngn/Ngn.PageBlocksEdit.js',
       'i/js/ngn/Ngn.ItemsTablePages.js',
       'i/js/ngn/Ngn.cp.DdItemsTable.js',
       'i/js/ngn/Ngn.cp.DdItemsGroup.js',
@@ -224,7 +233,8 @@ class SFLM {
       //'i/js/ngn/Ngn.FieldSetsEdit.js',
       'i/js/ngn/Ngn.initConfigManager.js',
       'i/js/MooCountdown.js',
-      'partialJob'
+      'partialJob',
+      'pageBlocks'
     ),
     'pageLink' => array(
       'i/js/ngn/Ngn.DropdownWin.js',
@@ -244,7 +254,7 @@ class SFLM {
       'pageLink'
     ),
     'dialogs' => array(
-      'i/js/SimpleTabs.js',
+      'i/js/ngn/Ngn.Tabs.js',
       'i/js/ngn/Ngn.Dialog.js',
       'i/js/ngn/Ngn.Dialog.Queue.js',
       'i/js/ngn/Ngn.Dialog.RequestForm.js',
@@ -302,6 +312,7 @@ class SFLM {
       'i/js/ngn/Ngn.SlideTips.js',
       'i/js/ngn/Ngn.SlideTips.Pm.js',
       'i/js/ngn/Ngn.StickyFooter.js',
+      'i/js/ngn/Ngn.cart.js',
       'ac',
       'ratings',
       'video',
@@ -313,7 +324,9 @@ class SFLM {
       'i/js/ngn/Ngn.site.top.briefcase.js',
       'm/js/site.js',
       'i/js/ngn/Ngn.BlockEditDialog.js',
-      'site.userGroup'
+      'i/js/ngn/Ngn.EditTreeTagsDialog.js',
+      'site.userGroup',
+      'pageBlocks'
     ),
     'site.userGroup' => array(
       'i/js/ngn/Ngn.TreeEditTags.js',
@@ -321,7 +334,6 @@ class SFLM {
     ),
     'site.ddItems' => array(
       'i/js/ngn/Ngn.site.DdItems.js',
-      's2/js/common/tpl?name=editBlock&path=editBlocks/jsTpl.editBlock'
     ),
     'carousel' => array(
       'i/js/ngn/Ngn.Carousel.js',
@@ -413,6 +425,10 @@ class SFLM {
       'i/js/textboxList/TextboxList.js',
       'i/js/textboxList/TextboxList.Autocomplete.js',
       'i/js/textboxList/TextboxList.Autocomplete.Binary.js',
+    ),
+    'pageBlocks' => array(
+      'i/js/ngn/Ngn.PageBlockCreate.js',
+      'i/js/ngn/Ngn.PageBlocksEdit.js',
     )
   );
   
@@ -453,6 +469,7 @@ class SFLM {
   }
   
   static public function addCssLib($libName, $libPath) {
+    if (in_array($libPath, self::$cssLibs[$libName])) return;
     self::$cssLibs[$libName][] = $libPath;
   }
   
@@ -520,14 +537,14 @@ class SFLM {
     return $libs;
   }
   
-  private static function getFileContents($path, $d = array()) {
+  private static function getFileContents($path, $r = array()) {
     if (!is_file($path)) {
       return "\n/*----------[ File '$path' does not exists ]---------*/\n";
     }
     if (strstr($path, LIB_PATH)) {
-      // Если файл находится с папке библиотек, значит это PHP-файл
-      return "\n/*----------|$path|".($d ? ' (with data)' : '')."----------*/\n".
-        Misc::getIncluded($path, $d);
+      // Если файл находится в папке библиотек, значит это PHP-файл
+      return "\n/*----------|$path|".($r ? ' (with request data)' : '')."----------*/\n".
+        Misc::getIncludedByRequest($path, $r);
     } else {
       // Иначе это статика
       return "\n/*----------|$path|----------*/\n".
@@ -655,7 +672,7 @@ class SFLM {
     if (self::$debug or self::$forceCache or !file_exists(UPLOAD_PATH.'/css/sub/'.$libName.'.css')) {
       // Если идёт отладка статических файлов или собранного файла не существует
       self::storeCssLib($libName);
-    }    
+    }
     return UPLOAD_DIR.'/css/sub/'.$libName.'.css';
   }
   
@@ -717,7 +734,7 @@ class SFLM {
       // Если идёт отладка статических файлов или собранного файла не существует
       self::storeJsLib($libName);
     }
-    return UPLOAD_DIR.'/js/sub/'.$libName.'.js';
+    return '/'.UPLOAD_DIR.'/js/sub/'.$libName.'.js';
   }
   
   static public function getJsTags($libName) {
@@ -727,13 +744,17 @@ class SFLM {
         if (self::isLibPath($path)) {
           $t .= self::getJsTags($path);
         } else {
-          $t .= '<script src="/'.$path.'" type="text/javascript"></script>'."\n";
+          $t .= '<script src="'.$path.'" type="text/javascript"></script>'."\n";
         }
       }
       return $t;
     } else {
-      return '<script src="/'.self::getJsUrl($libName).'?'.BUILD.'" type="text/javascript"></script>'."\n";
+      return self::getJsTag(self::getJsUrl($libName));
     }
+  }
+  
+  static public function getJsTag($path) {
+    return '<script src="'.$path.'?'.BUILD.'" type="text/javascript"></script>'."\n";
   }
   
   static public function makeCachedFile($path) {
@@ -756,35 +777,38 @@ class SFLM {
     return self::getCachedUrl('s2/js/common/lib?lib='.$lib);
   }
   
+  static protected function getCachePath($path) {
+    $path2 = str_replace('s2/', '', $path);
+    return (strstr($path2, 'css') ? 'css' : 'js').'/cache/'.basename($path2).
+      (strstr($path2, '.') ? '' : (strstr($path2, 'css/') ? '.css' : '.js'));
+  }
+  
+  static public function clearPathCache($path) {
+    File::delete(UPLOAD_PATH.'/'.self::getCachePath($path));
+  }
+  
   static public function getCachedUrl($path, $silent = false) {
     if (DEBUG_STATIC_FILES === true) return $path;
     $p = parse_url($path);
     $path = $p['path'];
-    $path2 = str_replace('s2/', '', $path);
-    $path3 = LIB_PATH.'/more/scripts/scripts_noDb/'.$path2.'.php';
-    $path33 = LIB_PATH.'/more/scripts/scripts_noDb/'.$path2;
-    if (file_exists($path3)) {
-      $path333 = $path3;
-    } elseif (file_exists($path33)) {
-      $path333 = $path33;
-    } else {
-      if ($silent) return false;
-      throw new NgnException("Path not found '$path2'");
-    }
-    $cachePath = (strstr($path2, 'css') ? 'css' : 'js').'/cache/'.basename($path2).
-      (strstr($path2, '.') ? '' : (strstr($path2, 'css/') ? '.css' : '.js'));
+    $cachePath = self::getCachePath($path);
+    $path = Misc::getScriptPath($path);
     if (FORCE_STATIC_FILES_CACHE === true or !file_exists(UPLOAD_PATH.'/'.$cachePath)) {
       Dir::make(UPLOAD_PATH.'/'.dirname($cachePath));
-      parse_str($p['query'], $q);
-      if (!empty($q)) {
-        $cachePath = Misc::getFilePrefexedPath(
-          $cachePath,
-          Tt::enum($q, '-', '$k.`,`.$v').'.'
-        );
+      if (!empty($p['query'])) {
+        parse_str($p['query'], $q);
+        if (!empty($q)) {
+          $cachePath = Misc::getFilePrefexedPath(
+            $cachePath,
+            Tt::enum($q, '-', '$k.`,`.$v').'.'
+          );
+        }
+      } else {
+        $q = array();
       }
       file_put_contents(
         UPLOAD_PATH.'/'.$cachePath,
-        Misc::getIncludedByRequest($path333, $q)
+        Misc::getIncludedByRequest($path, $q)
       );
     }
     return UPLOAD_DIR.'/'.$cachePath;

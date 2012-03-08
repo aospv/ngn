@@ -53,11 +53,17 @@ class PageModuleInfo {
     }
   }
   
-  public function get($name) {
-    return file_exists($this->folderPath.'/'.$name.'.php') ?
-      include $this->folderPath.'/'.$name.'.php' : false;
+  public function getFile($path) {
+    //pr("\n\n\n".$this->folderPath.'/'.$path.'.php');
+    return file_exists($this->folderPath.'/'.$path.'.php') ?
+      $this->folderPath.'/'.$path.'.php' : false;
   }
-
+  
+  public function getData($path) {
+    if (($file = $this->getFile($path)) === false) return false;
+    return include $file;
+  }
+  
 }
 
 PageModuleInfo::addFolder(CORE_PAGE_MODULES_PATH, CORE_PAGE_MODULES_DIR);

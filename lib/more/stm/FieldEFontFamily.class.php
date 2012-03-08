@@ -8,6 +8,10 @@ class FieldEFontFamily extends FieldESelect {
       Arr::to_options(array(
       'Times New Roman',
       'Arial',
+      array(
+        'Arial Narrow',
+        'Arial Narrow, Liberation Sans Narrow'
+      ),
       'Tahoma',
       'Georgia',
       'Courier New',

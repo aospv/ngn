@@ -93,10 +93,6 @@ height: <?= $d['menuHeight'] ?>px;
 .mainmenu a {
 text-decoration: underline;
 }
-.mainmenu a span {
-display: block;
-padding: <?= (int)$d['spanPaddingTop'].'px '.(int)$d['spanPaddingRight'].'px '.(int)$d['spanPaddingBottom'].'px '.(int)$d['spanPaddingLeft'].'px' ?>; 
-}
 .mainmenu > ul > li > a span {
 padding-right: <? $r = $d['spanPaddingRight']-$d['radius']; print $r < 0 ? 0 : $r ?>px;
 }

@@ -470,7 +470,7 @@ var ContactsLayout = new Class({
   initialize: function(url) {
     this.parent(url);
     $('userSearchBtn').addEvent('click', function(e){
-      new Event(e).stop();
+      e.preventDefault();
       this.searchUser();
     }.bind(this));
     $('userMask').addEvent('keydown', function(e){
@@ -498,14 +498,14 @@ var ContactsLayout = new Class({
         results.getElements('a[class=addContact]').each(function (btn, i) {
           btn.setProperty('title', 'Добавить контакт');
           btn.addEvent('click', function(e){
-            new Event(e).stop();
+            e.preventDefault();
             obj.addContact(btn.getProperty('id'));
           }.bind(btn));
         });
         results.getElements('a[class=addFriend]').each(function (btn, i) {
           btn.setProperty('title', 'Добавить в друзья');
           btn.addEvent('click', function(e){
-            new Event(e).stop();
+            e.preventDefault();
             obj.addFriend(btn.getProperty('id'));
           }.bind(btn));
         });
@@ -565,14 +565,14 @@ var ContactsLayout = new Class({
     friendsQueue.getElements('a.addFriend').each(function (btn, i) {
       btn.setProperty('title', 'Принять предложение дружбы');
       btn.addEvent('click', function(e){
-        new Event(e).stop();
+        e.preventDefault();
         obj.acceptFriend(btn.getProperty('id'));
       }.bind(btn));
     });
     friendsQueue.getElements('a.declineFriend').each(function (btn, i) {
       btn.setProperty('title', 'Отклонить предложение дружбы');
       btn.addEvent('click', function(e){
-        new Event(e).stop();
+        e.preventDefault();
         obj.declineFriend(btn.getProperty('id'));
       }.bind(btn));
     });
